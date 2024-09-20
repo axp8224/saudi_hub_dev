@@ -1,5 +1,8 @@
 Rails.application.routes.draw do
   root to: 'dashboards#show'
+
+  
+
   get '/switch_locale/:locale', to: 'application#switch_locale', as: :switch_locale
 
   devise_for :users, controllers: { omniauth_callbacks: 'users/omniauth_callbacks' }
@@ -9,4 +12,6 @@ Rails.application.routes.draw do
   end
 
   get 'profile', to: 'users#show', as: 'user_profile'
+
+  resources :users, only: [:index, :show]
 end

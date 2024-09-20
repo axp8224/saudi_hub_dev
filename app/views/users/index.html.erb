@@ -1,0 +1,21 @@
+<h1>Member Directory</h1>
+
+
+<table>
+    <tr>
+        <th>Name</th>
+        <th>Email</th>
+        <th>Bio</th>
+    </tr>
+
+    <% @users.each do |user| %>
+    <tr>
+        <td><%= user.full_name %></td>
+        <td><%= user.email %></td>
+        <% if user.profile %>
+            <td><%= user.profile.bio %></td>
+        <% end %>
+    </tr>
+    <% end %>
+
+</table>
