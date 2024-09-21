@@ -2,9 +2,8 @@
 
 <%= form_for(@user, url: update_user_profile_path(@user), method: :patch, html: { multipart: true }) do |f| %>
 
-  <!-- Display Avatar if present -->
-  <% if @user.avatar_url.present? %>
-    <p><%= image_tag(@user.avatar_url, alt: t('.your_profile')) %></p>
+  <% if @user.avatar.attached? %>
+    <p><%= image_tag(@user.avatar, alt: t('.your_profile')) %></p>
   <% end %>
 
   <div class="form-group">

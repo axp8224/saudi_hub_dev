@@ -1,7 +1,7 @@
 <h1><%= t('.your_profile') %></h1>
 
-<% if @user.avatar_url.present? %>
-  <p><%= image_tag(@user.avatar_url, alt: t('.your_profile')) %></p>
+<% if @user.avatar.attached? %>
+  <p><%= image_tag(@user.avatar, alt: t('.your_profile')) %></p>
 <% end %>
 
 <p><strong><%= t('.full_name') %>:</strong> <%= @user.full_name %></p>
