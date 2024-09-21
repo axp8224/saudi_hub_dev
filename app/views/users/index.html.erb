@@ -1,15 +1,15 @@
-<%= link_to('Back to Home', root_path) %>
-<h1>Member Directory</h1>
+<%= link_to( t('.back_to_dashboard') , root_path) %>
+<h1><%= t('.member_directory') %></h1>
 
 
 <table>
     <tr>
-        <th>Name</th>
-        <th>Email</th>
-        <th>Bio</th>
-        <th>Class Year</th>
-        <th>Major</th>
-        <th>Role</th>
+        <th><%= t('.name') %></th>
+        <th><%= t('.email') %></th>
+        <th><%= t('.bio') %></th>
+        <th><%= t('.class_year') %></th>
+        <th><%= t('.major') %></th>
+        <th><%= t('.role') %></th>
     </tr>
 
     <% @users.each do |user| %>

@@ -3,8 +3,18 @@ ar:
     show:
       welcome: "مرحبا بكم في المركز السعودي!"
       view_profile: "عرض ملفي الشخصي"
+      member_directory: "دليل الأعضاء"
       sign_out: "تسجيل الخروج"
   users:
+    index:
+      back_to_dashboard: "العودة إلى لوحة التحكم"
+      member_directory: "دليل الأعضاء"
+      name: "اسم"
+      email: "بريد إلكتروني"
+      bio: "السيرة الذاتية"
+      class_year: "سنة الفصل"
+      major: "تخصص الدراسة"
+      role: "دور"
     show:
       your_profile: "ملفك الشخصي"
       full_name: "الاسم الكامل"
