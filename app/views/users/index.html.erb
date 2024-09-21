@@ -1,3 +1,4 @@
+<%= link_to('Back to Home', root_path) %>
 <h1>Member Directory</h1>
 
 
@@ -6,6 +7,8 @@
         <th>Name</th>
         <th>Email</th>
         <th>Bio</th>
+        <th>Class Year</th>
+        <th>Role</th>
     </tr>
 
     <% @users.each do |user| %>
@@ -14,6 +17,8 @@
         <td><%= user.email %></td>
         <% if user.profile %>
             <td><%= user.profile.bio %></td>
+            <td><%= user.profile.class_year %></td>
+            <td><%= user.profile.role.present? ? user.profile.role.name : 'No Role Assigned' %></td>
         <% end %>
     </tr>
     <% end %>

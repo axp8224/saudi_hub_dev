@@ -6,7 +6,7 @@ class UsersController < ApplicationController
     end
 
     def index 
-      @users = User.includes(:profile).all
+      @users = User.includes(:profile, profile: :role).all
     end
 
   end
