@@ -41,6 +41,12 @@ en:
       full_name: "Full Name"
       email: "Email"
       back_to_dashboard: "Back to Dashboard"
+    edit:
+      update_profile: "Update Profile"
+      full_name: "Full Name"
+      email: "Email"
+      avatar: "Avatar"
+      edit_your_profile: "Edit Your Profile"
     sessions:
       new:
         logged_out: "You're Logged out! Log in to the Dashboard!!"
