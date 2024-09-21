@@ -10,6 +10,12 @@ ar:
       full_name: "الاسم الكامل"
       email: "البريد الإلكتروني"
       back_to_dashboard: "العودة إلى لوحة التحكم"
+    edit:
+      edit_your_profile: "تعديل ملفك الشخصي"
+      full_name: "الاسم الكامل"
+      email: "البريد الإلكتروني"
+      avatar: "الصورة الرمزية"
+      update_profile: "تحديث الملف الشخصي"
     sessions:
       new:
         logged_out: "لقد تم تسجيل الخروج! الرجاء تسجيل الدخول للوحة التحكم!!"
