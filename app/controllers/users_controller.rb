@@ -6,7 +6,7 @@ class UsersController < ApplicationController
     end
 
     def index 
-      @users = User.includes(:profile, profile: :role, profile: :major).all
+      @users = User.includes(:role, :major, :class_year).all
     end
 
   end

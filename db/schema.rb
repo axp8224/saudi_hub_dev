@@ -10,9 +10,15 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_09_21_222913) do
+ActiveRecord::Schema[7.0].define(version: 2024_09_22_222105) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "class_years", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "majors", force: :cascade do |t|
     t.string "name"
@@ -48,10 +54,20 @@ ActiveRecord::Schema[7.0].define(version: 2024_09_21_222913) do
     t.string "avatar_url"
     t.datetime "created_at", precision: nil, null: false
     t.datetime "updated_at", precision: nil, null: false
+    t.bigint "role_id", null: false
+    t.string "bio"
+    t.bigint "major_id"
+    t.bigint "class_year_id"
+    t.index ["class_year_id"], name: "index_users_on_class_year_id"
     t.index ["email"], name: "index_users_on_email", unique: true
+    t.index ["major_id"], name: "index_users_on_major_id"
+    t.index ["role_id"], name: "index_users_on_role_id"
   end
 
   add_foreign_key "profiles", "majors"
   add_foreign_key "profiles", "roles"
   add_foreign_key "profiles", "users"
+  add_foreign_key "users", "class_years"
+  add_foreign_key "users", "majors"
+  add_foreign_key "users", "roles"
 end
