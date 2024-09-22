@@ -45,3 +45,12 @@ en:
       new:
         logged_out: "You're Logged out! Log in to the Dashboard!!"
         log_in_with: "Log in with %{provider}"
+  admin:
+    users:
+      edit:
+        update_role: "Update Role"
+      edit_profile: "Edit Profile for %{name}"
+      back_to_users: "Back to Users"
+      full_name: "Full Name"
+      email: "Email"
+      role: "Role"
