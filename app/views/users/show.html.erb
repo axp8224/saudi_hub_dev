@@ -6,6 +6,8 @@
 
 <p><strong><%= t('.full_name') %>:</strong> <%= @user.full_name %></p>
 <p><strong><%= t('.email') %>:</strong> <%= @user.email %></p>
+<p><strong><%= t('.major') %>:</strong> <%= @user.major.name %></p>
+
 
 <%= link_to t('.back_to_dashboard'), root_path %>
 <%= link_to t('.edit_your_profile'), edit_user_profile_path %>

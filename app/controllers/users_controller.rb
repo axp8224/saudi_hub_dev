@@ -1,6 +1,7 @@
 class UsersController < ApplicationController
     before_action :authenticate_user!
     before_action :set_user, only: %i[edit update]
+    before_action :set_majors, only: %i[edit update]
     
     def show
       @user = current_user
@@ -22,9 +23,13 @@ class UsersController < ApplicationController
     def set_user
       @user = current_user
     end
+
+    def set_majors
+      @majors = Major.all
+    end
   
     def user_params
-      params.require(:user).permit(:full_name, :email, :avatar)
+      params.require(:user).permit(:full_name, :email, :avatar, :major_id)
     end
 
   end
