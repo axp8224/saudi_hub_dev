@@ -6,16 +6,26 @@ ar:
       sign_out: "تسجيل الخروج"
   users:
     show:
+      major: "التخصص"
       your_profile: "ملفك الشخصي"
       full_name: "الاسم الكامل"
       email: "البريد الإلكتروني"
+      edit_your_profile: "تعديل ملفك الشخصي"
       back_to_dashboard: "العودة إلى لوحة التحكم"
     edit:
       edit_your_profile: "تعديل ملفك الشخصي"
       full_name: "الاسم الكامل"
       email: "البريد الإلكتروني"
       avatar: "الصورة الرمزية"
+      major: "التخصص"
       update_profile: "تحديث الملف الشخصي"
+      view_profile: "عرض الملف الشخصي"
+      back_to_dashboard: "العودة إلى لوحة التحكم"
+      submit_changes: "إرسال التغييرات"
+      select_major: "اختر التخصص"
+      error_messages:
+        file_size_too_large: "يجب أن يكون حجم الصورة أقل من 250 كيلوبايت."
+        file_type_error: "يجب أن تكون الصورة من نوع JPEG أو PNG."
     sessions:
       new:
         logged_out: "لقد تم تسجيل الخروج! الرجاء تسجيل الدخول للوحة التحكم!!"

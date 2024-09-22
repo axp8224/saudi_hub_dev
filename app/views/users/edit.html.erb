@@ -18,11 +18,11 @@
 
   <div class="form-group">
     <%= f.label :avatar, t('.avatar') %>
-    <%= f.file_field :avatar, class: 'form-control' %>
+    <%= f.file_field :avatar, accept: 'image/jpeg, image/png', class: 'form-control' %>  
   </div>
 
   <div class="form-group">
-    <%= f.label :major %>
+    <%= f.label :major, t('.major')%>
     <%= f.collection_select :major_id, @majors, :id, :name, include_blank: 'Select Major', class: 'form-control' %>
   </div>
 
