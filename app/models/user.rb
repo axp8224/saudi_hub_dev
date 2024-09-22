@@ -2,7 +2,8 @@ class User < ApplicationRecord
   has_one_attached :avatar
   devise :omniauthable, omniauth_providers: [:google_oauth2]
 
-  belongs_to :major, optional: true
+  belongs_to :major, optional: true, class_name: 'Major', foreign_key: 'major_id'
+  belongs_to :class_year, optional: true, class_name: 'ClassYear', foreign_key: 'class_year_id'
 
   validate :acceptable_avatar
 
