@@ -6,5 +6,6 @@
 
 <p><strong><%= t('.full_name') %>:</strong> <%= @user.full_name %></p>
 <p><strong><%= t('.email') %>:</strong> <%= @user.email %></p>
+<p><strong><%= t('.role') %>:</strong> <%= @user.role.name %></p>
 
 <%= link_to t('.back_to_dashboard'), root_path %>
