@@ -70,6 +70,3 @@ Rails.application.configure do
 
   config.action_mailer.default_url_options = { host: 'localhost', port: 3000 }
 end
-
-ENV['GOOGLE_CLIENT_ID'] = '618206101977-cifrtdj0fsnqbmhv3025rq0gre9ugev1.apps.googleusercontent.com'
-ENV['GOOGLE_CLIENT_SECRET'] = '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'
