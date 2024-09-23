@@ -9,7 +9,7 @@
 # puts "Starting the seeding process..."
 
 
-# --------- SEEDING MAJORS TABLE ----------
+# --------- SEEDING MAJORS TABLE ------------
 
 # majors = ([
 #   { name: "" },
@@ -159,4 +159,20 @@
 
 # puts "Seeded A&M majors."
 
+# --------- SEEDING CLASS YEARS TABLE ----------
 
+class_years = [
+  { name: 'Freshman' },
+  { name: 'Sophomore' },
+  { name: 'Junior' },
+  { name: 'Senior' },
+  { name: 'Masters Student' },
+  { name: 'PhD Student' },
+  { name: 'Other (staff, professor, etc.)' }
+]
+
+class_years.each do |year|
+  ClassYear.find_or_create_by(name: year[:name])
+end
+
+puts "Seeded class years."
