@@ -42,7 +42,9 @@ en:
       email: "Email"
       class_year: "Classification"
       back_to_dashboard: "Back to Dashboard"
+      bio: "About Me"
     edit:
+      bio: "About Me"
       update_profile: "Update Profile"
       full_name: "Full Name"
       email: "Email"

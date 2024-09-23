@@ -13,7 +13,9 @@ ar:
       class_year: "تصنيف"
       edit_your_profile: "تعديل ملفك الشخصي"
       back_to_dashboard: "العودة إلى لوحة التحكم"
+      bio: "ْعَنِّي"
     edit:
+      bio: "ْعَنِّي"
       class_year: "تصنيف"
       edit_your_profile: "تعديل ملفك الشخصي"
       full_name: "الاسم الكامل"
