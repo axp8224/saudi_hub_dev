@@ -40,7 +40,25 @@ en:
       your_profile: "Your Profile"
       full_name: "Full Name"
       email: "Email"
+      class_year: "Classification"
       back_to_dashboard: "Back to Dashboard"
+      bio: "About Me"
+    edit:
+      bio: "About Me"
+      update_profile: "Update Profile"
+      full_name: "Full Name"
+      email: "Email"
+      avatar: "Avatar"
+      major: "Major"
+      class_year: "Classification"
+      edit_your_profile: "Edit Your Profile"
+      view_profile: "View Profile"
+      back_to_dashboard: "Back to Dashboard"
+      submit_changes: "Submit Changes"
+      select_major: "Select Major"
+      error_messages:
+        file_size_too_large: "Avatar must be smaller than 250KB."
+        file_type_error: "Avatar must be a JPEG or PNG file."
     sessions:
       new:
         logged_out: "You're Logged out! Log in to the Dashboard!!"
