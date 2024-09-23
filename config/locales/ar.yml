@@ -10,9 +10,11 @@ ar:
       your_profile: "ملفك الشخصي"
       full_name: "الاسم الكامل"
       email: "البريد الإلكتروني"
+      class_year: "تصنيف"
       edit_your_profile: "تعديل ملفك الشخصي"
       back_to_dashboard: "العودة إلى لوحة التحكم"
     edit:
+      class_year: "تصنيف"
       edit_your_profile: "تعديل ملفك الشخصي"
       full_name: "الاسم الكامل"
       email: "البريد الإلكتروني"

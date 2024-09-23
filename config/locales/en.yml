@@ -40,6 +40,7 @@ en:
       your_profile: "Your Profile"
       full_name: "Full Name"
       email: "Email"
+      class_year: "Classification"
       back_to_dashboard: "Back to Dashboard"
     edit:
       update_profile: "Update Profile"
@@ -47,6 +48,7 @@ en:
       email: "Email"
       avatar: "Avatar"
       major: "Major"
+      class_year: "Classification"
       edit_your_profile: "Edit Your Profile"
       view_profile: "View Profile"
       back_to_dashboard: "Back to Dashboard"
