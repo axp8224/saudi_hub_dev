@@ -2,8 +2,14 @@
 
 one:
   user: one
-  bio: MyText
+  bio: MyString
+  class_year: 1
+  role: one
+  major: one
 
 two:
   user: two
-  bio: MyText
+  bio: MyString
+  class_year: 1
+  role: two
+  major: two

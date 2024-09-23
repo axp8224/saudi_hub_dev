@@ -1,7 +1,7 @@
 class User < ApplicationRecord
   devise :omniauthable, omniauth_providers: [:google_oauth2]
 
-  belongs_to :role, optional: false
+  belongs_to :role, optional: true
   belongs_to :major, optional: true
   belongs_to :class_year, optional: true
 
