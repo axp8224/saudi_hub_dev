@@ -4,7 +4,11 @@ module Admin
     before_action :admin_only
 
     def index
-      @users = User.all
+      if params[:search].present?
+        @users = User.where("full_name ILIKE ?", "%#{params[:search]}%").page(params[:page]).per(10)
+      else
+        @users = User.page(params[:page]).per(10)  # 10 users per page
+      end
     end
 
     def edit
