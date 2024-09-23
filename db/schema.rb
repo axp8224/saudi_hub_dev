@@ -10,9 +10,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_09_23_194448) do
+ActiveRecord::Schema[7.0].define(version: 2024_09_21_214514) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "roles", force: :cascade do |t|
+    t.string "name", null: false
+    t.boolean "can_moderate", default: false
+    t.boolean "can_promote", default: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
@@ -61,14 +69,17 @@ ActiveRecord::Schema[7.0].define(version: 2024_09_23_194448) do
     t.string "avatar_url"
     t.datetime "created_at", precision: nil, null: false
     t.datetime "updated_at", precision: nil, null: false
+    t.bigint "role_id", default: 1
     t.bigint "major_id", default: 1
     t.bigint "class_year_id", default: 1
     t.string "bio"
     t.index ["class_year_id"], name: "index_users_on_class_year_id"
     t.index ["email"], name: "index_users_on_email", unique: true
+    t.index ["role_id"], name: "index_users_on_role_id"
     t.index ["major_id"], name: "index_users_on_major_id"
   end
 
+  add_foreign_key "users", "roles"
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "users", "class_years"

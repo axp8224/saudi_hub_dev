@@ -8,6 +8,10 @@ Rails.application.routes.draw do
     get 'users/sign_out', to: 'users/sessions#destroy', as: :destroy_user_session
   end
 
+  namespace :admin do
+    resources :users, only: [:index, :edit, :update]
+  end
+
   get 'profile', to: 'users#show', as: 'user_profile'
   get 'profile/edit', to: 'users#edit', as: 'edit_user_profile'
   patch 'profile', to: 'users#update', as: 'update_user_profile'

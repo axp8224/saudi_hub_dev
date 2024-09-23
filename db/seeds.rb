@@ -176,3 +176,5 @@ class_years.each do |year|
 end
 
 puts "Seeded class years."
+Role.create(name: 'user', can_moderate: false, can_promote: false)
+Role.create(name: 'admin', can_moderate: true, can_promote: true)

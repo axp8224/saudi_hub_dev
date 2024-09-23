@@ -34,3 +34,12 @@ ar:
       new:
         logged_out: "لقد تم تسجيل الخروج! الرجاء تسجيل الدخول للوحة التحكم!!"
         log_in_with: "تسجيل الدخول بواسطة %{provider}"
+  admin:
+    users:
+      edit:
+        update_role: "تغيير الدور"
+      edit_profile: "تحرير الملف الشخصي ل %{name}"
+      back_to_users: "العودة إلى قائمة المستخدمين"
+      full_name: "الاسم الكامل"
+      email: "البريد الإلكتروني"
+      role: "وظيفة"
