@@ -8,6 +8,11 @@ class UsersController < ApplicationController
       @user = current_user
     end
 
+    def index 
+      @users = User.includes(:role, :major, :class_year).all
+    end
+
+
     def edit
     end
 

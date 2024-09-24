@@ -1,6 +1,7 @@
 <h1><%= t('.welcome') %></h1>
 
 <%= link_to t('.view_profile'), user_profile_path %><br>
-<%= link_to t('.sign_out'), destroy_user_session_path, method: :delete %>
+<%= link_to t('.sign_out'), destroy_user_session_path, method: :delete %><br>
+<%= link_to t('.member_directory'), users_path %><br>
 
 <%= link_to 'Manage Users', admin_users_path, class: 'btn btn-primary' %> 

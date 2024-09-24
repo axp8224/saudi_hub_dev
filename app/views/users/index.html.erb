@@ -1,0 +1,28 @@
+<%= link_to( t('.back_to_dashboard') , root_path) %>
+<h1><%= t('.member_directory') %></h1>
+
+
+<table>
+    <tr>
+        <th><%= t('.name') %></th>
+        <th><%= t('.email') %></th>
+        <th><%= t('.bio') %></th>
+        <th><%= t('.class_year') %></th>
+        <th><%= t('.major') %></th>
+        <th><%= t('.role') %></th>
+    </tr>
+
+    <% @users.each do |user| %>
+    <tr>
+        <td><%= user.full_name %></td>
+        <td><%= user.email %></td>
+
+        <td><%= user.bio %></td>
+        <td><%= user.class_year.name %></td>
+        <td><%= user.major.present? ? user.major.name : '' %></td>
+        <td><%= user.role.name %></td>
+
+    </tr>
+    <% end %>
+
+</table>
