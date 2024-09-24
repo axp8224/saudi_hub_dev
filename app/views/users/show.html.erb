@@ -1,11 +1,16 @@
 <h1><%= t('.your_profile') %></h1>
 
-<% if @user.avatar_url.present? %>
-  <p><%= image_tag(@user.avatar_url, alt: t('.your_profile')) %></p>
+<% if @user.avatar.attached? %>
+  <p><%= image_tag(@user.avatar, alt: t('.your_profile')) %></p>
 <% end %>
 
 <p><strong><%= t('.full_name') %>:</strong> <%= @user.full_name %></p>
 <p><strong><%= t('.email') %>:</strong> <%= @user.email %></p>
 <p><strong><%= t('.role') %>:</strong> <%= @user.role.name %></p>
+<p><strong><%= t('.major') %>:</strong> <%= @user.major.name if @user.major %></p>
+<p><strong><%= t('.class_year') %>:</strong> <%= @user.class_year.name if @user.class_year%></p>
+<p><strong><%= t('.bio') %>:</strong> <%= @user.bio %></p>
+
 
 <%= link_to t('.back_to_dashboard'), root_path %>
+<%= link_to t('.edit_your_profile'), edit_user_profile_path %>
