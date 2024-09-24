@@ -70,10 +70,10 @@ ActiveRecord::Schema[7.0].define(version: 2024_09_24_021428) do
     t.datetime "created_at", precision: nil, null: false
     t.datetime "updated_at", precision: nil, null: false
     t.bigint "role_id", default: 1
-    t.integer "sign_in_count", default: 0
     t.bigint "major_id", default: 1
     t.bigint "class_year_id", default: 1
     t.string "bio"
+    t.integer "sign_in_count", default: 0
     t.datetime "current_sign_in_at"
     t.datetime "last_sign_in_at"
     t.string "current_sign_in_ip"
