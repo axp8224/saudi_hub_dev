@@ -1,0 +1,13 @@
+<h1>Manage Users</h1>
+
+<%= form_with url: admin_users_path, method: :get, local: true do %>
+  <%= label_tag :search, "Search Users" %>
+  <%= text_field_tag :search, params[:search], placeholder: "Enter full name" %>
+  <%= submit_tag "Search" %>
+<% end %>
+
+<div id="users-table">
+  <%= render 'users_table', users: @users %>
+</div>
+
+<%= link_to 'Back to Dashboard', root_path %>
