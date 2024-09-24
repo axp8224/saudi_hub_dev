@@ -18,7 +18,7 @@
         <td><%= user.email %></td>
 
         <td><%= user.bio %></td>
-        <td><%= user.class_year.name ? user.class_year.name : '' %></td>
+        <td><%= user.class_year.present ? user.class_year.name : '' %></td>
         <td><%= user.major.present? ? user.major.name : '' %></td>
         <td><%= user.role.present? ? user.role.name : '' %></td>
 
