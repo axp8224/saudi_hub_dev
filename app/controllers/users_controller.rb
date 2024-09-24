@@ -8,10 +8,35 @@ class UsersController < ApplicationController
       @user = current_user
     end
 
-    def index 
-      @users = User.includes(:role, :major, :class_year).all
-    end
-
+    def index
+      per_page = params[:per_page] || 10 
+      
+      # Base query
+      @users = User.includes(:role, :major, :class_year)
+    
+      # Search filter
+      if params[:search].present?
+        search_query = "%#{params[:search]}%"
+        @users = @users.where("full_name ILIKE :search OR email ILIKE :search", search: search_query)
+      end
+    
+      # Filter by major
+      if params[:major].present?
+        @users = @users.where(major_id: params[:major])
+      end
+    
+      # Filter by class_year
+      if params[:class_year].present?
+        @users = @users.where(class_year_id: params[:class_year])
+      end
+    
+      # Pagination
+      @users = @users.page(params[:page]).per(per_page)
+    
+      # For the form dropdowns
+      @majors = Major.all
+      @class_years = ClassYear.all
+    end    
 
     def edit
     end
