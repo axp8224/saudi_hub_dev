@@ -1,0 +1,48 @@
+<h1><%= t('.edit_your_profile') %></h1>
+
+<%= form_for(@user, url: update_user_profile_path(@user), method: :patch, html: { multipart: true }) do |f| %>
+
+  <% if @user.avatar.attached? %>
+    <p><%= image_tag(@user.avatar, alt: t('.your_profile')) %></p>
+  <% end %>
+
+  <div class="form-group">
+    <%= f.label :full_name, t('.full_name') %>
+    <%= f.text_field :full_name, class: 'form-control' %>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :email, t('.email') %>
+    <%= f.email_field :email, class: 'form-control' %>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :avatar, t('.avatar') %>
+    <%= f.file_field :avatar, accept: 'image/jpeg, image/png', class: 'form-control' %>  
+  </div>
+
+  <div class="form-group">
+    <%= f.label :major, t('.major')%>
+    <%= f.collection_select :major_id, @majors, :id, :name, include_blank: 'Select Major', class: 'form-control' %>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :class_year, t('.class_year') %>
+    <%= f.collection_select :class_year_id, @class_years, :id, :name, { include_blank: 'Select Classification' }, { class: 'form-control' } %>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :bio, t('.bio') %>
+    <%= f.text_area :bio, placeholder: 'Input your bio here', class: 'form-control' %>
+  </div>
+
+  <!-- Submit Button -->
+  <div class="form-group">
+    <%= f.submit t('.update_profile'), class: 'btn btn-primary' %>
+  </div>
+
+<% end %>
+
+<!-- edit view profile to show up as 'Cancel' -->
+<%= link_to t('.view_profile'), user_profile_path %><br>
+<%= link_to t('.back_to_dashboard'), root_path %>
