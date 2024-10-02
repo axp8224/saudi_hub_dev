@@ -34,8 +34,18 @@ en:
     show:
       welcome: "Welcome to Saudi Hub!"
       view_profile: "View My Profile"
+      member_directory: "Member Directory"
       sign_out: "Sign Out"
   users:
+    index:
+      back_to_dashboard: "Back to Dashboard"
+      member_directory: "Member Directory"
+      name: "Name"
+      email: "Email"
+      bio: "Bio"
+      class_year: "Class Year"
+      major: "Major"
+      role: "Role"
     show:
       your_profile: "Your Profile"
       full_name: "Full Name"
