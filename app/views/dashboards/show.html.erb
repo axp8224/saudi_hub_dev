@@ -4,4 +4,4 @@
 <%= link_to t('.sign_out'), destroy_user_session_path, method: :delete %><br>
 <%= link_to t('.member_directory'), users_path %><br>
 
-<%= link_to 'Manage Users', admin_users_path, class: 'btn btn-primary' %> 
+<%= link_to link_to t('.manage_users', Default: "Manage Users"), admin_users_path, class: 'btn btn-primary' %> 
