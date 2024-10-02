@@ -41,6 +41,7 @@ en:
       full_name: "Full Name"
       email: "Email"
       class_year: "Classification"
+      grad_year: "Graduation Year"
       back_to_dashboard: "Back to Dashboard"
       bio: "About Me"
     edit:
@@ -51,6 +52,7 @@ en:
       avatar: "Avatar"
       major: "Major"
       class_year: "Classification"
+      grad_year: "Graduation Year"
       edit_your_profile: "Edit Your Profile"
       view_profile: "View Profile"
       back_to_dashboard: "Back to Dashboard"
