@@ -183,3 +183,28 @@ Role.find_or_create_by(name: 'user', can_moderate: false, can_promote: false)
 Role.find_or_create_by(name: 'admin', can_moderate: true, can_promote: true)
 
 puts "Seeded user roles."
+
+# --------- SEEDING SAMPLE USER ------------
+
+puts "Seeding sample user..."
+
+# Find or create the default role (assuming 'user' is the default role)
+default_role = Role.find_by(name: 'user')
+
+# Find or create the default major (assuming '' is the default major)
+default_major = Major.find_by(name: '')
+
+# Find or create a default class year (assuming 'Freshman' as default)
+default_class_year = ClassYear.find_by(name: 'Freshman')
+
+User.find_or_create_by!(email: 'sample@example.com') do |user|
+  user.uid = 'sample123'
+  user.full_name = 'Sample User'
+  user.avatar_url = 'https://example.com/sample_avatar.jpg'
+  user.role = default_role
+  user.major = default_major
+  user.class_year = default_class_year
+  # Note: We're not setting a password as the model uses omniauthable
+end
+
+puts "Sample user seeded successfully."
