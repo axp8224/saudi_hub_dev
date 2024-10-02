@@ -36,6 +36,7 @@ en:
       view_profile: "View My Profile"
       member_directory: "Member Directory"
       sign_out: "Sign Out"
+      manage_users: "Manage Users"
   users:
     index:
       back_to_dashboard: "Back to Dashboard"
