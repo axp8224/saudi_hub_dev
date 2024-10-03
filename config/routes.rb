@@ -16,6 +16,7 @@ Rails.application.routes.draw do
   get 'profile', to: 'users#show', as: 'user_profile'
 
   resources :users, only: [:index, :show]
+  resources :home, only: [:show]
   get 'profile/edit', to: 'users#edit', as: 'edit_user_profile'
   patch 'profile', to: 'users#update', as: 'update_user_profile'
 end
