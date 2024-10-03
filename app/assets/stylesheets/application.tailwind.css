@@ -10,4 +10,18 @@
   .btn-primary {
     @apply bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded;
   }
+
+  .nav-active {
+    @apply block p-3 text-white bg-[#173821] rounded md:bg-transparent md:font-bold md:px-3;
+  }
+  
+  .nav-inactive {
+    @apply block p-3 text-gray-900 md:text-white rounded hover:bg-[#173821] hover:bg-opacity-30 md:hover:bg-transparent md:hover:opacity-100 md:opacity-70 md:px-3 md:-mx-3;
+  }  
+
+  
+}
+
+body {
+  min-width: 320px; 
 }
