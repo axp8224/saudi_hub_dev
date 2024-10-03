@@ -5,7 +5,20 @@ ar:
       view_profile: "عرض ملفي الشخصي"
       member_directory: "دليل الأعضاء"
       sign_out: "تسجيل الخروج"
-      manage_users: "إدارة قائمة المستخدمين"
+      manage_users: "إدارة قائمة المستخدمين"  
+  shared:
+    home: "الصفحة الرئيسية"
+    resources: "موارد"
+    member_directory: "دليل الأعضاء"
+    sign_out: "تسجيل الخروج"
+    login: "تسجيل الدخول"
+    open_main_menu: "افتح القائمة الرئيسية"
+    open_user_menu: "افتح قائمة المستخدم"
+    dashboard: "لوحة القيادة"
+    profile: "عرض ملفي الشخصي"
+    settings: "إعدادات"
+    saudi_hub: "المركز السعودي"
+
   users:
     index:
       back_to_dashboard: "العودة إلى لوحة التحكم"
