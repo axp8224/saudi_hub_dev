@@ -208,3 +208,88 @@ User.find_or_create_by!(email: 'sample@example.com') do |user|
 end
 
 puts "Sample user seeded successfully."
+
+# --------- SEEDING RESOURCE TYPES ------------
+
+puts "Seeding resource types..."
+
+resource_types = [
+  { title: 'Restaurants' },
+  { title: 'Apartments' },
+  { title: 'Parks' }
+]
+
+resource_types.each do |type|
+  ResourceType.find_or_create_by!(title: type[:title])
+end
+
+puts "Resource types seeded successfully."
+
+# --------- SEEDING SAMPLE RESOURCES ------------
+
+puts "Seeding sample resources..."
+
+# Find the existing sample user
+sample_user = User.find_by(email: 'sample@example.com')
+
+if sample_user.nil?
+  puts "Error: Sample user not found. Please ensure the sample user is seeded first."
+else
+  # Create sample resources for each resource type
+  restaurants = [
+    { name: "Layne's Chicken Fingers", description: "Famous for their crispy chicken fingers and secret sauce." },
+    { name: "Fuego Tortilla Grill", description: "24-hour Tex-Mex spot known for their breakfast tacos." },
+    { name: "Dixie Chicken", description: "Iconic college bar with a rustic atmosphere and great burgers." },
+    { name: "Grub Burger Bar", description: "Gourmet burgers and spiked milkshakes in a modern setting." },
+    { name: "Mess Waffles", description: "Serving both sweet and savory waffles, perfect for late-night cravings." }
+  ]
+
+  apartments = [
+    { name: "The Rise at Northgate", description: "Luxury student apartments steps away from campus." },
+    { name: "The Stack", description: "Modern high-rise with great amenities and city views." },
+    { name: "Park West", description: "Spacious apartments with a resort-style pool and fitness center." }
+  ]
+
+  parks = [
+    { name: "Research Park", description: "Large green space perfect for outdoor studying and relaxation." },
+    { name: "Lick Creek Park", description: "Natural area with hiking and biking trails." },
+    { name: "Wolf Pen Creek Park", description: "Features an amphitheater and hosts community events." },
+    { name: "Bee Creek Park", description: "Family-friendly park with playgrounds and picnic areas." }
+  ]
+
+  restaurant_type = ResourceType.find_by(title: 'Restaurants')
+  apartment_type = ResourceType.find_by(title: 'Apartments')
+  park_type = ResourceType.find_by(title: 'Parks')
+
+  restaurants.each do |restaurant|
+    Resource.find_or_create_by!(
+      user_id: sample_user.id,
+      resource_type: restaurant_type,
+      title: restaurant[:name],
+      description: restaurant[:description],
+      status: 'active'
+    )
+  end
+
+  apartments.each do |apartment|
+    Resource.find_or_create_by!(
+      user_id: sample_user.id,
+      resource_type: apartment_type,
+      title: apartment[:name],
+      description: apartment[:description],
+      status: 'active'
+    )
+  end
+
+  parks.each do |park|
+    Resource.find_or_create_by!(
+      user_id: sample_user.id,
+      resource_type: park_type,
+      title: park[:name],
+      description: park[:description],
+      status: 'active'
+    )
+  end
+
+  puts "Sample resources seeded successfully."
+end
