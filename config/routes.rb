@@ -18,4 +18,6 @@ Rails.application.routes.draw do
   resources :users, only: [:index, :show]
   get 'profile/edit', to: 'users#edit', as: 'edit_user_profile'
   patch 'profile', to: 'users#update', as: 'update_user_profile'
+
+  resources :resources, only: [:index]
 end
