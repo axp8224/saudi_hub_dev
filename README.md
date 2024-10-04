@@ -8,12 +8,12 @@ Application Description
 
 This code has been run and tested on:
 
-- Ruby - 3.0.2p107
+- Ruby - 3.1.2p20
 - Rails - 6.1.4.1
 - Ruby Gems - Listed in `Gemfile`
-- PostgreSQL - 13.3
-- Nodejs - v16.9.1
-- Yarn - 1.22.11
+- PostgreSQL - 13.7
+- Nodejs - v16.15.0
+- Yarn - 1.22.18
 - Docker (Latest Container)
 
 
@@ -28,9 +28,7 @@ This code has been run and tested on:
 
 Download this code repository by using git:
 
-`git clone https://github.com/FA21-CSCE431/project-sprint-3-zlp-interviewer.git`
- or 
- `git clone https://github.com/FA21-CSCE431/project-final-code-zlp-interviewer/`
+`git clone https://github.com/FA24-CSCE431-software-engineering/saudi_hub.git`
 
 ## Tests
 
@@ -38,21 +36,18 @@ An RSpec test suite is available and can be ran using:
 
 `rspec spec/`
 
-You can run all the test cases by running. This will run both the unit and integration tests.
-`rspec .`
-
 ## Execute Code
 
 Run the following code in Powershell if using windows or the terminal using Linux/Mac
 
-`cd project-sprint-3-zlp-interviewer`
+`cd saudi_hub_dev`
 
-`docker run --rm -it --volume "$(pwd):/rails_app" -e DATABASE_USER=test_app -e DATABASE_PASSWORD=test_password -p 3000:3000 dmartinez05/ruby_rails_postgresql:latest`
+`docker run --rm -it --volume "$(pwd):/rails_app" -e DATABASE_USER=test_app -e DATABASE_PASSWORD=test_password -p 3000:3000 paulinewade/csce431:latest`
 
 
 Install the app
 
-`bundle install && rails webpacker:install && rails db:create && db:migrate`
+`bundle install && rails db:create && db:migrate`
 
 
 Run the app
@@ -62,16 +57,20 @@ Run the app
 The application can be seen using a browser and navigating to http://localhost:3000/
 
 
-## Environmental Variables/Files
+<!-- ## Environmental Variables/Files
+
+include this section if we add any special environment variables; the team that put this template together needed this, but we don't for the time being.
 
 We have environment variables setup for Authentication. The tutorial can be found here: https://medium.com/craft-academy/encrypted-credentials-in-ruby-on-rails-9db1f36d8570
 
-The tutorial above will help you understand now we encrypted the admin page's username and password!
+The tutorial above will help you understand now we encrypted the admin page's username and password! -->
 
 
 ## Deployment
 
-1. For this assignment you should work with your github repository environment_test that you created previously. It should contain the test_app that we built in lab 1 and 2.
+!!! I need someone who understands deployment to help write and/or verify this part.
+
+<!-- 1. For this assignment you should work with your github repository environment_test that you created previously. It should contain the test_app that we built in lab 1 and 2.
 2. (Start your docker and work in your terminal) Make sure you have dev, test and main branches. However, since we’re not really going to develop any new features, we won’t be using the dev branch in the assignment. We’ll be using test and main branches.
    First, use $ git status to see if your git is tracking the current dir.
    If you haven’t created dev and test branches, please do it now. For example, commands to create a test branch with git:
@@ -147,16 +146,16 @@ Great! You just created a pipeline ready for deployment!
 
 16. After your review app and production app are both deployed, take a screenshot of your pipeline interface. Include the screenshot and links to both apps in the submission report.
 
-![image](https://user-images.githubusercontent.com/71986659/135948673-4f3fd547-1c55-4665-949b-1647f89399e7.png)
+![image](https://user-images.githubusercontent.com/71986659/135948673-4f3fd547-1c55-4665-949b-1647f89399e7.png) -->
 
 ## CI/CD
 
-CI/CD has been implemented in the GitHub Actions in the repo here -> https://github.com/PatelHarshank/ZLPInterviewer/actions
+CI/CD has been implemented in the GitHub Actions in the repo here -> https://github.com/FA24-CSCE431-software-engineering/saudi_hub.git
 
 ## Support
 
-The support of this app has been officially closed. There is nothing more important left to develop. We can scale this app and make it generic enough for all other student orginizations and not just ZLP Interviewer. Thats the future goals of this application.
+For support, contact any member of the team. The product owner is Brigham Pettit, b.pettit@tamu.edu. We'll do our best to respond quickly to any concerns.
 
-## Extra Helps
+## Extra Help
 
-Please contact Pauline Wade paulinewade@tamu.edu for help on Lab assignments which will teach you in more depth.
+Please contact Pauline Wade paulinewade@tamu.edu for help outside of the team.
