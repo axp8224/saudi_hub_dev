@@ -37,6 +37,8 @@ en:
       member_directory: "Member Directory"
       sign_out: "Sign Out"
       manage_users: "Manage Users"
+  shared:
+    saudi_hub: "Saudi Community Hub"
   users:
     index:
       back_to_dashboard: "Back to Dashboard"

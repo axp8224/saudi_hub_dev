@@ -4,8 +4,9 @@
     <title>GoogleOauthDevise</title>
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
-    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= stylesheet_link_tag "tailwind", "inter-font", "data-turbo-track": "reload" %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <link href="https://cdn.jsdelivr.net/npm/flowbite@2.5.2/dist/flowbite.min.css" rel="stylesheet" />
     <style>
         .flash__alert   { color: red; }
         .flash__notice  { color: blue; }
@@ -15,13 +16,15 @@
   </head>
 
   <body>
-
+    <%= render 'shared/navbar' %>
     <% if flash.any? %>
       <% flash.each do |key, value| -%>
         <section class="flash flash__<%= key %>"><%= value.html_safe %></section>
       <% end -%>
     <% end %>
     <%= yield %>
+    <script src="https://cdn.jsdelivr.net/npm/flowbite@2.5.2/dist/flowbite.min.js"></script>
+    <script src="../path/to/flowbite/dist/flowbite.min.js"></script>
     <div class="language-switcher">
       <%= link_to 'English', switch_locale_path(locale: 'en') %> |
       <%= link_to 'العربية', switch_locale_path(locale: 'ar') %>

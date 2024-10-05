@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+
+set -e
+
+# Build JavaScript and CSS assets with esbuild
+npm run build
