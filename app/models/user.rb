@@ -25,4 +25,5 @@ class User < ApplicationRecord
     # end
   end
 
+  has_many :resources, foreign_key: 'user_id'
 end

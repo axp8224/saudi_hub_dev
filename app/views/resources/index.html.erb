@@ -1,0 +1,27 @@
+<h1>Resources</h1>
+
+<div style="display: flex;">
+  <div style="width: 25%; padding-right: 20px;">
+    <h2>Resource Types</h2>
+    <ul style="list-style-type: none; padding: 0;">
+      <li style="margin-bottom: 10px;">
+        <%= link_to 'All Resources', resources_path, style: params[:resource_type_id].blank? ? "font-weight: bold;" : "" %>
+      </li>
+      <% @resource_types.each do |resource_type| %>
+        <li style="margin-bottom: 10px;">
+          <%= link_to resource_type.title, resources_path(resource_type_id: resource_type.id), style: params[:resource_type_id].to_s == resource_type.id.to_s ? "font-weight: bold;" : "" %>
+        </li>
+      <% end %>
+    </ul>
+  </div>
+  <div style="width: 75%;">
+    <ul style="list-style-type: none; padding: 0;">
+      <% @resources.each do |resource| %>
+        <li style="margin-bottom: 20px;">
+          <h3><%= resource.title %></h3>
+          <p><%= resource.description %></p>
+        </li>
+      <% end %>
+    </ul>
+  </div>
+</div>
