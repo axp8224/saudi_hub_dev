@@ -84,3 +84,4 @@ gem 'dotenv-rails', groups: [:development, :test]
 
 gem 'kaminari'
 
+gem 'tailwindcss-rails'
