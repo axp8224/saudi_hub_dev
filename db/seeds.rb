@@ -292,4 +292,25 @@ else
   end
 
   puts "Sample resources seeded successfully."
+
+
+  # --------- SEEDING SAMPLE PENDING RESOURCES ------------
+
+  pending_resources = [
+    { name: "Piada Italian Street Food", description: "Specializing in handmade piadas and authentic Italian dishes, perfect for a quick and delicious meal.", type: restaurant_type },
+    { name: "The Woodlands of College Station", description: "Some units are actually quite nice. Management is incompetent. Floods like nobody's business. You will regret living here.", type: apartment_type }
+  ]
+  
+  pending_resources.each do |resource| 
+    Resource.find_or_create_by!(
+      user_id: sample_user.id,
+      resource_type: resource[:type],
+      title: resource[:name],
+      description: resource[:description],
+      status: 'pending'
+    )
+  end
+
+  puts "Sample pending resources seeded successfully."
+  
 end
