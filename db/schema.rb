@@ -72,12 +72,13 @@ ActiveRecord::Schema[7.0].define(version: 2024_10_02_011203) do
     t.bigint "major_id", default: 1
     t.bigint "class_year_id", default: 1
     t.string "bio"
+    t.bigint "role_id", default: 1
+    t.integer "grad_year"
     t.integer "sign_in_count", default: 0
     t.datetime "current_sign_in_at"
     t.datetime "last_sign_in_at"
     t.string "current_sign_in_ip"
     t.string "last_sign_in_ip"
-    t.integer "grad_year"
     t.index ["class_year_id"], name: "index_users_on_class_year_id"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["major_id"], name: "index_users_on_major_id"
