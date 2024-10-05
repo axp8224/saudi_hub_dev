@@ -32,6 +32,10 @@ begin
 rescue ActiveRecord::PendingMigrationError => e
   abort e.to_s.strip
 end
+OmniAuth.config.test_mode = true
+
+Dir[Rails.root.join('spec', 'support', '**', '*.rb')].sort.each { |f| require f }
+
 RSpec.configure do |config|
   # Remove this line if you're not using ActiveRecord or ActiveRecord fixtures
   config.fixture_path = Rails.root.join('spec/fixtures')
@@ -63,4 +67,9 @@ RSpec.configure do |config|
   config.filter_rails_from_backtrace!
   # arbitrary gems may also be filtered via:
   # config.filter_gems_from_backtrace("gem name")
+  config.include IntegrationSpecHelper, type: :feature
+
+  config.before(:suite) do
+    Rails.application.load_seed
+  end
 end
