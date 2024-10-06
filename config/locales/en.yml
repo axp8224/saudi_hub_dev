@@ -85,3 +85,33 @@ en:
       full_name: "Full Name"
       email: "Email"
       role: "Role"
+    resources:
+      status_active: "Active"
+      status_pending: "Pending"
+      status_archived: "Archived"
+
+      edit_resource: "Edit Resource"
+      status: "Status"
+      title: "Title"
+      description: "Description"
+
+      select_status: "Select Status"
+
+      index:
+        select_type: "Select Resource Type"
+
+        resource_manager: "Resource Manager"
+        back_to_resources: "Back to Resources Page"
+        search_resources: "Search Resources"
+        search_bar: "Enter resource title or description"
+        filter_by_status: "Filter by status"
+        filter_by_resource_type: "Filter by resource type"
+      
+        search_button: "Search"
+
+        type: "Type"
+        author: "Author"
+      edit:
+        resource_type: "Resource Type"
+        save_resource: "Save Resource"
+        back_to_resource_manager: "Back to Resource Manager"

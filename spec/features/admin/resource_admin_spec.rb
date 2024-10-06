@@ -21,7 +21,7 @@ RSpec.feature "Resources", type: :feature do
 
     expect(page).to have_content("Resource Manager")
 
-    select 'pending', from: 'status'
+    select t('admin.resources.status_pending'), from: 'status'
 
     click_on "Search"
 
@@ -37,7 +37,7 @@ RSpec.feature "Resources", type: :feature do
     # can technically edit any resource as an admin, but here we do pending because it is the most common likely use case.
     visit admin_resources_path
     
-    select 'pending', from: 'status'
+    select t('admin.resources.status_pending'), from: 'status'
     click_on "Search"
 
     pending_resource = pending_resources.first
@@ -56,7 +56,7 @@ RSpec.feature "Resources", type: :feature do
 
     expect(page).to have_current_path(admin_resources_path) # redirect back to manage resources page
 
-    select 'pending', from: 'status'
+    select t('admin.resources.status_pending'), from: 'status'
     click_on "Search"
 
     expect(page).not_to have_content(original_description)
@@ -67,7 +67,7 @@ RSpec.feature "Resources", type: :feature do
     # edit status of a resource from pending to active
     visit admin_resources_path
     
-    select 'pending', from: 'status'
+    select t('admin.resources.status_pending'), from: 'status'
 
     pending_resources = Resource.where(status: 'pending')
 
@@ -80,18 +80,18 @@ RSpec.feature "Resources", type: :feature do
 
     expect(page).to have_content(original_description) # ensure this is the page for the first pending resource
 
-    select 'active', from: 'resource[status]'
+    select t('admin.resources.status_active'), from: 'resource[status]'
 
     click_button 'Save Resource'
 
     expect(page).to have_current_path(admin_resources_path) # redirect back to manage resources page
 
-    select 'pending', from: 'status'
+    select t('admin.resources.status_pending'), from: 'status'
     click_on "Search"
 
     expect(page).not_to have_content(original_description)
 
-    select 'active', from: 'status'
+    select t('admin.resources.status_active'), from: 'status'
     click_on "Search"
 
     expect(page).to have_content(original_description)
@@ -101,7 +101,7 @@ RSpec.feature "Resources", type: :feature do
     # edit status of a resource from pending to archived
     visit admin_resources_path
     
-    select 'pending', from: 'status'
+    select t('admin.resources.status_pending'), from: 'status'
     click_on "Search"
 
     original_description = pending_resources.first.description
@@ -112,18 +112,18 @@ RSpec.feature "Resources", type: :feature do
 
     expect(page).to have_content(original_description) # ensure this is the page for the first pending resource
 
-    select 'archived', from: 'resource[status]'
+    select t('admin.resources.status_archived'), from: 'resource[status]'
 
     click_button 'Save Resource'
 
     expect(page).to have_current_path(admin_resources_path) # redirect back to manage resources page
 
-    select 'pending', from: 'status'
+    select t('admin.resources.status_pending'), from: 'status'
     click_on "Search"
 
     expect(page).not_to have_content(original_description)
 
-    select 'archived', from: 'status'
+    select t('admin.resources.status_archived'), from: 'status'
     click_on "Search"
 
     expect(page).to have_content(original_description)
