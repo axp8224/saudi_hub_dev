@@ -1,0 +1,40 @@
+<h1>Resource Manager</h1>
+<%= link_to "TRANSLATE ME back to resources page", resources_path %>
+
+<%= form_with url: admin_resources_path, method: :get, local: true do %>
+  <div class="form-group">
+    <%= label_tag :search, t('admin.resources.index.search_resources') %>
+    <%= text_field_tag :search, params[:search], placeholder: t('admin.resources.index.search_bar', default: "Enter resource title or description") %> 
+
+    <%= label_tag :status, t('admin.resources.index.filter_by_status', default: "Filter by status") %>
+    <%= select_tag :status, options_for_select(['pending', 'active', 'archived'], params[:status]), prompt: 'Select Status', onchange: 'this.form.submit();' %>
+
+    <%= label_tag :resource_type_id, t('admin.resources.index.filter_by_resource_type', default: "Filter by Resource Type") %>
+    <%= select_tag :resource_type_id, options_from_collection_for_select(ResourceType.all, :id, :title, params[:resource_type_id]), prompt: 'Select Resource Type', onchange: 'this.form.submit();' %>
+  
+    <%= submit_tag t('admin.resources.index.search_button', default: "Search") %>
+  </div>
+<% end %>
+
+
+<div style="display: flex;">
+  <div style="width: 75%;">
+    <table>
+      <th>Status</th>
+      <th>Type</th>
+      <th>Title</th>
+      <th>Description</th>
+      <th>Author</th>
+      <% @resources.each do |resource| %>
+        <tr style="margin-bottom: 20px;">
+          <td><%= resource.status %></td>
+          <td><%= resource.resource_type.title %>
+          <td><%= resource.title %></td>
+          <td><%= resource.description %></td>
+          <td><%= resource.author.full_name %></td>
+          <td><%= link_to "TM Edit Resource", edit_admin_resource_path(resource) %></td>
+        </tr>
+      <% end %>
+    </table>
+  </div>
+</div>

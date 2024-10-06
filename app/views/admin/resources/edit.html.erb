@@ -1,0 +1,32 @@
+<h1><%= "TRANSLATE ME Edit Resource" %></h1>
+
+<%= form_with model: @resource, url: admin_resource_path(@resource), method: :patch do |form| %>
+
+  <div class="form-group">
+    <%= form.label :title, "Title" %>
+    <%= form.text_field :title, class: "form-control", value: @resource.title, required: true %>
+  </div>
+
+  <div class="form-group">
+    <%= form.label :description, "Description" %>
+    <%= form.text_area :description, class: "form-control", rows: 3, value: @resource.description, required: true %>
+  </div>
+
+  <div class="form-group">
+    <%= form.label :status, "Status" %>
+    <%= form.select :status, ['active', 'pending', 'archived'], { selected: @resource.status }, class: "form-control", required: true %>
+  </div>
+
+  <div class="form-group">
+    <%= form.label :resource_type_id, "Resource Type" %>
+    <%= form.collection_select :resource_type_id, @resource_types, :id, :title, { prompt: "Select Resource Type", selected: @resource.resource_type_id }, class: "form-control", required: true %>
+  </div>
+
+  <div class="form-group">
+    <%= form.submit "Save Resource", class: "btn btn-primary" %>
+  </div>
+<% end %>
+
+
+
+<%= link_to "TRANSLATE ME Back to Resource Manager", admin_resources_path %>

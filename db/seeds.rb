@@ -209,6 +209,26 @@ end
 
 puts "Sample user seeded successfully."
 
+
+puts "Seeding sample admin..."
+
+admin_role = Role.find_by(name: 'admin')
+
+default_major = Major.find_by(name: '')
+
+default_class_year = ClassYear.find_by(name: 'Senior')
+
+User.find_or_create_by!(email: 'admin@example.com') do |user|
+  user.uid = 'sampleADMIN123'
+  user.full_name = 'Sample Admin'
+  user.avatar_url = 'https://example.com/sample_avatar.jpg'
+  user.role = admin_role
+  user.major = default_major
+  user.class_year = default_class_year
+end
+
+puts "Sample admin seeded successfully."
+
 # --------- SEEDING RESOURCE TYPES ------------
 
 puts "Seeding resource types..."
