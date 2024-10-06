@@ -49,7 +49,7 @@ module Admin
     def admin_only
       
       unless current_user.role.name == 'admin'
-        redirect_to root_path, alert: "Access denied."
+        redirect_to resources_path, alert: "Access denied."
       end
     end
   

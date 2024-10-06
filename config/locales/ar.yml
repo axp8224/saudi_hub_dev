@@ -66,6 +66,11 @@ ar:
       new:
         logged_out: "لقد تم تسجيل الخروج! الرجاء تسجيل الدخول للوحة التحكم!!"
         log_in_with: "تسجيل الدخول بواسطة %{provider}"
+  
+  resources:
+    index:
+      manage_resources: "إدارة الموارد"
+
   admin:
     users:
       edit:

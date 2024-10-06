@@ -76,6 +76,11 @@ en:
       new:
         logged_out: "You're Logged out! Log in to the Dashboard!!"
         log_in_with: "Log in with %{provider}"
+
+  resources:
+    index:
+      manage_resources: "Manage Resources"
+      
   admin:
     users:
       edit:
