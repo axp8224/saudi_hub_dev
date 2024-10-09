@@ -12,11 +12,11 @@
   }
 
   .nav-active {
-    @apply block p-3 text-white bg-[#173821] rounded md:bg-transparent md:font-bold md:px-3;
+    @apply block p-3 text-white bg-[#173821] rounded lg:bg-transparent lg:font-bold lg:px-3;
   }
   
   .nav-inactive {
-    @apply block p-3 text-gray-900 md:text-white rounded hover:bg-[#173821] hover:bg-opacity-30 md:hover:bg-transparent md:hover:opacity-100 md:opacity-70 md:px-3 md:-mx-3;
+    @apply block p-3 text-gray-900 lg:text-white rounded hover:bg-[#173821] hover:bg-opacity-30 lg:hover:bg-transparent lg:hover:opacity-100 lg:opacity-70 lg:px-3 lg:-mx-3;
   }  
 
   
