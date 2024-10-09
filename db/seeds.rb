@@ -159,7 +159,7 @@ end
 
 puts "Seeded A&M majors."
 
-# --------- SEEDING CLASS YEARS TABLE ----------
+# --------- SEEDING CLASS YEARS (CLASSIFICATION) TABLE ----------
 
 class_years = [
   { name: 'Freshman' },
@@ -168,6 +168,7 @@ class_years = [
   { name: 'Senior' },
   { name: 'Masters Student' },
   { name: 'PhD Student' },
+  { name: 'Former Student' },
   { name: 'Other (staff, professor, etc.)' }
 ]
 
@@ -179,7 +180,7 @@ puts "Seeded class years."
 
 # --------- SEEDING USER ROLES TABLE ------------
 
-Role.find_or_create_by(name: 'user', can_moderate: false, can_promote: false)
+Role.find_or_create_by(name: 'user', can_moderate: false, can_promote: false) 
 Role.find_or_create_by(name: 'admin', can_moderate: true, can_promote: true)
 
 puts "Seeded user roles."
