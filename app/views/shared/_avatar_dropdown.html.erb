@@ -5,7 +5,7 @@
     <% if current_user.avatar.attached? %>
         <p><%= image_tag(current_user.avatar, class: "w-8 h-8 rounded-full", alt: t('.your_profile')) %></p>
     <% else %>
-        <%= image_tag 'default-avatar.svg', class: 'w-8 h-8 rounded-full', alt: 'Default avatar' %>
+        <%= image_tag '/default-avatar.svg', class: 'w-8 h-8 rounded-full', alt: 'Default avatar' %>
     <% end %>
 
     <span class="ms-2"><%= current_user.full_name %></span>
