@@ -21,9 +21,9 @@ class User < ApplicationRecord
       errors.add(:avatar, I18n.t('users.edit.error_messages.file_type_error'))
     end
 
-    # if avatar.byte_size > 250.kilobytes
-    #   errors.add(:avatar, I18n.t('users.edit.error_messages.file_size_too_large'))
-    # end
+    if avatar.attached? && avatar.blob.byte_size > 2.megabytes
+      errors.add(:avatar, 'is too large. Please, choose an avatar smaller than 2MB.')
+    end
   end
 
   has_many :resources, foreign_key: 'user_id'
