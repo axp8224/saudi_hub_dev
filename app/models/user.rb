@@ -17,7 +17,7 @@ class User < ApplicationRecord
     return unless avatar.attached?
 
     allowed_types = ['image/jpeg', 'image/png']
-    unless allowed_types.include?(avatar.content_type)
+    unless allowed_types.include?(avatar.blob.content_type)
       errors.add(:avatar, I18n.t('users.edit.error_messages.file_type_error'))
     end
 

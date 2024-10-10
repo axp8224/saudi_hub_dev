@@ -21,11 +21,10 @@ RSpec.describe User, type: :model do
     let(:user) { User.new(email: 'test@example.com') }
 
     before do
-      blob = instance_double(ActiveStorage::Blob, content_type: 'image/jpeg', byte_size: 1.megabyte)
-      attachment = double('ActiveStorage::Attached::One', attached?: true)
-      allow(attachment).to receive(:blob).and_return(blob)
+      blob = double('ActiveStorage::Blob', content_type: 'image/jpeg', byte_size: 2.megabytes)
+      attachment = double('ActiveStorage::Attached::One', attached?: true, blob: blob)
       allow(user).to receive(:avatar).and_return(attachment)
-    end
+    end      
 
     it 'validates that the avatar has an acceptable type' do
       expect(user).to be_valid
@@ -40,7 +39,7 @@ RSpec.describe User, type: :model do
     it 'adds an error if the avatar size is too large' do
       allow(user.avatar.blob).to receive(:byte_size).and_return(3.megabytes)
       user.valid?
-      expect(user.errors[:avatar]).to include('is too large. Please, choose an avatar smaller than 2MB.')
+      expect(user.errors[:avatar]).to include(I18n.t('users.edit.error_messages.file_size_too_large'))
     end
   end
 end
