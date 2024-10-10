@@ -58,6 +58,7 @@ en:
       back_to_dashboard: "Back to Dashboard"
       bio: "About Me"
     edit:
+      your_profile: "Your Profile"
       bio: "About Me"
       update_profile: "Update Profile"
       full_name: "Full Name"
