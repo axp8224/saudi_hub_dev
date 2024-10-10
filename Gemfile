@@ -58,6 +58,7 @@ group :development, :test do
   gem 'webdrivers'
   gem 'simplecov', :require => false
   gem 'brakeman'
+  gem 'rubocop'
 end
 
 group :development do
