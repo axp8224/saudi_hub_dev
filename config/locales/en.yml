@@ -39,6 +39,10 @@ en:
       manage_users: "Manage Users"
   shared:
     saudi_hub: "Saudi Community Hub"
+  home:
+    show:
+      welcome: "Welcome to the Saudi Community Hub!"
+      description: "This website allows members of the Saudi Arabian community in the Bryan/College Station area to connect and share resources with one another. Please enjoy your time on here."
   users:
     index:
       back_to_dashboard: "Back to Dashboard"

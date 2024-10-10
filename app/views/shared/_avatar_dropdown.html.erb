@@ -8,19 +8,20 @@
         <%= image_tag '/default-avatar.svg', class: 'w-8 h-8 rounded-full', alt: 'Default avatar' %>
     <% end %>
 
-    <span class="ms-2"><%= current_user.full_name %></span>
+    <!-- Text and arrow elements hidden on sm -->
+    <span class="ms-2 hidden sm:inline md:inline lg:inline xl:inline"><%= current_user.full_name %></span>
 
-    <svg class="w-2.5 h-2.5 mx-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
+    <svg class="w-2.5 h-2.5 mx-2 hidden sm:inline md:inline lg:inline xl:inline" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
         <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 4 4 4-4"/>
     </svg>
-
 </button>
 
+
 <!-- Dropdown Menu -->
-<div id="dropdownAvatarName" class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44">
+<div id="dropdownAvatarName" class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 ">
     <ul class="py-2 text-sm text-gray-700" aria-labelledby="dropdownUserAvatarButton">
         <li>
-            <%= link_to t('shared.dashboard'), root_path, class:"block px-4 py-2 hover:bg-gray-100" %>
+            <%= link_to t('shared.dashboard'), dashboard_show_path, class:"block px-4 py-2 hover:bg-gray-100" %>
         </li>
         <li>
             <%= link_to t('shared.profile'), user_profile_path, class:"block px-4 py-2 hover:bg-gray-100" %>
@@ -29,6 +30,11 @@
             <%= link_to t('shared.settings'), root_path, class:"block px-4 py-2 hover:bg-gray-100" %>
         </li>
     </ul>
+     <!-- Language Switcher -->
+    <div class="py-2 text-sm text-gray-700">
+        <%= link_to 'English', switch_locale_path(locale: 'en'), class: "px-4 py-2 hover:bg-gray-100" %> |
+        <%= link_to 'العربية', switch_locale_path(locale: 'ar'), class: "px-4 py-2 hover:bg-gray-100" %>
+    </div>
     <div class="py-2">
         <%= link_to t('shared.sign_out'), destroy_user_session_path, method: :delete, class: "block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" %>
     </div>
