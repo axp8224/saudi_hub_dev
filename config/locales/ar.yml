@@ -19,6 +19,8 @@ ar:
     settings: "إعدادات"
     saudi_hub: "المركز السعودي"
 
+    error_messages:
+
   users:
     index:
       back_to_dashboard: "العودة إلى لوحة التحكم"
@@ -62,7 +64,7 @@ ar:
       grad_year: "سنة التخرج"
       role: "دور"
       error_messages:
-        file_size_too_large: "يجب أن يكون حجم الصورة أقل من 250 كيلوبايت."
+        file_size_too_large: "يجب أن يكون حجم الصورة الرمزية أصغر من 2 ميجابايت."
         file_type_error: "يجب أن تكون الصورة من نوع JPEG أو PNG."
     sessions:
       new:

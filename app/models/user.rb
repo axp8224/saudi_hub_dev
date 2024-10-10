@@ -21,8 +21,8 @@ class User < ApplicationRecord
       errors.add(:avatar, I18n.t('users.edit.error_messages.file_type_error'))
     end
 
-    Rails.logger.info "Avatar byte size: #{avatar.blob.byte_size}, Allowed: <= 250KB"
-    if avatar.blob.byte_size > 250.kilobytes
+    Rails.logger.info "Avatar byte size: #{avatar.blob.byte_size}, Allowed: <= 2MB"
+    if avatar.blob.byte_size > 2.megabytes
       errors.add(:avatar, I18n.t('users.edit.error_messages.file_size_too_large'))     
     end
   end
