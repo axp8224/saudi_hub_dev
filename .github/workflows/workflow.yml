@@ -38,6 +38,9 @@ jobs:
         with:
           cmd: install
       - name: Install npm dependencies
+        - uses: actions/setup-node@v3
+          with:
+            node-version: '16'
         run: npm install
       - name: Precompile assets
         run: bundle exec rails assets:precompile
