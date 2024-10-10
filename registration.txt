@@ -1,0 +1,10 @@
+  Rendered shared/_navbar.html.erb (Duration: 7.9ms | Allocations: 3372)
+  Rendered layout layouts/application.html.erb (Duration: 11.5ms | Allocations: 5378)
+Completed 200 OK in 18ms (Views: 11.2ms | ActiveRecord: 2.5ms | Allocations: 7662)
+
+
+Started GET "/path/to/flowbite/dist/flowbite.min.js" for 192.168.65.1 at 2024-10-09 04:21:57 +0000
+Cannot render console from 192.168.65.1! Allowed networks: 127.0.0.0/127.255.255.255, ::1
+  
+ActionController::RoutingError (No route matches [GET] "/path/to/flowbite/dist/flowbite.min.js"):
+  
