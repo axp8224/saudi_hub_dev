@@ -57,6 +57,7 @@ group :development, :test do
   gem 'rspec-rails'
   gem 'webdrivers'
   gem 'simplecov', :require => false
+  gem 'brakeman'
 end
 
 group :development do
