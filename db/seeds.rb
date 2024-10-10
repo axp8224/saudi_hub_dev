@@ -210,6 +210,26 @@ end
 
 puts "Sample user seeded successfully."
 
+
+puts "Seeding sample admin..."
+
+admin_role = Role.find_by(name: 'admin')
+
+default_major = Major.find_by(name: '')
+
+default_class_year = ClassYear.find_by(name: 'Senior')
+
+User.find_or_create_by!(email: 'admin@example.com') do |user|
+  user.uid = 'sampleADMIN123'
+  user.full_name = 'Sample Admin'
+  user.avatar_url = 'https://example.com/sample_avatar.jpg'
+  user.role = admin_role
+  user.major = default_major
+  user.class_year = default_class_year
+end
+
+puts "Sample admin seeded successfully."
+
 # --------- SEEDING RESOURCE TYPES ------------
 
 puts "Seeding resource types..."
@@ -293,4 +313,25 @@ else
   end
 
   puts "Sample resources seeded successfully."
+
+
+  # --------- SEEDING SAMPLE PENDING RESOURCES ------------
+
+  pending_resources = [
+    { name: "Piada Italian Street Food", description: "Specializing in handmade piadas and authentic Italian dishes, perfect for a quick and delicious meal.", type: restaurant_type },
+    { name: "The Woodlands of College Station", description: "Some units are actually quite nice. Management is incompetent. Floods like nobody's business. You will regret living here.", type: apartment_type }
+  ]
+  
+  pending_resources.each do |resource| 
+    Resource.find_or_create_by!(
+      user_id: sample_user.id,
+      resource_type: resource[:type],
+      title: resource[:name],
+      description: resource[:description],
+      status: 'pending'
+    )
+  end
+
+  puts "Sample pending resources seeded successfully."
+  
 end

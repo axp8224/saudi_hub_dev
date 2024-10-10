@@ -56,6 +56,10 @@ group :development, :test do
   gem "debug", platforms: %i[ mri mingw x64_mingw ]
   gem 'rspec-rails'
   gem 'shoulda-matchers', '~> 5.0'
+  gem 'webdrivers'
+  gem 'simplecov', :require => false
+  gem 'brakeman'
+  gem 'rubocop'
 end
 
 group :development do
@@ -74,6 +78,7 @@ group :test do
   gem "capybara"
   gem "selenium-webdriver"
   gem "webdrivers"
+  gem 'shoulda-matchers', '~> 5.0'
 end
 
 gem 'devise'

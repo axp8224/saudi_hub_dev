@@ -3,7 +3,20 @@
   <div class="absolute inset-0 bg-black opacity-30 z-0"></div>
 
   <!-- Page Content -->
-  <div class="relative z-20 text-white text-center">
-    <h1 class="text-4xl font-bold">Welcome to My Page</h1>
+  <div class="relative z-1 text-white text-center flex flex-col lg:flex-row items-center justify-center h-full px-4 lg:px-0 max-w-screen-xl mx-auto">
+    <!-- Left Column -->
+    <div class="lg:w-1/2 text-left space-y-4 mb-6 lg:mb-0 lg:pr-8">
+      <h1 class="text-4xl font-bold break-words"><%= t('.welcome')%></h1>
+      <p class="text-lg text-gray-300"><%= t('.description')%></p>
+    </div>
+
+    <!-- Right Column with Logo -->
+    <div class="lg:w-1/2 flex justify-center lg:justify-start">
+      <div class="flex items-center justify-center">
+        <a class="flex items-center space-x-3 rtl:space-x-reverse">
+          <img src="/logo-white-outline.svg" class="h-auto w-auto" alt="Saudi Community Hub Logo" />
+        </a>
+      </div>
+    </div>
   </div>
 </div>

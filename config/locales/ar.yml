@@ -18,9 +18,10 @@ ar:
     profile: "عرض ملفي الشخصي"
     settings: "إعدادات"
     saudi_hub: "المركز السعودي"
-
-    error_messages:
-
+  home:
+    show:
+      welcome: "مرحبا بكم في مركز المجتمع السعودي!"
+      description: "يتيح هذا الموقع لأعضاء المجتمع السعودي في منطقة بريان/كوليج ستيشن التواصل ومشاركة الموارد مع بعضهم البعض. من فضلك استمتع بوقتك هنا."
   users:
     index:
       back_to_dashboard: "العودة إلى لوحة التحكم"
@@ -70,6 +71,11 @@ ar:
       new:
         logged_out: "لقد تم تسجيل الخروج! الرجاء تسجيل الدخول للوحة التحكم!!"
         log_in_with: "تسجيل الدخول بواسطة %{provider}"
+  
+  resources:
+    index:
+      manage_resources: "إدارة الموارد"
+
   admin:
     users:
       edit:
@@ -112,3 +118,34 @@ ar:
           role: "دور"
           action: "فعل"
           manage_users: "إدارة قائمة المستخدمين"
+    resources:
+      status_active: "نشط"
+      status_pending: "معلق"
+      status_archived: "أرشف"
+
+      edit_resource: "تعديل المورد"
+      status: "الحالة"
+      title: "العنوان"
+      description: "الوصف"
+
+      select_status: "اختر الحالة"
+
+      index:
+        
+        select_type: "اختر نوع المورد"
+
+        resource_manager: "مدير المورد"
+        back_to_resources: "العودة إلى صفحة الموارد"
+        search_resources: "بحث عن الموارد"
+        search_bar: "أدخل عنوان أو وصف المورد"
+        filter_by_status: "تصفية حسب الحالة"
+        filter_by_resource_type: "تصفية حسب نوع المورد"
+
+        search_button: "بحث"
+
+        type: "النوع"
+        author: "المؤلف"
+      edit:
+        resource_type: "نوع المورد"
+        save_resource: "حفظ المورد"
+        back_to_resource_manager: "العودة إلى مدير المورد"

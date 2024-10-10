@@ -1,11 +1,12 @@
 <!DOCTYPE html>
 <html lang="<%= I18n.locale %>">
   <head>
-    <title>GoogleOauthDevise</title>
+    <title>Saudi Community Hub</title>
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
     <%= stylesheet_link_tag "tailwind", "inter-font", "data-turbo-track": "reload" %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <link rel="shortcut icon" href="/logo.svg"/>
     <link href="https://cdn.jsdelivr.net/npm/flowbite@2.5.2/dist/flowbite.min.css" rel="stylesheet" />
     <style>
         .flash__alert   { color: red; }
@@ -18,17 +19,29 @@
   <body>
     <%= render 'shared/navbar' %>
     <% if flash.any? %>
-      <% flash.each do |key, value| -%>
-        <section class="flash flash__<%= key %>"><%= value.html_safe %></section>
-      <% end -%>
+      <div class="fixed bottom-4 right-4 space-y-2 z-50">
+        <% flash.each do |key, value| %>
+          <% 
+            alert_classes = case key
+              when 'notice' then 'text-blue-800 bg-blue-50'
+              when 'alert' then 'text-red-800 bg-red-50'
+              when 'success' then 'text-green-800 bg-green-50'
+              when 'warning' then 'text-yellow-800 bg-yellow-50'
+              else 'text-gray-800 bg-gray-50'
+            end
+          %>
+          <div class="p-4 text-sm rounded-lg shadow-lg <%= alert_classes %>" role="alert">
+            <span class="font-medium">
+              <%= key.capitalize %>!
+            </span> 
+            <%= value.html_safe %>
+          </div>
+        <% end %>
+      </div>
     <% end %>
     <%= yield %>
     <script src="https://cdn.jsdelivr.net/npm/flowbite@2.5.2/dist/flowbite.min.js"></script>
     <script src="../path/to/flowbite/dist/flowbite.min.js"></script>
-    <div class="language-switcher">
-      <%= link_to 'English', switch_locale_path(locale: 'en') %> |
-      <%= link_to 'العربية', switch_locale_path(locale: 'ar') %>
-    </div>
   </body>
 </html>
 
