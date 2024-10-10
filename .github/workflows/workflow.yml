@@ -41,11 +41,7 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: "18"
-      - run: |
-          mkdir ~/.npm-global
-          npm config set prefix '~/.npm-global'
-          export PATH=~/.npm-global/bin:$PATH
-          npm ci
+      - run: sudo npm ci
       - name: Precompile assets
         run: bundle exec rails assets:precompile
       - name: Run tests
