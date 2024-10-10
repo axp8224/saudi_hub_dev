@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_09_24_021428) do
+ActiveRecord::Schema[7.0].define(version: 2024_10_04_171554) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -54,6 +54,24 @@ ActiveRecord::Schema[7.0].define(version: 2024_09_24_021428) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "resource_types", force: :cascade do |t|
+    t.string "title"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "resources", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.string "title"
+    t.bigint "resource_type_id", null: false
+    t.text "description"
+    t.string "status"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["resource_type_id"], name: "index_resources_on_resource_type_id"
+    t.index ["user_id"], name: "index_resources_on_user_id"
+  end
+
   create_table "roles", force: :cascade do |t|
     t.string "name", null: false
     t.boolean "can_moderate", default: false
@@ -69,10 +87,11 @@ ActiveRecord::Schema[7.0].define(version: 2024_09_24_021428) do
     t.string "avatar_url"
     t.datetime "created_at", precision: nil, null: false
     t.datetime "updated_at", precision: nil, null: false
-    t.bigint "role_id", default: 1
     t.bigint "major_id", default: 1
     t.bigint "class_year_id", default: 1
     t.string "bio"
+    t.bigint "role_id", default: 1
+    t.integer "grad_year"
     t.integer "sign_in_count", default: 0
     t.datetime "current_sign_in_at"
     t.datetime "last_sign_in_at"
@@ -86,6 +105,8 @@ ActiveRecord::Schema[7.0].define(version: 2024_09_24_021428) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "resources", "resource_types"
+  add_foreign_key "resources", "users"
   add_foreign_key "users", "class_years"
   add_foreign_key "users", "majors"
   add_foreign_key "users", "roles"

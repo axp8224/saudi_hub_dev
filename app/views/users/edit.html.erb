@@ -16,6 +16,7 @@
     <%= f.email_field :email, class: 'form-control' %>
   </div>
 
+  <!-- STYLE ERROR MESSAGES LATER -->
   <div class="form-group">
     <%= f.label :avatar, t('.avatar') %>
     <%= f.file_field :avatar, accept: 'image/jpeg, image/png', class: 'form-control' %>  
@@ -29,6 +30,18 @@
   <div class="form-group">
     <%= f.label :class_year, t('.class_year') %>
     <%= f.collection_select :class_year_id, @class_years, :id, :name, { include_blank: 'Select Classification' }, { class: 'form-control' } %>
+  </div>
+
+  <!-- STYLE ERROR MESSAGES LATER -->
+  <div class="form-group <%= 'has-error' if @user.errors[:grad_year].any? %>">
+    <%= f.label :grad_year, t('.grad_year') %>
+    <%= f.number_field :grad_year, placeholder: 'Input year here', class: 'form-control' %>
+
+    <% if @user.errors[:grad_year].any? %>
+      <span class="help-block">
+        <%= @user.errors[:grad_year].first %>
+      </span>
+    <% end %>
   </div>
 
   <div class="form-group">

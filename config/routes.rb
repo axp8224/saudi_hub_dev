@@ -11,6 +11,7 @@ Rails.application.routes.draw do
 
   namespace :admin do
     resources :users, only: [:index, :edit, :update]
+    resources :resources, only: [:index, :edit, :update]
   end
 
   get 'profile', to: 'users#show', as: 'user_profile'
@@ -19,4 +20,6 @@ Rails.application.routes.draw do
   resources :home, only: [:show]
   get 'profile/edit', to: 'users#edit', as: 'edit_user_profile'
   patch 'profile', to: 'users#update', as: 'update_user_profile'
+
+  resources :resources, only: [:index]
 end
