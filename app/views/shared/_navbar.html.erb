@@ -6,7 +6,7 @@
     </a>
 
     <!-- User Menu -->
-    <div id="avatarMenuWrapper" class="hidden sm:flex items-center space-x-3 lg:order-2 lg:space-x-0 ml-auto rtl:space-x-reverse">
+    <div id="avatarMenuWrapper" class="sm:flex space-x-3 lg:order-2 lg:space-x-0 <%= I18n.locale == :ar ? 'mr-auto' : 'ml-auto' %>">
       <% if user_signed_in? %>
         <%= render 'shared/avatar_dropdown'%>
       <% else %>
@@ -23,7 +23,7 @@
     </button>
 
     <!-- Navbar Links -->
-    <div class="items-center justify-between hidden w-full lg:flex lg:w-auto lg:order-1" id="navbar-sticky">
+    <div class="items-center justify-between hidden w-full lg:flex mx-auto lg:w-auto lg:order-1" id="navbar-sticky">
       <ul class="flex flex-col p-4 lg:p-0 font-medium rounded-lg lg:space-x-8 rtl:space-x-reverse lg:flex-row lg:mt-0 lg:border-0 bg-white lg:bg-transparent">
         <li>
           <%= link_to t('shared.home'), root_path, class: "#{current_page?(root_path) ? 'nav-active' : 'nav-inactive'}" %>
