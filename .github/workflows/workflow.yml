@@ -38,10 +38,10 @@ jobs:
         with:
           cmd: install
       - name: Install npm dependencies
-        - uses: actions/setup-node@v3
-          with:
-            node-version: '16'
-        run: npm install
+        uses: actions/setup-node@v3
+        with:
+          node-version: "16"
+        run: npm ci
       - name: Precompile assets
         run: bundle exec rails assets:precompile
       - name: Run tests
