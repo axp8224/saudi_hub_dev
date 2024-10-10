@@ -18,7 +18,7 @@
 
 
 <!-- Dropdown Menu -->
-<div id="dropdownAvatarName" class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44">
+<div id="dropdownAvatarName" class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 ">
     <ul class="py-2 text-sm text-gray-700" aria-labelledby="dropdownUserAvatarButton">
         <li>
             <%= link_to t('shared.dashboard'), root_path, class:"block px-4 py-2 hover:bg-gray-100" %>
@@ -30,6 +30,11 @@
             <%= link_to t('shared.settings'), root_path, class:"block px-4 py-2 hover:bg-gray-100" %>
         </li>
     </ul>
+     <!-- Language Switcher -->
+    <div class="py-2 text-sm text-gray-700">
+        <%= link_to 'English', switch_locale_path(locale: 'en'), class: "px-4 py-2 hover:bg-gray-100" %> |
+        <%= link_to 'العربية', switch_locale_path(locale: 'ar'), class: "px-4 py-2 hover:bg-gray-100" %>
+    </div>
     <div class="py-2">
         <%= link_to t('shared.sign_out'), destroy_user_session_path, method: :delete, class: "block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" %>
     </div>
