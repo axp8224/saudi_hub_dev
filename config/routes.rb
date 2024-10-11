@@ -12,17 +12,17 @@ Rails.application.routes.draw do
   end
 
   namespace :admin do
-    resources :users, only: [:index, :edit, :update]
-    resources :resources, only: [:index, :edit, :update]
+    resources :users, only: %i[index edit update]
+    resources :resources, only: %i[index edit update]
   end
 
   get 'profile', to: 'users#show', as: 'user_profile'
 
-  resources :users, only: [:index, :show]
+  resources :users, only: %i[index show]
   resources :home, only: [:show]
   get 'dashboards/show', to: 'dashboards#show', as: :dashboard_show
   get 'profile/edit', to: 'users#edit', as: 'edit_user_profile'
   patch 'profile', to: 'users#update', as: 'update_user_profile'
 
-  resources :resources, only: [:index]
+  resources :resources, only: %i[index show]
 end

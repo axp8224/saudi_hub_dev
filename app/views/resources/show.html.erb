@@ -1,0 +1,49 @@
+<div class="max-w-screen-xl mx-auto">
+    <!-- Breadcrumb -->
+    <nav class="flex" aria-label="Breadcrumb">
+    <ol class="inline-flex items-center space-x-1 md:space-x-2 rtl:space-x-reverse py-4">
+        <!-- Resources -->
+        <li class="inline-flex items-center">
+            <%= link_to t('shared.resources'), resources_path, class: 'inline-flex items-center text-lg font-medium text-color1 hover:text-blue-600' %>
+        </li>
+
+        <!-- Resource Type -->
+        <% if @resource.resource_type %>
+        <li>
+        <div class="flex items-center">
+            <svg class="w-4 h-4 text-color1 mx-1 <%= I18n.locale == :ar ? 'rotate-180' : '' %>" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
+            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 9 4-4-4-4"/>
+            </svg>
+            <%= link_to @resource.resource_type.title, resources_path(resource_type_id: @resource.resource_type.id), class: 'ms-1 text-lg font-medium text-color1 hover:text-blue-600 md:ms-2' %>
+        </div>
+        </li>
+        <% end %>
+
+        <!-- Current Resource -->
+        <li aria-current="page">
+        <div class="flex items-center">
+            <svg class="w-4 h-4 text-color1 mx-1 <%= I18n.locale == :ar ? 'rotate-180' : '' %>" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
+            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 9 4-4-4-4"/>
+            </svg>
+            <span class="ms-1 text-lg font-medium text-color1 md:ms-2"><%= @resource.title %></span>
+        </div>
+        </li>
+    </ol>
+    </nav>
+
+    <!-- Resource Info Card -->
+    <div class="block mx-auto max-w-screen-xl p-6 bg-white border border-gray-200 rounded-lg shadow text-lg">
+        <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900"><%= @resource.title %></h5>
+        <p class="font-normal text-gray-700"><%= @resource.description %></p>
+
+        <!-- Written by -->
+        <% if @resource_author %>
+            <p class="mt-4 text-gray-600">
+            <%= raw t('resources.written_by', author_name: link_to(@resource_author.full_name, user_path(@resource_author), class: 'text-color1 hover:underline')) %>
+            </p>
+        <% end %>
+    </div>
+
+    <%= link_to 'Back to Resources', resources_path, class: 'btn btn-secondary py-4' %>
+
+</div>
