@@ -101,6 +101,7 @@ ar:
   admin:
     users:
       edit:
+        your_profile: "ملفك الشخصي"
         bio: "ْعَنِّي"
         class_year: "تصنيف"
         edit_your_profile: "تعديل ملفك الشخصي"

@@ -72,7 +72,6 @@ module Admin
 
     def admin_only
       return if current_user.role.name == 'admin'
-
       redirect_to resources_path, alert: t('flash.admin.access_denied')
     end
     

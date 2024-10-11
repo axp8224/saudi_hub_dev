@@ -114,6 +114,7 @@ en:
   admin:
     users:
       edit:
+        your_profile: ""
         update_role: "Update Role"
       edit_profile: "Edit Profile for %{name}"
       back_to_users: "Back to Users"
