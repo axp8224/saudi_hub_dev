@@ -7,6 +7,8 @@ Rails.application.routes.draw do
   devise_scope :user do
     get 'users/sign_in', to: 'users/sessions#new', as: :new_user_session
     get 'users/sign_out', to: 'users/sessions#destroy', as: :destroy_user_session
+    get 'privacy_policy_modal', to: 'users/omniauth_callbacks#show_privacy_policy'
+    post 'accept_privacy_policy', to: 'users/omniauth_callbacks#accept_privacy_policy'
   end
 
   namespace :admin do
