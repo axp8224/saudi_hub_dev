@@ -84,6 +84,7 @@ en:
       back_to_dashboard: "Back to Dashboard"
       bio: "About Me"
     edit:
+      your_profile: "Your Profile"
       bio: "About Me"
       update_profile: "Update Profile"
       full_name: "Full Name"
@@ -98,8 +99,8 @@ en:
       submit_changes: "Submit Changes"
       select_major: "Select Major"
       error_messages:
-        file_size_too_large: "Avatar must be smaller than 250KB."
-        file_type_error: "Avatar must be a JPEG or PNG file."
+        file_size_too_large: "Avatar picture must be smaller than 2MB."
+        file_type_error: "Avatar picture must be a JPEG or PNG file."
     sessions:
       new:
         logged_out: "You're Logged out! Log in to the Dashboard!!"

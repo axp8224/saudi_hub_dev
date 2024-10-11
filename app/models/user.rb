@@ -17,12 +17,13 @@ class User < ApplicationRecord
     return unless avatar.attached?
 
     allowed_types = ['image/jpeg', 'image/png']
-    unless allowed_types.include?(avatar.content_type)
+    unless allowed_types.include?(avatar.blob.content_type)
       errors.add(:avatar, I18n.t('users.edit.error_messages.file_type_error'))
     end
 
-    if avatar.attached? && avatar.blob.byte_size > 2.megabytes
-      errors.add(:avatar, 'is too large. Please, choose an avatar smaller than 2MB.')
+    Rails.logger.info "Avatar byte size: #{avatar.blob.byte_size}, Allowed: <= 2MB"
+    if avatar.blob.byte_size > 2.megabytes
+      errors.add(:avatar, I18n.t('users.edit.error_messages.file_size_too_large'))     
     end
   end
 

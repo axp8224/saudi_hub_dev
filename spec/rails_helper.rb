@@ -8,6 +8,7 @@ abort("The Rails environment is running in production mode!") if Rails.env.produ
 # that will avoid rails generators crashing because migrations haven't been run yet
 # return unless Rails.env.test?
 require 'rspec/rails'
+require 'shoulda/matchers'
 # Add additional requires below this line. Rails is not loaded until this point!
 # spec/rails_helper.rb
 
@@ -79,5 +80,12 @@ RSpec.configure do |config|
 
   config.before(:suite) do
     Rails.application.load_seed
+  end
+end
+
+Shoulda::Matchers.configure do |config|
+  config.integrate do |with|
+    with.test_framework :rspec
+    with.library :rails
   end
 end

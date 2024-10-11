@@ -40,7 +40,7 @@ class UsersController < ApplicationController
   def update
     if @user.update(user_params)
       flash[:success] = t('flash.profile.update_success')
-      redirect_to root_path
+      redirect_to user_profile_path
     else
       flash.now[:alert] = t('flash.profile.update_failure')
       render :edit

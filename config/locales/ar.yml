@@ -67,6 +67,7 @@ ar:
       class_year: "تصنيف"
       edit_your_profile: "تعديل ملفك الشخصي"
       back_to_dashboard: "العودة إلى لوحة التحكم"
+      grad_year: "سنة التخرج"
       bio: "ْعَنِّي"
       role: "دور"
     edit:
@@ -82,9 +83,10 @@ ar:
       back_to_dashboard: "العودة إلى لوحة التحكم"
       submit_changes: "إرسال التغييرات"
       select_major: "اختر التخصص"
+      grad_year: "سنة التخرج"
       role: "دور"
       error_messages:
-        file_size_too_large: "يجب أن يكون حجم الصورة أقل من 250 كيلوبايت."
+        file_size_too_large: "يجب أن يكون حجم الصورة الرمزية أصغر من 2 ميجابايت."
         file_type_error: "يجب أن تكون الصورة من نوع JPEG أو PNG."
     sessions:
       new:
