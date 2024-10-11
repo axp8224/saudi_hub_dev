@@ -32,9 +32,21 @@ module Admin
       )
 
         flash[:success] = t('flash.admin.resource_updated', title: @resource.title)
+        Log.create(
+          user_email: current_user.email,
+          action: "Updated Resource",
+          description: "Resource: #{@resource.title} updated",
+          action_timestamp: Time.current
+        )
         redirect_to admin_resources_path
       else
         flash.now[:alert] = t('flash.admin.update_failed')
+        Log.create(
+          user_email: current_user.email,
+          action: "Failed to Update Resource",
+          description: "Resource: #{@resource.title} failed to update",
+          action_timestamp: Time.current
+        )
         render :edit
       end
     end

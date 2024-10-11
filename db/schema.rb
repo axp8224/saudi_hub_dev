@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_10_04_171554) do
+ActiveRecord::Schema[7.0].define(version: 2024_10_11_193232) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -46,6 +46,13 @@ ActiveRecord::Schema[7.0].define(version: 2024_10_04_171554) do
     t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "logs", force: :cascade do |t|
+    t.string "user_email"
+    t.string "action"
+    t.text "description"
+    t.datetime "action_timestamp"
   end
 
   create_table "majors", force: :cascade do |t|
@@ -87,16 +94,16 @@ ActiveRecord::Schema[7.0].define(version: 2024_10_04_171554) do
     t.string "avatar_url"
     t.datetime "created_at", precision: nil, null: false
     t.datetime "updated_at", precision: nil, null: false
-    t.bigint "role_id", default: 1
     t.bigint "major_id", default: 1
     t.bigint "class_year_id", default: 1
     t.string "bio"
+    t.bigint "role_id", default: 1
+    t.integer "grad_year"
     t.integer "sign_in_count", default: 0
     t.datetime "current_sign_in_at"
     t.datetime "last_sign_in_at"
     t.string "current_sign_in_ip"
     t.string "last_sign_in_ip"
-    t.integer "grad_year"
     t.index ["class_year_id"], name: "index_users_on_class_year_id"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["major_id"], name: "index_users_on_major_id"

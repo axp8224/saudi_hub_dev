@@ -29,6 +29,11 @@
         <li>
             <%= link_to t('shared.settings'), root_path, class:"block px-4 py-2 hover:bg-gray-100" %>
         </li>
+        <% if current_user&.role&.name == 'admin' %>
+            <li>
+                <%= link_to t('shared.logs'), admin_logs_path, class: "block px-4 py-2 hover:bg-gray-100" %>
+            </li>
+        <% end %>
     </ul>
      <!-- Language Switcher -->
     <div class="py-2 text-sm text-gray-700">

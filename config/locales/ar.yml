@@ -12,6 +12,7 @@ ar:
     member_directory: "دليل الأعضاء"
     sign_out: "تسجيل الخروج"
     login: "تسجيل الدخول"
+    logs: "سجلات النشاط"
     open_main_menu: "افتح القائمة الرئيسية"
     open_user_menu: "افتح قائمة المستخدم"
     dashboard: "لوحة القيادة"
