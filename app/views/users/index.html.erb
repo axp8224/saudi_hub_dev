@@ -1,15 +1,15 @@
 <div class="container mx-auto p-6">
   <div class="flex items-center justify-between py-5">
-    <h1 class="text-2xl font-semibold text-gray-900"><%= t('.member_directory') %></h1>
+    <h1 class="text-2xl font-semibold" style="color: #471815;"><%= t('.member_directory') %></h1>
 
     <!-- Search Form in place of Back to Dashboard button -->
-    <%= form_with url: users_path, method: :get, local: true, class: "relative max-w-sm w-full" do %>
+    <%= form_with url: users_path, method: :get, local: true, class: "relative max-w-md w-full" do %>
       <!-- Search Input -->
-      <%= text_field_tag :search, params[:search], placeholder: t('users.index.search_bar', default: "Search Members"), class: "w-full pl-10 pr-10 py-2 border-2 border-brown-600 text-brown-600 rounded-full focus:outline-none focus:ring focus:ring-brown-500 focus:border-brown-500" %>
+      <%= text_field_tag :search, params[:search], placeholder: t('users.index.search_bar', default: "Search Members"), class: "w-full pl-10 pr-10 py-2 focus:outline-none", style: "border: 3px solid #471815; color: #471815; border-radius: 0.25rem; placeholder-color: #471815;" %>
 
       <!-- Search Icon as Button -->
       <button type="submit" class="absolute inset-y-0 left-0 pl-3 flex items-center">
-        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-brown-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" style="color: #471815;">
           <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-4.35-4.35M11 18a7 7 0 100-14 7 7 0 000 14z" />
         </svg>
       </button>
@@ -19,42 +19,50 @@
   <!-- Filters -->
   <div class="flex space-x-4 mb-6 ml-auto justify-end">
     <div class="w-30">
-      <%= select_tag :major, options_for_select(@majors.map { |m| [m.name, m.id] }, params[:major]), include_blank: 'All Majors', class: "w-full rounded-lg border-gray-300 focus:border-blue-500 focus:ring-blue-500" %>
+      <%= select_tag :major, options_for_select(@majors.map { |m| [m.name, m.id] }, params[:major]), include_blank: 'All Majors', class: "w-full rounded-full text-sm px-4 py-3 font-semibold", style: "border-color: #471815; color: #471815;" %> 
     </div>
-
+  
     <div class="w-30">
-      <%= select_tag :class_year, options_for_select(@class_years.map { |cy| [cy.name, cy.id] }, params[:class_year]), include_blank: 'All Class Years', class: "w-full rounded-lg border-gray-300 focus:border-blue-500 focus:ring-blue-500" %>
+      <%= select_tag :class_year, options_for_select(@class_years.map { |cy| [cy.name, cy.id] }, params[:class_year]), include_blank: 'All Class Years', class: "w-full rounded-full text-sm px-4 py-3 font-semibold", style: "border-color: #471815; color: #471815;" %>
     </div>
-
+  
     <div class="w-13">
-      <%= select_tag :per_page, options_for_select([5, 10, 20], params[:per_page] || 10), onchange: 'this.form.submit();', class: "w-full rounded-lg border-gray-300 focus:border-blue-500 focus:ring-blue-500" %>
+      <%= select_tag :per_page, options_for_select([5, 10, 20], params[:per_page] || 10), onchange: 'this.form.submit();', class: "w-full rounded-full text-sm px-4 py-3 font-semibold", style: "border-color: #471815; color: #471815;" %> 
     </div>
   </div>
+  
 
-  <!-- Member Directory List -->
-  <div class="space-y-4">
-    <% @users.each do |user| %>
-      <div class="bg-white shadow-md rounded-lg p-4 flex items-center">
-        <!-- Profile Image -->
-        <div class="w-16 h-16">
-          <img class="w-full h-full object-cover rounded-full" src="https://via.placeholder.com/150" alt="Profile image">
-        </div>
-        <!-- User Info -->
-        <div class="ml-4 flex-1">
-          <h2 class="text-lg font-semibold text-gray-800"><%= user.full_name %></h2>
-          <p class="text-sm text-gray-600">Year: <%= user.class_year.present? ? user.class_year.name : 'N/A' %></p>
-          <p class="text-sm text-gray-600">Major: <%= user.major.present? ? user.major.name : 'N/A' %></p>
-        </div>
-        <!-- Contact Info -->
-        <div class="text-right">
-          <p class="text-sm text-gray-600">Phone: ********</p>
-          <p class="text-sm text-gray-600">Email: <%= user.email %></p>
-          <%= link_to 'View Profile', user_path(user), class: 'mt-2 inline-block text-sm bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600' %>
-        </div>
+<!-- Member Directory List -->
+<div class="space-y-4 max-w-5xl mx-auto">
+  <% @users.each do |user| %>
+    <div class="bg-white shadow-md rounded-lg p-8 flex items-center justify-between" style="min-height: 180px;"> 
+      <!-- Profile Image -->
+      <div class="w-28 h-28 pr-4">
+        <img class="w-full h-full object-cover" src="https://via.placeholder.com/150" alt="Profile image" style="border-radius: 0.25rem;">
       </div>
-    <% end %>
-  </div>
+      <!-- User Info -->
+      <div class="flex-1"> 
+        <h2 class="text-2xl font-semibold" style="color: black;"><%= user.full_name %></h2>
+        <p class="text-sm font-semibold" style="color: black;">Year: <%= user.class_year.present? ? user.class_year.name : 'N/A' %></p>
+        <p class="text-sm font-semibold" style="color: black;">Major: <%= user.major.present? ? user.major.name : 'N/A' %></p>
+      </div>
+      <!-- Contact Info (Phone and Email) -->
+      <div class="flex-1 text-center">
+        <p class="text-sm font-semibold" style="color: black;">Phone: ********</p>
+        <p class="text-sm font-semibold" style="color: black;">Email: <%= user.email %></p>
+      </div>
+      <!-- View Profile Button -->
+      <div class="text-right pr-4">
+        <%= link_to 'View Profile', user_path(user), class: 'mt-2 inline-block text-sm text-white px-4 py-2 font-semibold hover:bg-[#3b0e0c]', style: "background-color: #471815; border-radius: 0.25rem;" %>
+      </div>
+    </div>
+  <% end %>
+</div>
 
+
+  
+  
+  
   <!-- Pagination -->
   <div class="mt-6">
     <%= paginate @users %>
