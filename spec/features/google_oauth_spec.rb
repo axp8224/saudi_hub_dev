@@ -5,16 +5,18 @@ RSpec.feature "Google OAuth", type: :feature do
     omniauth_mock_auth_hash
     visit new_user_session_path
     click_button "Log in with Google"
+    click_button "I Accept"
 
-    expect(page).to have_content("Welcome to Saudi Hub!")
+    expect(page).to have_content("Edit Your Profile")
   end
 
   scenario "Admin signs in with Google" do 
     omniauth_mock_auth_hash_ADMIN
     visit new_user_session_path
     click_button "Log in with Google"
+    click_button "I Accept"
 
-    expect(page).to have_content("Welcome to Saudi Hub!")
+    expect(page).to have_content("Edit Your Profile")
   end
 
   scenario "User fails to sign in with Google" do
