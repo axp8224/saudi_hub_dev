@@ -39,6 +39,21 @@ en:
       manage_users: "Manage Users"
   shared:
     saudi_hub: "Saudi Community Hub"
+  flash:
+    types:
+      success: "Success"
+      notice: "Notice"
+      alert: "Alert"
+      warning: "Warning"
+    profile:
+      update_success: "Profile updated successfully!"
+      update_failure: "There was an error updating your profile. Please try again."
+    admin:
+      resource_updated: "Resource %{title} was updated successfully."
+      update_failed: "Unable to update resource."
+      role_update_success: "%{name}'s role was updated successfully."
+      role_update_failure: "Unable to update role."
+      access_denied: "Access denied."
   home:
     show:
       welcome: "Welcome to the Saudi Community Hub!"
