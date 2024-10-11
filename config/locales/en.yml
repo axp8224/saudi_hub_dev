@@ -108,6 +108,7 @@ en:
   resources:
     index:
       manage_resources: "Manage Resources"
+    written_by: "Written by: %{author_name}"
       
   admin:
     users:
