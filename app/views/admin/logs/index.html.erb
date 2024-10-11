@@ -15,7 +15,7 @@
         <td><%= log.user_email %></td>
         <td><%= log.action %></td>
         <td><%= log.description %></td>
-        <td><%= log.action_timestamp %></td>
+        <td><%= log.action_timestamp.strftime("%Y-%m-%d %H:%M:%S") %></td>
       </tr>
     <% end %>
   </tbody>
