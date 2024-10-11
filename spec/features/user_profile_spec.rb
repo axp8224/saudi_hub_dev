@@ -19,6 +19,7 @@ RSpec.feature "UserProfile", type: :feature do
     omniauth_mock_auth_hash
     visit new_user_session_path
     click_button "Log in with Google"
+    click_button "I Accept"
   end
 
   scenario "User views their profile" do
