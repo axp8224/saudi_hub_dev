@@ -12,6 +12,7 @@ ar:
     member_directory: "دليل الأعضاء"
     sign_out: "تسجيل الخروج"
     login: "تسجيل الدخول"
+    logs: "سجلات النشاط"
     open_main_menu: "افتح القائمة الرئيسية"
     open_user_menu: "افتح قائمة المستخدم"
     dashboard: "لوحة القيادة"
@@ -100,6 +101,7 @@ ar:
   admin:
     users:
       edit:
+        your_profile: "ملفك الشخصي"
         bio: "ْعَنِّي"
         class_year: "تصنيف"
         edit_your_profile: "تعديل ملفك الشخصي"

@@ -14,6 +14,7 @@ Rails.application.routes.draw do
   namespace :admin do
     resources :users, only: [:index, :edit, :update]
     resources :resources, only: [:index, :edit, :update]
+    resources :logs, only: [:index]
   end
 
   get 'profile', to: 'users#show', as: 'user_profile'
