@@ -49,6 +49,9 @@ RSpec.feature "UserProfile", type: :feature do
     expect(page).to have_select('user_class_year_id', visible: true)
     select 'Junior', from: 'user_class_year_id' 
 
+    expect(page).to have_select('user_major_id', visible: true)
+    select 'Accounting', from: 'user_major_id' 
+
     click_button 'Update Profile'
 
     expect(page).to have_content('Profile updated successfully!')
@@ -60,5 +63,6 @@ RSpec.feature "UserProfile", type: :feature do
     # expect(page).to have_css('#user_class_year_id.form-control')
     # selected_option = find('#user_class_year_id').find('option[selected]').text
     expect(user.class_year.name).to eq 'Junior'
+    expect(user.major.name).to eq 'Accounting'
   end
 end
