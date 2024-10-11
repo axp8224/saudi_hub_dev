@@ -28,7 +28,6 @@
     </div>
   <% end %>
 
-
   <div class="form-group">
     <%= f.label :major, t('.major')%>
     <%= f.collection_select :major_id, @majors, :id, :name, include_blank: 'Select Major', class: 'form-control' %>
@@ -39,7 +38,6 @@
     <%= f.collection_select :class_year_id, @class_years, :id, :name, { include_blank: 'Select Classification' }, { class: 'form-control' } %>
   </div>
 
-  <!-- STYLE ERROR MESSAGES LATER -->
   <div class="form-group <%= 'has-error' if @user.errors[:grad_year].any? %>">
     <%= f.label :grad_year, t('.grad_year') %>
     <%= f.number_field :grad_year, placeholder: 'Input year here', class: 'form-control' %>
@@ -56,7 +54,6 @@
     <%= f.text_area :bio, placeholder: 'Input your bio here', class: 'form-control' %>
   </div>
 
-  <!-- Submit Button -->
   <div class="form-group">
     <%= f.submit t('.update_profile'), class: 'btn btn-primary' %>
   </div>
