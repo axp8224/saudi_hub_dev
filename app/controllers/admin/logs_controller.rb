@@ -4,7 +4,7 @@ module Admin
     before_action :admin_only
 
     def index
-      @logs = Log.order(created_at: :desc).all
+      @logs = Log.order(action_timestamp: :desc).all
     end
 
     private
