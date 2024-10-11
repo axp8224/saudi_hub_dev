@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.feature "Resources", type: :feature do
+RSpec.feature 'Resources', type: :feature do
   let(:user) { User.find_by(email: 'sample@example.com') }
   let(:restaurant_type) { ResourceType.find_by(title: 'Restaurants') }
   let(:apartment_type) { ResourceType.find_by(title: 'Apartments') }
@@ -12,12 +12,13 @@ RSpec.feature "Resources", type: :feature do
   before do
     omniauth_mock_auth_hash
     visit new_user_session_path
-    click_button "Log in with Google"
+    click_button 'Log in with Google'
+    click_button 'I Accept'
   end
 
-  scenario "User views all active resources" do
+  scenario 'User views all active resources' do
     visit resources_path
-    
+
     expect(page).to have_content('Resources')
     active_resources.each do |resource|
       expect(page).to have_content(resource.title)
@@ -27,7 +28,7 @@ RSpec.feature "Resources", type: :feature do
     end
   end
 
-  scenario "User filters resources by type" do
+  scenario 'User filters resources by type' do
     visit resources_path
     click_link restaurant_type.title
 
@@ -39,7 +40,7 @@ RSpec.feature "Resources", type: :feature do
     end
   end
 
-  scenario "User sees all resource types in sidebar" do
+  scenario 'User sees all resource types in sidebar' do
     visit resources_path
 
     expect(page).to have_content('All Resources')
@@ -47,5 +48,4 @@ RSpec.feature "Resources", type: :feature do
       expect(page).to have_content(resource_type.title)
     end
   end
-
 end
