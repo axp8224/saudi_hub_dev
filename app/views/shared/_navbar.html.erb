@@ -8,9 +8,38 @@
     <!-- User Menu -->
     <div id="avatarMenuWrapper" class="sm:flex space-x-3 lg:order-2 lg:space-x-0 <%= I18n.locale == :ar ? 'mr-auto' : 'ml-auto' %>">
       <% if user_signed_in? %>
-        <%= render 'shared/avatar_dropdown'%>
+        <%= render 'shared/avatar_dropdown' %>
       <% else %>
-        <%= link_to "Login", new_user_session_path, class: "text-[#471815] bg-white hover:bg-[#173821] hover:text-white font-medium rounded-lg text-sm px-4 py-2 text-center inline-block" %>
+        <!-- Avatar Button for Non-Signed In Users -->
+        <button id="dropdownAvatarNameButton" data-dropdown-toggle="dropdownAvatarName" class="flex items-center text-md pe-1 font-medium bg-[#471815] text-white hover:bg-transparent hover:text-opacity-100 text-opacity-75 rounded p-2" type="button">
+            <span class="sr-only"><%= t('shared.open_user_menu') %></span>
+            
+            <!-- Default Avatar Image -->
+            <%= image_tag '/default-avatar.svg', class: 'w-8 h-8 rounded-full', alt: 'Default avatar' %>
+
+            <!-- Text and arrow elements hidden on sm -->
+            <span class="ms-2 hidden sm:inline md:inline lg:inline xl:inline"><%= t('shared.login') %></span>
+            
+            <svg class="w-2.5 h-2.5 mx-2 hidden sm:inline md:inline lg:inline xl:inline" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
+                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 4 4 4-4"/>
+            </svg>
+        </button>
+
+        <!-- Dropdown Menu for Non-Signed In Users -->
+        <div id="dropdownAvatarName" class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 ">
+          <ul class="py-2 text-sm text-gray-700" aria-labelledby="dropdownUserAvatarButton">
+              <!-- Login Option -->
+              <li>
+                  <%= link_to t('shared.login'), new_user_session_path, class: "block px-4 py-2 hover:bg-gray-100" %>
+              </li>
+          </ul>
+          
+          <!-- Language Switcher -->
+          <div class="py-2 text-sm text-gray-700">
+              <%= link_to 'English', switch_locale_path(locale: 'en'), class: "px-4 py-2 hover:bg-gray-100" %> |
+              <%= link_to 'العربية', switch_locale_path(locale: 'ar'), class: "px-4 py-2 hover:bg-gray-100" %>
+          </div>
+        </div>
       <% end %>
     </div>
 

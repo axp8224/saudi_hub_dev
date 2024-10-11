@@ -4,14 +4,15 @@ module Admin
     before_action :admin_only
 
     def index
-      per_page = params[:per_page] || 10  # Default to 10 if not set
+      per_page = params[:per_page] || 10 # Default to 10 if not set
       if params[:search].present?
         search_query = "%#{params[:search]}%"
-        @users = User.where("full_name ILIKE :search OR email ILIKE :search", search: search_query).page(params[:page]).per(per_page)
+        @users = User.where('full_name ILIKE :search OR email ILIKE :search',
+                            search: search_query).page(params[:page]).per(per_page)
       else
         @users = User.page(params[:page]).per(per_page)
       end
-    end       
+    end
 
     def edit
       @user = User.find(params[:id])
@@ -21,9 +22,10 @@ module Admin
     def update
       @user = User.find(params[:id])
       if @user.update(role_id: params[:user][:role_id])
-        redirect_to admin_users_path, notice: "#{@user.full_name}'s role was updated successfully."
+        flash[:success] = t('flash.admin.role_update_success', name: @user.full_name)
+        redirect_to admin_users_path
       else
-        flash.now[:alert] = "Unable to update role."
+        flash.now[:alert] = t('flash.admin.role_update_failure')
         render :edit
       end
     end
@@ -31,9 +33,10 @@ module Admin
     private
 
     def admin_only
-      unless current_user.role.name == 'admin'
-        redirect_to root_path, alert: "Access denied."
-      end
+      return if current_user.role.name == 'admin'
+
+      flash[:alert] = t('flash.admin.access_denied')
+      redirect_to root_path
     end
   end
 end

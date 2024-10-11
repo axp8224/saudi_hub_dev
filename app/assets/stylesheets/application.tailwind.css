@@ -25,3 +25,21 @@
 body {
   min-width: 320px; 
 }
+
+.accept-btn {
+  background-color: #596c57 !important;
+  color: white !important;
+}
+
+.accept-btn:hover {
+  background-color: #173821 !important;
+}
+
+.decline-btn {
+  @apply text-gray-900
+}
+
+.decline-btn:hover {
+  color: #596c57 !important;
+}
+
