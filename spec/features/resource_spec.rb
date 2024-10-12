@@ -89,6 +89,8 @@ RSpec.feature 'Resources', type: :feature do
 
     click_button 'Create Resource'
 
+    expect(page).to have_content('Resource was successfully created.')
+
     fill_in 'search', with: 'Sample Resource'
     click_button 'Search'
 

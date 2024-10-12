@@ -30,7 +30,8 @@ class ResourcesController < ApplicationController
     @resource.status = 'active'
 
     if @resource.save
-      redirect_to resources_path, notice: 'Resource was successfully created.'
+      flash[:success] = t('flash.resource.create_success')
+      redirect_to resources_path
     else
       @resource_types = ResourceType.all
       render :new
@@ -47,5 +48,4 @@ class ResourcesController < ApplicationController
   def resource_params
     params.require(:resource).permit(:title, :description, :resource_type_id, images: [])
   end
-
 end
