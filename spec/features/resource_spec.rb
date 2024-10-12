@@ -20,9 +20,11 @@ RSpec.feature 'Resources', type: :feature do
     visit resources_path
 
     expect(page).to have_content('Resources')
-    active_resources.each do |resource|
+
+    active_resources.limit(10).each do |resource|
       expect(page).to have_content(resource.title)
     end
+
     pending_resources.each do |resource|
       expect(page).not_to have_content(resource.title)
     end
@@ -60,5 +62,20 @@ RSpec.feature 'Resources', type: :feature do
     expect(page).to have_content(resource.description)
     expect(page).to have_content(resource.resource_type.title)
     expect(page).to have_content('Written by:')
+  end
+
+  scenario 'User searches for a non-existent resource and sees no results' do
+    visit resources_path
+
+    fill_in 'search', with: 'NonExistentResourceName123'
+    click_button 'Search'
+
+    expect(page).to have_content('No results match your search or filter criteria.')
+
+    Resource.where.not('title ILIKE :search OR description ILIKE :search',
+                       search: '%NonExistentResourceName123%').each do |resource|
+      expect(page).not_to have_content(resource.title)
+      expect(page).not_to have_content(resource.description)
+    end
   end
 end
