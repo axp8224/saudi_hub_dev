@@ -3,9 +3,17 @@ class ResourcesController < ApplicationController
     @resources = Resource.where(status: 'active')
     @resource_types = ResourceType.all
 
-    return unless params[:resource_type_id].present?
+    # Filter resources by type if specified
+    @resources = @resources.where(resource_type_id: params[:resource_type_id]) if params[:resource_type_id].present?
 
-    @resources = @resources.where(resource_type_id: params[:resource_type_id])
+    # Filter by search query if present
+    if params[:search].present?
+      @resources = @resources.where('title ILIKE :search OR description ILIKE :search', search: "%#{params[:search]}%")
+    end
+
+    # Paginate the resources
+    per_page = params[:per_page] || 10 # Set a default per page value
+    @resources = @resources.page(params[:page]).per(per_page)
   end
 
   def show

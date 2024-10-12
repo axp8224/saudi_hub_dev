@@ -1,4 +1,4 @@
-<h1>Resources</h1>
+<h1><%= t('shared.resources') %></h1>
 <%= link_to t('.manage_resources', Default: "Manage Resources"), admin_resources_path %> 
 <div style="display: flex;">
   <div style="width: 25%; padding-right: 20px;">
@@ -14,14 +14,18 @@
       <% end %>
     </ul>
   </div>
+
+  <%= render 'shared/search_form', 
+           form_url: resources_path, 
+           show_text_search: true,
+           text_search_label: t('search.resources.search_resources', default: "Search Resources"),
+           text_search_placeholder: t('search.resources.search_bar', default: "Enter resource title or description"),
+           show_major_filter: false, 
+           show_class_year_filter: false, 
+           show_per_page: true, 
+           per_page_label: t('users.index.items_per_page', default: "Items per page")%>
+
   <div style="width: 75%;">
-    <ul style="list-style-type: none; padding: 0;">
-      <% @resources.each do |resource| %>
-        <li style="margin-bottom: 20px;">
-          <h3><%= link_to resource.title, resource_path(resource) %></h3>
-          <p><%= resource.description %></p>
-        </li>
-      <% end %>
-    </ul>
+    <%= render 'resource_list', resources: @resources %>
   </div>
 </div>

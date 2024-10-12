@@ -1,0 +1,15 @@
+<ul id="resource-list" style="list-style-type: none; padding: 0;">
+  <% if resources.any? %>
+    <% resources.each do |resource| %>
+      <li style="margin-bottom: 20px;">
+        <h3><%= link_to resource.title, resource_path(resource) %></h3>
+        <p><%= resource.description %></p>
+      </li>
+    <% end %>
+
+    <!-- Pagination -->
+    <%= paginate resources %>
+  <% else %>
+    <li><%= t('search.no_results')%></li>
+  <% end %>
+</ul>
