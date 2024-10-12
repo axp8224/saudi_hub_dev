@@ -1,52 +1,70 @@
-<%= link_to( t('.back_to_dashboard'), root_path, class: 'btn btn-primary' ) %>
-<h1><%= t('.member_directory') %></h1>
+<div class="container mx-auto p-6">
+  <div class="flex items-center justify-between py-5">
+    <h1 class="text-2xl font-semibold" style="color: #471815;"><%= t('.member_directory') %></h1>
 
-<div>
-  <!-- Search Form -->
-  <%= form_with url: users_path, method: :get, local: true do %>
-    <div class="form-group">
-      <%= label_tag :search, t('users.index.search_members', default: "Search Members") %>
-      <%= text_field_tag :search, params[:search], placeholder: t('users.index.search_bar', default: "Enter full name or email"), class: "form-control" %>
-      
-      <%= label_tag :major,  t('users.index.filter_by_major', default: "Filter by Major") %>
-      <%= select_tag :major, options_for_select(@majors.map { |m| [m.name, m.id] }, params[:major]), include_blank: 'All Majors', class: "form-control", onchange: 'this.form.submit();' %>
+    <!-- Search Form in place of Back to Dashboard button -->
+    <%= form_with url: users_path, method: :get, local: true, class: "relative max-w-md w-full" do %>
+      <!-- Search Input -->
+      <%= text_field_tag :search, params[:search], placeholder: t('users.index.search_bar', default: "Search Members"), class: "w-full pl-10 pr-10 py-2 focus:outline-none", style: "border: 3px solid #471815; color: #471815; border-radius: 0.25rem; placeholder-color: #471815;" %>
 
-      <%= label_tag :class_year, t('users.index.filter_by_class_year', default: "Filter by Class Year") %>
-      <%= select_tag :class_year, options_for_select(@class_years.map { |cy| [cy.name, cy.id] }, params[:class_year]), include_blank: 'All Class Years', class: "form-control", onchange: 'this.form.submit();' %>
+      <!-- Search Icon as Button -->
+      <button type="submit" class="absolute inset-y-0 left-0 pl-3 flex items-center">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" style="color: #471815;">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-4.35-4.35M11 18a7 7 0 100-14 7 7 0 000 14z" />
+        </svg>
+      </button>
+    <% end %>
+  </div>
 
-      <%= label_tag :per_page, t('users.index.items_per_page', default: "Items per page") %>
-      <%= select_tag :per_page, options_for_select([5, 10, 20], params[:per_page] || 10), onchange: 'this.form.submit();', class: "form-control" %>
-      
-      <%= submit_tag "Search", class: "btn btn-primary" %>
+  <!-- Filters -->
+  <div class="flex space-x-4 mb-6 ml-auto justify-end">
+    <div class="w-30">
+      <%= select_tag :major, options_for_select(@majors.map { |m| [m.name, m.id] }, params[:major]), include_blank: 'All Majors', class: "w-full rounded-full text-sm px-4 py-3 font-semibold", style: "border-color: #471815; color: #471815;" %> 
+    </div>
+  
+    <div class="w-30">
+      <%= select_tag :class_year, options_for_select(@class_years.map { |cy| [cy.name, cy.id] }, params[:class_year]), include_blank: 'All Class Years', class: "w-full rounded-full text-sm px-4 py-3 font-semibold", style: "border-color: #471815; color: #471815;" %>
+    </div>
+  
+    <div class="w-13">
+      <%= select_tag :per_page, options_for_select([5, 10, 20], params[:per_page] || 10), onchange: 'this.form.submit();', class: "w-full rounded-full text-sm px-4 py-3 font-semibold", style: "border-color: #471815; color: #471815;" %> 
+    </div>
+  </div>
+  
+
+<!-- Member Directory List -->
+<div class="space-y-4 max-w-5xl mx-auto">
+  <% @users.each do |user| %>
+    <div class="bg-white shadow-md rounded-lg p-8 flex items-center justify-between" style="min-height: 180px;"> 
+      <!-- Profile Image -->
+      <div class="w-28 h-28 pr-4">
+        <img class="w-full h-full object-cover" src="https://via.placeholder.com/150" alt="Profile image" style="border-radius: 0.25rem;">
+      </div>
+      <!-- User Info -->
+      <div class="flex-1"> 
+        <h2 class="text-2xl font-semibold" style="color: black;"><%= user.full_name %></h2>
+        <p class="text-sm font-semibold" style="color: black;">Year: <%= user.class_year.present? ? user.class_year.name : 'N/A' %></p>
+        <p class="text-sm font-semibold" style="color: black;">Major: <%= user.major.present? ? user.major.name : 'N/A' %></p>
+      </div>
+      <!-- Contact Info (Phone and Email) -->
+      <div class="flex-1 text-center">
+        <p class="text-sm font-semibold" style="color: black;">Phone: ********</p>
+        <p class="text-sm font-semibold" style="color: black;">Email: <%= user.email %></p>
+      </div>
+      <!-- View Profile Button -->
+      <div class="text-right pr-4">
+        <%= link_to 'View Profile', user_path(user), class: 'mt-2 inline-block text-sm text-white px-4 py-2 font-semibold hover:bg-[#3b0e0c]', style: "background-color: #471815; border-radius: 0.25rem;" %>
+      </div>
     </div>
   <% end %>
+</div>
 
-  <!-- Users Table -->
-  <table class="table table-striped">
-    <thead>
-      <tr>
-        <th><%= t('.name') %></th>
-        <th><%= t('.email') %></th>
-        <th><%= t('.bio') %></th>
-        <th><%= t('.class_year') %></th>
-        <th><%= t('.major') %></th>
-        <th><%= t('.role') %></th>
-      </tr>
-    </thead>
-    <tbody>
-      <% @users.each do |user| %>
-        <tr>
-          <td><%= user.full_name %></td>
-          <td><%= user.email %></td>
-          <td><%= user.bio %></td>
-          <td><%= user.class_year.present? ? user.class_year.name : '' %></td>
-          <td><%= user.major.present? ? user.major.name : '' %></td>
-          <td><%= user.role.name %></td>
-        </tr>
-      <% end %>
-    </tbody>
-  </table>
 
+  
+  
+  
   <!-- Pagination -->
-  <%= paginate @users %>
+  <div class="mt-6">
+    <%= paginate @users %>
+  </div>
 </div>
