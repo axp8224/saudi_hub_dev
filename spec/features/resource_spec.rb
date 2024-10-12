@@ -48,4 +48,17 @@ RSpec.feature 'Resources', type: :feature do
       expect(page).to have_content(resource_type.title)
     end
   end
+
+  scenario 'User views a specific resource page' do
+    visit resources_path
+
+    resource = active_resources.first
+
+    click_link resource.title
+
+    expect(page).to have_content(resource.title)
+    expect(page).to have_content(resource.description)
+    expect(page).to have_content(resource.resource_type.title)
+    expect(page).to have_content('Written by:')
+  end
 end
