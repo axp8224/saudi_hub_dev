@@ -1,11 +1,18 @@
 <ul id="resource-list" style="list-style-type: none; padding: 0;">
   <% if resources.any? %>
-    <% resources.each do |resource| %>
-      <li style="margin-bottom: 20px;">
-        <h3><%= link_to resource.title, resource_path(resource) %></h3>
-        <p><%= resource.description %></p>
-      </li>
-    <% end %>
+    <% @resources.each do |resource| %>
+        <li style="margin-bottom: 20px;">
+          <h3><%= link_to resource.title, resource_path(resource) %></h3>
+          <p><%= resource.description %></p>
+          <% if resource.images.attached? %>
+            <div style="display: flex; gap: 10px;">
+              <% resource.images.each do |image| %>
+                <%= image_tag image, style: "max-width: 100px; max-height: 100px;" %>
+              <% end %>
+            </div>
+          <% end %>
+        </li>
+      <% end %>
 
     <!-- Pagination -->
     <%= paginate resources %>

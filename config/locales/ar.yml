@@ -47,6 +47,8 @@ ar:
       role_update_success: "تم تحديث دور %{name} بنجاح."
       role_update_failure: "تعذر تحديث الدور."
       access_denied: "تم رفض الوصول."
+    resource:
+      create_success: "تم إنشاء المورد بنجاح."
   home:
     show:
       welcome: "مرحبا بكم في مركز المجتمع السعودي!"

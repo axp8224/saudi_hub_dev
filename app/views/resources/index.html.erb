@@ -1,5 +1,6 @@
 <h1><%= t('shared.resources') %></h1>
-<%= link_to t('.manage_resources', Default: "Manage Resources"), admin_resources_path %> 
+<%= link_to t('.manage_resources', default: "Manage Resources"), admin_resources_path, class: 'btn btn-primary' %>
+<%= link_to t('.submit_resource', default: "Submit Resource"), new_resource_path, class: 'btn btn-success', style: 'margin-left: 10px;' %>
 <div style="display: flex;">
   <div style="width: 25%; padding-right: 20px;">
     <h2>Resource Types</h2>
