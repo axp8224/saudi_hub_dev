@@ -3,33 +3,33 @@
   <div class="max-w-4xl mx-auto text-center"> 
 
     <!-- Name Section -->
-    <div class="mb-8 pt-20">
-      <h1 class="text-4xl font-semibold" style="color: #C29062;"><%= @user.full_name %></h1> 
+    <div class="mb-8 pt-20 flex justify-start">
+      <h1 class="text-4xl font-semibold" style="color: #C29062;"><%= @user.full_name %></h1>
     </div>
 
-    <!-- Avatar and Bio Section -->
-    <div class="relative flex justify-center items-start mb-6">
+    <!-- Bio and Avatar Section (Switched Positions) -->
+    <div class="relative flex justify-between items-start mb-6"> 
 
-      <!-- Profile Avatar -->
-      <% if @user.avatar.attached? %>
-        <div class="w-40 h-40 mr-8 mb-4 rounded-md"> <!-- Removed background color and kept avatar rounded -->
-          <%= image_tag(@user.avatar, class: 'w-full h-full object-cover rounded-md', alt: t('.your_profile')) %> <!-- Image is circular with 'rounded-full' -->
-        </div>
-      <% end %>
-    
-      <!-- Bio Section wrapping around the avatar -->
-      <div class="flex-1 text-left">
+      <!-- Bio Section on the left now -->
+      <div class="flex-1 text-left"> 
         <p class="text-gray-700 text-lg leading-relaxed">
           <%= @user.bio.present? ? @user.bio : t('.no_bio') %> <!-- Optional About Text -->
         </p>
       </div>
+
+      <!-- Profile Avatar on the right now -->
+      <% if @user.avatar.attached? %>
+        <div class="w-52 h-52 pl-10 mb-4 rounded-md"> 
+          <%= image_tag(@user.avatar, class: 'w-full h-full object-cover rounded-md', alt: t('.your_profile')) %>
+        </div>
+      <% end %>
     </div>
 
-    <!-- Fancy Gradient Divider -->
-    <hr class="my-6" style="border: none; height: 3px; background: linear-gradient(to right, #C29062, black);">
+    <!-- Fancy Gradient Divider (Shortened and Left-Aligned) -->
+    <hr class="my-6 ml-0 w-1/2" style="border: none; height: 3px; background: linear-gradient(to right, #C29062, black);">   
 
-    <!-- Profile Details Section -->
-    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-lg">
+    <!-- Profile Details Section (Vertical Alignment) -->
+    <div class="flex flex-col items-start gap-4 text-lg text-left mt-6"> 
       <p><strong><%= t('.role') %>:</strong> <%= @user.role.name %></p>
       <p><strong><%= t('.email') %>:</strong> <%= @user.email %></p>
       <p><strong><%= t('.major') %>:</strong> <%= @user.major.name if @user.major %></p>
@@ -43,4 +43,3 @@
     </div>
   </div>
 </div>
-
