@@ -1,35 +1,35 @@
 <div class="container mx-auto p-6">
   <!-- Profile Section -->
-  <div class="max-w-4xl mx-auto text-center"> 
+  <div class="max-w-4xl mx-auto">
 
     <!-- Name Section -->
-    <div class="mb-8 pt-20">
-      <h1 class="text-4xl font-semibold" style="color: #C29062;"><%= @user.full_name %></h1> 
+    <div class="mb-4 pt-16 flex justify-start">
+      <h1 class="text-4xl font-semibold" style="color: #C29062;"><%= @user.full_name %></h1>
     </div>
 
-    <!-- Avatar and Bio Section -->
-    <div class="relative flex justify-center items-start mb-6">
+    <!-- Bio and Avatar Section -->
+    <div class="relative flex sm:flex-row justify-between items-start sm:items-center mb-4 sm:mb-2 gap-0"> <!-- Removed gap-4 -->
+
+      <!-- Bio Section -->
+      <div class="w-1/2 text-left"> 
+        <p class="text-gray-700 text-lg leading-relaxed">
+          <%= @user.bio.present? ? @user.bio : t('.no_bio') %>
+        </p>
+      </div>
 
       <!-- Profile Avatar -->
       <% if @user.avatar.attached? %>
-        <div class="w-40 h-40 mr-8 mb-4 rounded-md"> <!-- Removed background color and kept avatar rounded -->
-          <%= image_tag(@user.avatar, class: 'w-full h-full object-cover rounded-md', alt: t('.your_profile')) %> <!-- Image is circular with 'rounded-full' -->
+        <div class="w-30 h-30 flex-shrink-0 ml-4 sm:ml-0"> 
+          <%= image_tag(@user.avatar, size: "350x350", class: ' object-cover rounded-md', alt: t('.your_profile')) %>
         </div>
       <% end %>
-    
-      <!-- Bio Section wrapping around the avatar -->
-      <div class="flex-1 text-left">
-        <p class="text-gray-700 text-lg leading-relaxed">
-          <%= @user.bio.present? ? @user.bio : t('.no_bio') %> <!-- Optional About Text -->
-        </p>
-      </div>
     </div>
 
     <!-- Fancy Gradient Divider -->
-    <hr class="my-6" style="border: none; height: 3px; background: linear-gradient(to right, #C29062, black);">
+    <hr class="my-4 ml-0 w-1/2" style="border: none; height: 3px; background: linear-gradient(to right, #C29062, black);">
 
     <!-- Profile Details Section -->
-    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-lg">
+    <div class="w-1/2 flex flex-col items-start gap-2 text-lg text-left mt-4">
       <p><strong><%= t('.role') %>:</strong> <%= @user.role.name %></p>
       <p><strong><%= t('.email') %>:</strong> <%= @user.email %></p>
       <p><strong><%= t('.major') %>:</strong> <%= @user.major.name if @user.major %></p>
@@ -38,9 +38,8 @@
     </div>
 
     <!-- Edit Profile Button -->
-    <div class="text-center mt-8">
+    <div class="text-left mt-6">
       <%= link_to t('.edit_your_profile'), edit_user_profile_path, class: 'mt-2 inline-block text-sm text-white px-4 py-2 font-semibold hover:bg-[#3b0e0c]', style: "background-color: #471815; border-radius: 0.25rem;" %>
     </div>
   </div>
 </div>
-
