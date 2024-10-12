@@ -1,35 +1,35 @@
 <div class="container mx-auto p-6">
   <!-- Profile Section -->
-  <div class="max-w-4xl mx-auto text-center"> 
+  <div class="max-w-4xl mx-auto">
 
-    <!-- Name Section -->
-    <div class="mb-8 pt-20 flex justify-start">
+    <!-- Name Section (Aligned with Bio) -->
+    <div class="mb-4 pt-16 flex justify-start">
       <h1 class="text-4xl font-semibold" style="color: #C29062;"><%= @user.full_name %></h1>
     </div>
 
-    <!-- Bio and Avatar Section (Switched Positions) -->
-    <div class="relative flex justify-between items-start mb-6"> 
+    <!-- Bio and Avatar Section (Separated into Two Containers) -->
+    <div class="relative flex sm:flex-row justify-between items-start sm:items-center mb-4 sm:mb-2 gap-0"> <!-- Removed gap-4 -->
 
-      <!-- Bio Section on the left now -->
-      <div class="flex-1 text-left"> 
+      <!-- Bio Section (Left-aligned, limited width to match the gradient) -->
+      <div class="w-1/2 text-left"> <!-- Bio container width limited to 50% (same as gradient) -->
         <p class="text-gray-700 text-lg leading-relaxed">
-          <%= @user.bio.present? ? @user.bio : t('.no_bio') %> <!-- Optional About Text -->
+          <%= @user.bio.present? ? @user.bio : t('.no_bio') %>
         </p>
       </div>
 
-      <!-- Profile Avatar on the right now -->
+      <!-- Profile Avatar (Right-aligned, reduced spacing) -->
       <% if @user.avatar.attached? %>
-        <div class="w-52 h-52 pl-10 mb-4 rounded-md"> 
-          <%= image_tag(@user.avatar, class: 'w-full h-full object-cover rounded-md', alt: t('.your_profile')) %>
+        <div class="w-30 h-30 flex-shrink-0 ml-4 sm:ml-0"> <!-- Reduced margin for closer alignment -->
+          <%= image_tag(@user.avatar, size: "350x350", class: ' object-cover rounded-md', alt: t('.your_profile')) %>
         </div>
       <% end %>
     </div>
 
-    <!-- Fancy Gradient Divider (Shortened and Left-Aligned) -->
-    <hr class="my-6 ml-0 w-1/2" style="border: none; height: 3px; background: linear-gradient(to right, #C29062, black);">   
+    <!-- Fancy Gradient Divider (Aligned with Bio, 50% Width) -->
+    <hr class="my-4 ml-0 w-1/2" style="border: none; height: 3px; background: linear-gradient(to right, #C29062, black);">
 
-    <!-- Profile Details Section (Vertical Alignment) -->
-    <div class="flex flex-col items-start gap-4 text-lg text-left mt-6"> 
+    <!-- Profile Details Section (Left-aligned with Bio) -->
+    <div class="w-1/2 flex flex-col items-start gap-2 text-lg text-left mt-4"> <!-- Same width as bio and gradient -->
       <p><strong><%= t('.role') %>:</strong> <%= @user.role.name %></p>
       <p><strong><%= t('.email') %>:</strong> <%= @user.email %></p>
       <p><strong><%= t('.major') %>:</strong> <%= @user.major.name if @user.major %></p>
@@ -37,8 +37,8 @@
       <p><strong><%= t('.grad_year') %>:</strong> <%= @user.grad_year if @user.grad_year %></p>
     </div>
 
-    <!-- Edit Profile Button -->
-    <div class="text-center mt-8">
+    <!-- Edit Profile Button (Aligned to the left) -->
+    <div class="text-left mt-6">
       <%= link_to t('.edit_your_profile'), edit_user_profile_path, class: 'mt-2 inline-block text-sm text-white px-4 py-2 font-semibold hover:bg-[#3b0e0c]', style: "background-color: #471815; border-radius: 0.25rem;" %>
     </div>
   </div>
