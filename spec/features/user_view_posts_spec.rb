@@ -48,7 +48,7 @@ RSpec.feature "UserViewPosts", type: :feature do
   scenario "user navigates to someone else's posts" do 
     other_user = User.find_by(email: "sample2@example.com")
 
-    visit posts_user_path(user)
+    visit posts_user_path(other_user)
 
     expect(page).to have_content(t('resources.user_posts.only_your_posts'))
   
