@@ -15,34 +15,11 @@
            per_page_label: t('users.index.items_per_page', default: "Items per page") %>
 
   <% if @users.any? %>
-    <!-- Users Table -->
-    <table class="table table-striped">
-      <thead>
-        <tr>
-          <th><%= t('.name') %></th>
-          <th><%= t('.email') %></th>
-          <th><%= t('.bio') %></th>
-          <th><%= t('.class_year') %></th>
-          <th><%= t('.major') %></th>
-          <th><%= t('.role') %></th>
-        </tr>
-      </thead>
-      <tbody>
-        <% @users.each do |user| %>
-          <tr>
-            <td><%= user.full_name %></td>
-            <td><%= user.email %></td>
-            <td><%= user.bio %></td>
-            <td><%= user.class_year.present? ? user.class_year.name : '' %></td>
-            <td><%= user.major.present? ? user.major.name : '' %></td>
-            <td><%= user.role.name %></td>
-          </tr>
-        <% end %>
-      </tbody>
-    </table>
-
-    <!-- Pagination -->
+  
     <%= paginate @users %>
+    <%= render 'member_list' %>
+    <%= paginate @users %>
+
   <% else %>
     <p><%= t('search.no_results') %></p>
   <% end %>
