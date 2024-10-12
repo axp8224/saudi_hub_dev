@@ -4,7 +4,7 @@
     <ol class="inline-flex items-center space-x-1 md:space-x-2 rtl:space-x-reverse py-4">
         <!-- Resources -->
         <li class="inline-flex items-center">
-            <%= link_to t('shared.resources'), resources_path, class: 'inline-flex items-center text-lg font-medium text-color1 hover:text-blue-600' %>
+            <%= link_to t('shared.resources'), resources_path, class: 'inline-flex items-center text-lg font-medium text-color1 hover:underline' %>
         </li>
 
         <!-- Resource Type -->
@@ -14,7 +14,7 @@
             <svg class="w-4 h-4 text-color1 mx-1 <%= I18n.locale == :ar ? 'rotate-180' : '' %>" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
             <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 9 4-4-4-4"/>
             </svg>
-            <%= link_to @resource.resource_type.title, resources_path(resource_type_id: @resource.resource_type.id), class: 'ms-1 text-lg font-medium text-color1 hover:text-blue-600 md:ms-2' %>
+            <%= link_to @resource.resource_type.title, resources_path(resource_type_id: @resource.resource_type.id), class: 'ms-1 text-lg font-medium text-color1 hover:underline md:ms-2' %>
         </div>
         </li>
         <% end %>
