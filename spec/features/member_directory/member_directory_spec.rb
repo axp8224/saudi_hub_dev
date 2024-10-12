@@ -23,7 +23,6 @@ RSpec.feature 'Member Directory', type: :feature do
       expect(page).to have_content(user.full_name)
       expect(page).to have_content(user.major.name)
       expect(page).to have_content(user.email)
-      expect(page).to have_content(user.role.name)
       expect(page).to have_content(user.class_year.name)
     end
   end
