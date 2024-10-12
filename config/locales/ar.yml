@@ -171,9 +171,19 @@ ar:
         log_in_with: "تسجيل الدخول بواسطة %{provider}"
   
   resources:
+    status: "الحالة"
+    title: "العنوان"
+    description: "الوصف"
+    type: "النوع"
+    author: "المؤلف"
+    
     index:
+      resources: "الموارد"
       manage_resources: "إدارة الموارد"
     written_by: "كتب بواسطة: %{author_name}"
+    user_posts:
+      my_posts: "مشاركاتي"
+      only_your_posts: "يمكنك عرض مشاركاتك فقط."
 
   admin:
     users:

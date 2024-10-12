@@ -19,8 +19,11 @@ Rails.application.routes.draw do
 
   get 'profile', to: 'users#show', as: 'user_profile'
 
-  resources :users, only: %i[index show]
-  
+  resources :users, only: %i[index show] do 
+    get 'posts', to: 'resources#user_posts', on: :member # posts_user_path(user)
+  end
+
+  resources :home, only: [:show]
   get 'dashboards/show', to: 'dashboards#show', as: :dashboard_show
   get 'profile/edit', to: 'users#edit', as: 'edit_user_profile'
   patch 'profile', to: 'users#update', as: 'update_user_profile'

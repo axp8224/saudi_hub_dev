@@ -1,4 +1,6 @@
 class ResourcesController < ApplicationController
+  before_action :authenticate_user!, only: [:user_posts]
+
   def index
     @resources = Resource.where(status: 'active')
     @resource_types = ResourceType.all
@@ -52,4 +54,16 @@ class ResourcesController < ApplicationController
   def resource_params
     params.require(:resource).permit(:title, :description, :resource_type_id, images: [])
   end
+
+  def user_posts 
+    @user = User.find(params[:id])
+
+    if @user == current_user 
+      @posts = Resource.where(author: @user)
+    else 
+      redirect_to root_path, alert: t(".only_your_posts") 
+    end
+
+  end
+
 end

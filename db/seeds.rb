@@ -211,7 +211,47 @@ if Rails.env.development? || Rails.env.test?
 
   puts 'Sample user seeded successfully.'
 
-  puts 'Seeding sample admin...'
+# --------- SEEDING SAMPLE 0THER USER ------------
+puts "Seeding sample other user..."
+# purpose: viewing My Posts (or other things specific to yourself), you should not be able to see posts by other users.
+
+# Find or create the default role (assuming 'user' is the default role)
+default_role = Role.find_by(name: 'user')
+
+# Find or create the default major (assuming '' is the default major)
+default_major = Major.find_by(name: '')
+
+# Find or create a default class year (assuming 'Freshman' as default)
+default_class_year = ClassYear.find_by(name: 'Freshman')
+
+User.find_or_create_by!(email: 'sample2@example.com') do |user|
+  user.uid = 'sample321'
+  user.full_name = 'Other User'
+  user.avatar_url = 'https://example.com/sample_avatar.jpg'
+  user.role = default_role
+  user.major = default_major
+  user.class_year = default_class_year
+  # Note: We're not setting a password as the model uses omniauthable
+end
+
+# make a resource by "someone else"
+
+sample_other_user = User.find_by(email: 'sample2@example.com')
+
+restaurant_type = ResourceType.find_by(title: 'Restaurants')
+
+{ name: "Piada Italian Street Food", description: "Specializing in handmade piadas and authentic Italian dishes, perfect for a quick and delicious meal.", type: restaurant_type }
+Resource.find_or_create_by!(
+                              user_id: sample_other_user.id,
+                              resource_type: restaurant_type,
+                              title: "Torchy's Tacos",
+                              description: "A taco shop where they serve tacos in the shop.",
+                              status: 'active'
+                            )
+
+puts "Sample other user seeded successfully."
+
+# --------- SEEDING SAMPLE ADMIN ------------  puts 'Seeding sample admin...'
 
   admin_role = Role.find_by(name: 'admin')
 
