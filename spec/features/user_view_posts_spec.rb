@@ -41,7 +41,16 @@ RSpec.feature "UserViewPosts", type: :feature do
 
     expect(page).to have_content("New Pending Resource")
     expect(page).to have_content("New Active Resource")
-    expect(page).not_to have_content("Piada") # do not display resources not authored by 'user'
+    expect(page).not_to have_content("Torchy's") # do not display resources not authored by 'user'
+  
+  end
+
+  scenario "user navigates to someone else's posts" do 
+    other_user = User.find_by(email: "sample2@example.com")
+
+    visit posts_user_path(user)
+
+    expect(page).to have_content(t('resources.user_posts.only_your_posts'))
   
   end
 
