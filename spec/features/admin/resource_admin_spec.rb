@@ -64,6 +64,36 @@ RSpec.feature 'Resources', type: :feature do
     expect(page).to have_content(new_description)
   end
 
+  scenario 'Admin can leave feedback on resources' do 
+    visit admin_resources_path
+
+    feedback_message = "Testing feedback in RSpec"
+
+    select t('admin.resources.status_pending'), from: 'status'
+    click_on 'Search'
+
+    pending_resource = pending_resources.first
+    original_description = pending_resource.description
+
+    expect(page).not_to have_content(feedback_message)
+
+    visit edit_admin_resource_path(pending_resource)
+
+    click_button 'Add Feedback'
+
+    fill_in 'Feedback', with: feedback_message
+
+    click_button 'Save Resource'
+
+    expect(page).to have_current_path(admin_resources_path) # redirect back to manage resources page
+
+    select t('admin.resources.status_pending'), from: 'status'
+    
+    click_on 'Search'
+
+    expect(page).to have_content(feedback_message)
+  end
+
   scenario 'Admin can approve resources' do
     # edit status of a resource from pending to active
     visit admin_resources_path
