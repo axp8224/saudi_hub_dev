@@ -79,9 +79,9 @@ RSpec.feature 'Resources', type: :feature do
 
     visit edit_admin_resource_path(pending_resource)
 
-    click_button 'Add Feedback'
+    click_button t('admin.resources.edit.add_feedback')
 
-    fill_in 'Feedback', with: feedback_message
+    fill_in t('resources.feedback'), with: feedback_message
 
     click_button 'Save Resource'
 
