@@ -1,17 +1,46 @@
-<h1><%= t('.your_profile') %></h1>
+<div class="container mx-auto p-6">
+  <!-- Profile Section -->
+  <div class="max-w-4xl mx-auto text-center"> 
 
-<% if @user.avatar.attached? %>
-  <p><%= image_tag(@user.avatar, alt: t('.your_profile')) %></p>
-<% end %>
+    <!-- Name Section -->
+    <div class="mb-8 pt-20">
+      <h1 class="text-4xl font-semibold" style="color: #C29062;"><%= @user.full_name %></h1> 
+    </div>
 
-<p><strong><%= t('.full_name') %>:</strong> <%= @user.full_name %></p>
-<p><strong><%= t('.email') %>:</strong> <%= @user.email %></p>
-<p><strong><%= t('.role') %>:</strong> <%= @user.role.name %></p>
-<p><strong><%= t('.major') %>:</strong> <%= @user.major.name if @user.major %></p>
-<p><strong><%= t('.class_year') %>:</strong> <%= @user.class_year.name if @user.class_year%></p>
-<p><strong><%= t('.grad_year') %>:</strong> <%= @user.grad_year if @user.grad_year %></p>
-<p><strong><%= t('.bio') %>:</strong> <%= @user.bio %></p>
+    <!-- Avatar and Bio Section -->
+    <div class="relative flex justify-center items-start mb-6">
 
+      <!-- Profile Avatar -->
+      <% if @user.avatar.attached? %>
+        <div class="w-40 h-40 mr-8 mb-4 rounded-md"> <!-- Removed background color and kept avatar rounded -->
+          <%= image_tag(@user.avatar, class: 'w-full h-full object-cover rounded-md', alt: t('.your_profile')) %> <!-- Image is circular with 'rounded-full' -->
+        </div>
+      <% end %>
+    
+      <!-- Bio Section wrapping around the avatar -->
+      <div class="flex-1 text-left">
+        <p class="text-gray-700 text-lg leading-relaxed">
+          <%= @user.bio.present? ? @user.bio : t('.no_bio') %> <!-- Optional About Text -->
+        </p>
+      </div>
+    </div>
 
-<%= link_to t('.back_to_dashboard'), root_path %>
-<%= link_to t('.edit_your_profile'), edit_user_profile_path %>
+    <!-- Fancy Gradient Divider -->
+    <hr class="my-6" style="border: none; height: 3px; background: linear-gradient(to right, #C29062, black);">
+
+    <!-- Profile Details Section -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-lg">
+      <p><strong><%= t('.role') %>:</strong> <%= @user.role.name %></p>
+      <p><strong><%= t('.email') %>:</strong> <%= @user.email %></p>
+      <p><strong><%= t('.major') %>:</strong> <%= @user.major.name if @user.major %></p>
+      <p><strong><%= t('.class_year') %>:</strong> <%= @user.class_year.name if @user.class_year %></p>
+      <p><strong><%= t('.grad_year') %>:</strong> <%= @user.grad_year if @user.grad_year %></p>
+    </div>
+
+    <!-- Edit Profile Button -->
+    <div class="text-center mt-8">
+      <%= link_to t('.edit_your_profile'), edit_user_profile_path, class: 'mt-2 inline-block text-sm text-white px-4 py-2 font-semibold hover:bg-[#3b0e0c]', style: "background-color: #471815; border-radius: 0.25rem;" %>
+    </div>
+  </div>
+</div>
+
