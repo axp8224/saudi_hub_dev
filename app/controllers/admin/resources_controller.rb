@@ -24,6 +24,13 @@ module Admin
 
     def update
       @resource = Resource.find(params[:id])
+
+      # Store original params for detailed logging
+      original_title = @resource.title
+      original_description = @resource.description
+      original_status = @resource.status
+      original_resource_type_id = @resource.resource_type_id
+
       if @resource.update(
         status: params[:resource][:status],
         title: params[:resource][:title],
@@ -31,10 +38,32 @@ module Admin
         resource_type_id: params[:resource][:resource_type_id]
       )
 
-        flash[:success] = t('flash.admin.resource_updated', title: @resource.title)
-        redirect_to admin_resources_path
+      # Constructing a description of what was changed
+      changes = []
+      changes << "title from '#{original_title}' to '#{@resource.title}'" if @resource.title != original_title
+      changes << "description from '#{original_description}' to '#{@resource.description}'" if @resource.description != original_description
+      changes << "status from '#{original_status}' to '#{@resource.status}'" if @resource.status != original_status
+      changes << "resource type from '#{original_resource_type_id}' to '#{@resource.resource_type_id}'" if @resource.resource_type_id != original_resource_type_id
+
+      change_description = changes.join(", ")
+
+      flash[:success] = t('flash.admin.resource_updated', title: @resource.title)
+
+      Log.create(
+        user_email: current_user.email,
+        action: "Updated Resource",
+        description: "Updated resource [#{@resource.title}] -> #{change_description}",
+        action_timestamp: Time.current
+      )
+      redirect_to admin_resources_path
       else
         flash.now[:alert] = t('flash.admin.update_failed')
+        Log.create(
+          user_email: current_user.email,
+          action: "Failed to Update Resource",
+          description: "Attempted update on resource: #{@resource.title} failed to apply",
+          action_timestamp: Time.current
+        )
         render :edit
       end
     end
@@ -43,8 +72,8 @@ module Admin
 
     def admin_only
       return if current_user.role.name == 'admin'
-
       redirect_to resources_path, alert: t('flash.admin.access_denied')
     end
+    
   end
 end

@@ -1,0 +1,22 @@
+<h1>Activity Logs</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>User Email</th>
+      <th>Action</th>
+      <th>Description</th>
+      <th>Timestamp</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @logs.each do |log| %>
+      <tr>
+        <td><%= log.user_email %></td>
+        <td><%= log.action %></td>
+        <td><%= log.description %></td>
+        <td><%= log.action_timestamp.strftime("%Y-%m-%d %H:%M:%S") %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
