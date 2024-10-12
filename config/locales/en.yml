@@ -45,8 +45,8 @@ en:
     decline: "Decline"
     close_modal: "Close modal"
     privacy_policy: "Privacy Policy"
-    privacy_policy_pg_1: "By creating an account on our website, you acknowledge that certain personal information will be made available in the member directory, accessible to all other registered members. This information includes, but is not limited to, your full name, major, phone number, and email address. While your full name and major are always visible, you have the option to hide your phone number and email address from the directory at any time by updating your privacy settings."
-    privacy_policy_pg_2: "Please note that agreement to this policy is mandatory for account creation. If you do not agree to the visibility of your information in the member directory, you will be unable to proceed with creating an account. We value your privacy and encourage you to review and manage your settings to suit your preferences."
+    privacy_policy_pg_1: "By creating an account on our website, you acknowledge that certain personal information will be made available in the member directory, accessible to all other registered members. This information includes, but is not limited to, your full name, major, phone number, and email address."
+    privacy_policy_pg_2: "Please note that agreement to this policy is mandatory for account creation. If you do not agree to the visibility of your information in the member directory, you will be unable to proceed with creating an account."
   flash:
     types:
       success: "Success"
