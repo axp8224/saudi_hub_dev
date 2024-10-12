@@ -42,6 +42,8 @@ RSpec.feature "UserViewPosts", type: :feature do
     expect(page).to have_content("New Pending Resource")
     expect(page).to have_content("New Active Resource")
     expect(page).not_to have_content("Torchy's") # do not display resources not authored by 'user'
+
+    expect(page).to have_content("Test feedback")
   
   end
 

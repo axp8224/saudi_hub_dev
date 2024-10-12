@@ -380,7 +380,7 @@ else
     { name: 'Piada Italian Street Food',
       description: 'Specializing in handmade piadas and authentic Italian dishes, perfect for a quick and delicious meal.', type: restaurant_type },
     { name: 'The Woodlands of College Station',
-      description: "Some units are actually quite nice. Management is incompetent. Floods like nobody's business. You will regret living here.", type: apartment_type }
+      description: 'Some units are actually quite nice. Management is incompetent. Floods like nobody\'s business. You will regret living here.', type: apartment_type, feedback: 'Test feedback' }
   ]
 
   pending_resources.each do |resource|
@@ -389,7 +389,8 @@ else
       resource_type: resource[:type],
       title: resource[:name],
       description: resource[:description],
-      status: 'pending'
+      status: 'pending',
+      feedback: resource[:feedback]
     )
   end
 
