@@ -1,4 +1,4 @@
-<h1>Resources</h1>
+<h1><%= t('shared.resources') %></h1>
 <%= link_to t('.manage_resources', default: "Manage Resources"), admin_resources_path, class: 'btn btn-primary' %>
 <%= link_to t('.submit_resource', default: "Submit Resource"), new_resource_path, class: 'btn btn-success', style: 'margin-left: 10px;' %>
 <div style="display: flex;">
@@ -15,21 +15,18 @@
       <% end %>
     </ul>
   </div>
+
+  <%= render 'shared/search_form', 
+           form_url: resources_path, 
+           show_text_search: true,
+           text_search_label: t('search.resources.search_resources', default: "Search Resources"),
+           text_search_placeholder: t('search.resources.search_bar', default: "Enter resource title or description"),
+           show_major_filter: false, 
+           show_class_year_filter: false, 
+           show_per_page: true, 
+           per_page_label: t('users.index.items_per_page', default: "Items per page")%>
+
   <div style="width: 75%;">
-    <ul style="list-style-type: none; padding: 0;">
-      <% @resources.each do |resource| %>
-        <li style="margin-bottom: 20px;">
-          <h3><%= link_to resource.title, resource_path(resource) %></h3>
-          <p><%= resource.description %></p>
-          <% if resource.images.attached? %>
-            <div style="display: flex; gap: 10px;">
-              <% resource.images.each do |image| %>
-                <%= image_tag image, style: "max-width: 100px; max-height: 100px;" %>
-              <% end %>
-            </div>
-          <% end %>
-        </li>
-      <% end %>
-    </ul>
+    <%= render 'resource_list', resources: @resources %>
   </div>
 </div>
