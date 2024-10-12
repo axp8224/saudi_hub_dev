@@ -97,6 +97,7 @@ ar:
   resources:
     index:
       manage_resources: "إدارة الموارد"
+    written_by: "كتب بواسطة: %{author_name}"
 
   admin:
     users:

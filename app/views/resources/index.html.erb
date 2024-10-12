@@ -1,5 +1,5 @@
 <h1>Resources</h1>
-<%= link_to t('.manage_resources', Default: "Manage Resources"), admin_resources_path, class: 'btn btn-primary' %> 
+<%= link_to t('.manage_resources', Default: "Manage Resources"), admin_resources_path %> 
 <div style="display: flex;">
   <div style="width: 25%; padding-right: 20px;">
     <h2>Resource Types</h2>
@@ -18,7 +18,7 @@
     <ul style="list-style-type: none; padding: 0;">
       <% @resources.each do |resource| %>
         <li style="margin-bottom: 20px;">
-          <h3><%= resource.title %></h3>
+          <h3><%= link_to resource.title, resource_path(resource) %></h3>
           <p><%= resource.description %></p>
         </li>
       <% end %>
