@@ -16,7 +16,10 @@ class ResourcesController < ApplicationController
   def create
     @resource = Resource.new(resource_params)
     @resource.author = current_user
-    @resource.status = 'pending' # Set status to pending
+
+    # TODO: Once admin approval is implemented, change this to 'pending'
+    # @resource.status = 'pending'
+    @resource.status = 'active'
 
     if @resource.save
       redirect_to resources_path, notice: 'Resource was successfully created.'
@@ -26,14 +29,15 @@ class ResourcesController < ApplicationController
     end
   end
 
+  def show
+    @resource = Resource.find(params[:id])
+    @resource_author = User.find(@resource.user_id) if @resource.user_id.present?
+  end
+
   private
 
   def resource_params
     params.require(:resource).permit(:title, :description, :resource_type_id, images: [])
   end
 
-  def show
-    @resource = Resource.find(params[:id])
-    @resource_author = User.find(@resource.user_id) if @resource.user_id.present?
-  end
 end
