@@ -79,7 +79,15 @@ RSpec.feature 'Resources', type: :feature do
 
     visit edit_admin_resource_path(pending_resource)
 
-    click_button t('admin.resources.edit.add_feedback')
+    # click_on t('admin.resources.edit.add_feedback')
+    
+    # The button relies on using javascript, which doesn't work with our current configuration as far as I can tell.
+    # The only workaround is to artifically put feedback in ("empty") and refresh the page. This will make the feedback field display.
+
+    pending_resource.update(feedback: "empty")
+    pending_resource.save()
+
+    visit edit_admin_resource_path(pending_resource)
 
     fill_in t('resources.feedback'), with: feedback_message
 
