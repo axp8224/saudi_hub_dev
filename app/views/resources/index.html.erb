@@ -1,31 +1,57 @@
-<h1><%= t('shared.resources') %></h1>
-<%= link_to t('.manage_resources', Default: "Manage Resources"), admin_resources_path %> 
-<div style="display: flex;">
-  <div style="width: 25%; padding-right: 20px;">
-    <h2>Resource Types</h2>
-    <ul style="list-style-type: none; padding: 0;">
-      <li style="margin-bottom: 10px;">
-        <%= link_to 'All Resources', resources_path, style: params[:resource_type_id].blank? ? "font-weight: bold;" : "" %>
-      </li>
-      <% @resource_types.each do |resource_type| %>
-        <li style="margin-bottom: 10px;">
-          <%= link_to resource_type.title, resources_path(resource_type_id: resource_type.id), style: params[:resource_type_id].to_s == resource_type.id.to_s ? "font-weight: bold;" : "" %>
-        </li>
-      <% end %>
-    </ul>
-  </div>
+<!-- Title -->
+<h1 class="text-4xl font-bold text-center mb-6" style="color: #471815;">
+  <%= t('shared.resources') %>
+</h1>
 
+<!-- Search Form -->
+<div class="my-2">
   <%= render 'shared/search_form', 
-           form_url: resources_path, 
-           show_text_search: true,
-           text_search_label: t('search.resources.search_resources', default: "Search Resources"),
-           text_search_placeholder: t('search.resources.search_bar', default: "Enter resource title or description"),
-           show_major_filter: false, 
-           show_class_year_filter: false, 
-           show_per_page: true, 
-           per_page_label: t('users.index.items_per_page', default: "Items per page")%>
+       form_url: resources_path, 
+       show_text_search: true,
+       text_search_label: t('search.resources.search_resources', default: "Search Resources"),
+       text_search_placeholder: t('search.resources.search_bar', default: "Enter resource title or description"),
+       show_major_filter: false, 
+       show_class_year_filter: false, 
+       show_per_page: true, 
+       per_page_label: t('users.index.items_per_page', default: "Items per page") %>
+</div>
 
-  <div style="width: 75%;">
-    <%= render 'resource_list', resources: @resources %>
+<!-- Tabs Component -->
+<div class="flowbite-tabs">
+  <!-- Tabs navigation -->
+  <ul class="flex flex-wrap text-sm font-medium text-center text-gray-500 border-b border-gray-200 dark:text-gray-400 dark:border-gray-700" id="myTab" data-tabs-toggle="#myTabContent" role="tablist">
+    <!-- All Resources Tab -->
+    <li class="mr-2">
+      <button id="all-resources-tab" data-tabs-target="#all-resources" type="button" role="tab" aria-controls="all-resources" aria-selected="<%= params[:resource_type_id].blank? ? 'true' : 'false' %>" class="inline-block p-4 rounded-t-lg <%= params[:resource_type_id].blank? ? 'text-blue-600 bg-gray-100' : 'hover:bg-gray-100' %>">All Resources</button>
+    </li>
+
+    <!-- Dynamic Resource Type Tabs -->
+    <% @resource_types.each_with_index do |resource_type, index| %>
+      <li class="mr-2">
+        <button id="tab-<%= index %>" data-tabs-target="#tab-content-<%= index %>" type="button" role="tab" aria-controls="tab-content-<%= index %>" aria-selected="<%= params[:resource_type_id].to_s == resource_type.id.to_s ? 'true' : 'false' %>" class="inline-block p-4 rounded-t-lg <%= params[:resource_type_id].to_s == resource_type.id.to_s ? 'text-blue-600 bg-gray-100' : 'hover:bg-gray-100' %>"><%= resource_type.title %></button>
+      </li>
+    <% end %>
+  </ul>
+
+  <!-- Tabs content -->
+  <div id="myTabContent">
+    <!-- All Resources Tab Content -->
+    <div class="<%= params[:resource_type_id].blank? ? '' : 'hidden' %>" id="all-resources" role="tabpanel" aria-labelledby="all-resources-tab">
+      <!-- All Resources List -->
+      <div class="mt-4">
+        <%= render 'resource_list', resources: @resources %>
+      </div>
+    </div>
+
+    <!-- Dynamic Resource Type Tabs Content -->
+    <% @resource_types.each_with_index do |resource_type, index| %>
+      <div class="<%= params[:resource_type_id].to_s == resource_type.id.to_s ? '' : 'hidden' %>" id="tab-content-<%= index %>" role="tabpanel" aria-labelledby="tab-<%= index %>">
+        <!-- Resources List for specific type -->
+        <div class="mt-4">
+          <%= render 'resource_list', resources: @resources.where(resource_type_id: resource_type.id) %>
+        </div>
+      </div>
+    <% end %>
   </div>
+  <%= link_to t('.manage_resources', Default: "Manage Resources"), admin_resources_path %> 
 </div>
