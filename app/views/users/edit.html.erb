@@ -5,17 +5,20 @@
   <!-- Avatar Image -->
   <div class="flex justify-center mb-6">
     <% if @user.avatar.attached? %>
-      <%= image_tag @user.avatar, class: "w-32 h-32 object-cover" %>
+      <%= image_tag @user.avatar, class: "w-32 h-32 object-cover rounded-full" %>
+    <% else %>
+      <p>No avatar uploaded</p>
     <% end %>
   </div>
 
   <!-- Upload Image Button -->
   <div class="flex text-center mb-6">
-    <label class="w-full">
-      <%= f.file_field :avatar, accept: 'image/jpeg, image/png', class: 'hidden' %>
+    <label class="w-full cursor-pointer">
+      <%= f.file_field :avatar, accept: 'image/jpeg, image/png', class: 'hidden', onchange: "this.form.submit();" %> <!-- onchange to submit the form automatically when an image is selected -->
       <span class="cursor-pointer px-6 py-2 text-sm text-white bg-[#471815] rounded-full font-semibold inline-block">Upload Image</span>
     </label>
   </div>
+
 
   <!-- Full Name -->
   <div class="relative mb-6 max-w-sm mx-auto"> 
