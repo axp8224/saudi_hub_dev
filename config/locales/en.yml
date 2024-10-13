@@ -189,6 +189,7 @@ en:
     description: "Description"
     type: "Type"
     author: "Author"
+    feedback: "Feedback"
 
     index:
       resources: "Resources"
@@ -236,5 +237,6 @@ en:
         author: "Author"
       edit:
         resource_type: "Resource Type"
+        add_feedback: "Add Feedback"
         save_resource: "Save Resource"
         back_to_resource_manager: "Back to Resource Manager"

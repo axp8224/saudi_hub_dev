@@ -176,7 +176,8 @@ ar:
     description: "الوصف"
     type: "النوع"
     author: "المؤلف"
-    
+    feedback: "ملاحظات"
+
     index:
       resources: "الموارد"
       manage_resources: "إدارة الموارد"
@@ -257,5 +258,6 @@ ar:
         author: "المؤلف"
       edit:
         resource_type: "نوع المورد"
+        add_feedback: "إضافة ملاحظات"
         save_resource: "حفظ المورد"
         back_to_resource_manager: "العودة إلى مدير المورد"
