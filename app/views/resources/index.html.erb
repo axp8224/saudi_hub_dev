@@ -18,6 +18,11 @@
         per_page_label: t('users.index.items_per_page', default: "Items per page") %>
   </div>
 
+  <!-- Show 'No Results' Message If Applicable -->
+  <% if flash[:notice] %>
+    <p class="text-red-600"><%= flash[:notice] %></p>
+  <% end %>
+
   <!-- Tabs Component -->
   <div class="flowbite-tabs mt-10">
     <!-- Tabs navigation -->

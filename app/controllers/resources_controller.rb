@@ -11,6 +11,10 @@ class ResourcesController < ApplicationController
       @resources = @resources.where('title ILIKE :search OR description ILIKE :search', search: "%#{params[:search]}%")
     end
 
+    if @resources.empty?
+      flash.now[:notice] = t('search.no_results')
+    end
+
     # Paginate the resources
     per_page = params[:per_page] || 10 # Set a default per page value
     @resources = @resources.page(params[:page]).per(per_page)
