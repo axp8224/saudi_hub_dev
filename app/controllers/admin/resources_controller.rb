@@ -62,14 +62,14 @@ module Admin
       )
       redirect_to admin_resources_path
       else
-        flash.now[:alert] = t('flash.admin.update_failed')
         Log.create(
           user_email: current_user.email,
           action: "Failed to Update Resource",
           description: "Attempted update on resource: #{@resource.title} failed to apply",
           action_timestamp: Time.current
         )
-        render :edit
+        flash[:alert] = t('flash.admin.update_failed') # doing flash.now and render :edit caused bugs in the view because the @variables don't get populated. Changing to alert and a redirect.
+        redirect_to edit_admin_resource_path(@resource)
       end
     end
 
