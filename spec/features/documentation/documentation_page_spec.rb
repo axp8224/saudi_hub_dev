@@ -23,6 +23,7 @@ RSpec.feature "DocumentationPage", type: :feature do
     omniauth_mock_auth_hash_ADMIN
     visit new_user_session_path
     click_button 'Log in with Google'
+    click_button 'I Accept'
   end
 
   scenario "Admin accesses the documentation page" do
