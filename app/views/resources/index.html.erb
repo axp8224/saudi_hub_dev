@@ -1,4 +1,4 @@
-<div class="container mx-auto p-6">
+<div class="container mx-auto max-w-screen-xl p-6">
 
   <!-- Title for Resources -->
   <div class="max-w-lg w-full">
@@ -21,22 +21,29 @@
   <!-- Tabs Component -->
   <div class="flowbite-tabs mt-10">
     <!-- Tabs navigation -->
-    <ul class="flex flex-wrap text-sm font-medium text-center text-gray-500 border-b border-gray-200 dark:text-gray-400 dark:border-gray-700" id="myTab" data-tabs-toggle="#myTabContent" role="tablist">
+    <ul class="flex flex-wrap text-sm font-medium text-center border-b border-gray-200" id="myTab" data-tabs-toggle="#myTabContent" role="tablist">
       <!-- All Resources Tab -->
       <li class="mr-2">
-        <button id="all-resources-tab" data-tabs-target="#all-resources" type="button" role="tab" aria-controls="all-resources" aria-selected="<%= params[:resource_type_id].blank? ? 'true' : 'false' %>" class="inline-block p-4 rounded-t-lg <%= params[:resource_type_id].blank? ? 'text-blue-600 bg-gray-100' : 'hover:bg-gray-100' %>">All Resources</button>
+        <button id="all-resources-tab" data-tabs-target="#all-resources" type="button" role="tab" aria-controls="all-resources" aria-selected="<%= params[:resource_type_id].blank? ? 'true' : 'false' %>" 
+        class="inline-block p-4 rounded-t-lg <%= params[:resource_type_id].blank? ? '' : 'text-gray-500 hover:text-black' %>">
+          All Resources
+        </button>
       </li>
 
       <!-- Dynamic Resource Type Tabs -->
       <% @resource_types.each_with_index do |resource_type, index| %>
         <li class="mr-2">
-          <button id="tab-<%= index %>" data-tabs-target="#tab-content-<%= index %>" type="button" role="tab" aria-controls="tab-content-<%= index %>" aria-selected="<%= params[:resource_type_id].to_s == resource_type.id.to_s ? 'true' : 'false' %>" class="inline-block p-4 rounded-t-lg <%= params[:resource_type_id].to_s == resource_type.id.to_s ? 'text-blue-600 bg-gray-100' : 'hover:bg-gray-100' %>"><%= resource_type.title %></button>
+          <button id="tab-<%= index %>" data-tabs-target="#tab-content-<%= index %>" type="button" role="tab" aria-controls="tab-content-<%= index %>" 
+          aria-selected="<%= params[:resource_type_id].to_s == resource_type.id.to_s ? 'true' : 'false' %>" 
+          class="inline-block p-4 rounded-t-lg <%= params[:resource_type_id].to_s == resource_type.id.to_s ? '' : 'text-gray-500 hover:text-black' %>">
+            <%= resource_type.title %>
+          </button>
         </li>
       <% end %>
     </ul>
 
-    <!-- Tabs content -->
-    <div id="myTabContent">
+    <!-- Tabs Content -->
+    <div id="myTabContent" class="mt-6">
       <!-- All Resources Tab Content -->
       <div class="<%= params[:resource_type_id].blank? ? '' : 'hidden' %>" id="all-resources" role="tabpanel" aria-labelledby="all-resources-tab">
         <!-- All Resources List -->
@@ -55,6 +62,12 @@
         </div>
       <% end %>
     </div>
-    <%= link_to t('.manage_resources', Default: "Manage Resources"), admin_resources_path %> 
   </div>
+
+  <!-- Manage Resources Button -->
+  <%= link_to t('.manage_resources', default: "Manage Resources"), admin_resources_path, 
+  class: 'block bg-[#471815] text-white font-semibold text-center rounded-md fixed bottom-5 right-5 px-6 py-3 shadow-lg'
+  %>
+
 </div>
+
