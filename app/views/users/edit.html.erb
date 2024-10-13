@@ -1,65 +1,73 @@
-<h1><%= t('.edit_your_profile') %></h1>
+<h1 class="text-center text-3xl font-semibold mt-8" style="color: #471815;"><%= t('.edit_your_profile') %></h1>
 
-<%= form_for(@user, url: update_user_profile_path(@user), method: :patch, html: { multipart: true }) do |f| %>
+<%= form_for(@user, url: update_user_profile_path(@user), method: :patch, html: { multipart: true, class: "mt-6 max-w-md mx-auto" }) do |f| %>
 
-  <div class="form-group">
-    <%= f.label :full_name, t('.full_name') %>
-    <%= f.text_field :full_name, class: 'form-control' %>
+  <!-- Avatar Image -->
+  <div class="flex justify-center mb-6">
+    <% if @user.avatar.attached? %>
+      <%= image_tag @user.avatar, class: "w-32 h-32 object-cover" %>
+    <% end %>
   </div>
 
-  <div class="form-group">
-    <%= f.label :email, t('.email') %>
-    <%= f.email_field :email, class: 'form-control', readonly: true %>
+  <!-- Upload Image Button -->
+  <div class="flex text-center mb-6">
+    <label class="w-full">
+      <%= f.file_field :avatar, accept: 'image/jpeg, image/png', class: 'hidden' %>
+      <span class="cursor-pointer px-6 py-2 text-sm text-white bg-[#471815] rounded-full font-semibold inline-block">Upload Image</span>
+    </label>
   </div>
 
-  <!-- Display avatar upload errors -->
-  <% if @user.errors[:avatar].any? %>
-    <div class="form-group has-error">
-      <%= f.label :avatar, t('.avatar') %>
-      <% @user.errors[:avatar].each do |error| %>
-        <div class="error"><%= error %></div>
-      <% end %>
-      <%= f.file_field :avatar, accept: 'image/jpeg, image/png', class: 'form-control' %>
-    </div>
-  <% else %>
-    <div class="form-group">
-      <%= f.label :avatar, t('.avatar') %>
-      <%= f.file_field :avatar, accept: 'image/jpeg, image/png', class: 'form-control' %>  
-    </div>
-  <% end %>
-
-  <div class="form-group">
-    <%= f.label :major, t('.major')%>
-    <%= f.collection_select :major_id, @majors, :id, :name, include_blank: 'Select Major', class: 'form-control' %>
+  <!-- Full Name -->
+  <div class="relative mb-6 max-w-sm mx-auto"> 
+    <%= f.text_field :full_name, class: 'w-full px-4 py-3 border-2 border-gray-300 rounded-full focus:outline-none focus:border-[#471815]', placeholder: 'Full Name' %>
+    <i class="absolute right-4 top-1/2 transform -translate-y-1/2 text-gray-400 fa fa-user"></i>
   </div>
 
-  <div class="form-group">
-    <%= f.label :class_year, t('.class_year') %>
-    <%= f.collection_select :class_year_id, @class_years, :id, :name, { include_blank: 'Select Classification' }, { class: 'form-control' } %>
+  <!-- Email -->
+  <div class="relative mb-6 max-w-sm mx-auto">
+    <%= f.email_field :email, class: 'w-full px-4 py-3 border-2 border-gray-300 rounded-full focus:outline-none focus:border-[#471815]', readonly: true, placeholder: 'Email' %>
+    <i class="absolute right-4 top-1/2 transform -translate-y-1/2 text-gray-400 fa fa-envelope"></i>
   </div>
 
-  <div class="form-group <%= 'has-error' if @user.errors[:grad_year].any? %>">
-    <%= f.label :grad_year, t('.grad_year') %>
-    <%= f.number_field :grad_year, placeholder: 'Input year here', class: 'form-control' %>
+  <!-- Major Dropdown -->
+  <div class="relative mb-6 max-w-sm mx-auto">
+    <%= f.collection_select :major_id, @majors, :id, :name, { include_blank: 'Select Major' }, { class: 'w-full px-4 py-3 border-2 border-gray-300 rounded-full focus:outline-none focus:border-[#471815]' } %>
+    <i class="absolute right-4 top-1/2 transform -translate-y-1/2 text-gray-400 fa fa-graduation-cap"></i>
+  </div>
 
+  <!-- Class Year Dropdown -->
+  <div class="relative mb-6 max-w-sm mx-auto">
+    <%= f.collection_select :class_year_id, @class_years, :id, :name, { include_blank: 'Select Class Year' }, { class: 'w-full px-4 py-3 border-2 border-gray-300 rounded-full focus:outline-none focus:border-[#471815]' } %>
+  </div>
+
+  <!-- Graduation Year Field -->
+  <div class="relative mb-6 max-w-sm mx-auto <%= 'has-error' if @user.errors[:grad_year].any? %>">
+    <%= f.number_field :grad_year, placeholder: 'Graduation Year', 
+        class: 'w-full px-4 py-3 border-2 border-gray-300 rounded-full focus:outline-none focus:border-[#471815]' %>
+  
+    <!-- Display validation error for grad_year if any -->
     <% if @user.errors[:grad_year].any? %>
-      <span class="help-block">
+      <span class="help-block text-red-500">
         <%= @user.errors[:grad_year].first %>
       </span>
     <% end %>
   </div>
+  
 
-  <div class="form-group">
-    <%= f.label :bio, t('.bio') %>
-    <%= f.text_area :bio, placeholder: 'Input your bio here', class: 'form-control' %>
+  <!-- Bio -->
+  <div class="relative mb-6 max-w-sm mx-auto">
+    <%= f.text_area :bio, class: 'w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:outline-none focus:border-[#471815]', placeholder: 'About Me', style: 'height: 8rem;' %> <!-- Set height using inline style -->
   </div>
 
-  <div class="form-group">
-    <%= f.submit t('.update_profile'), class: 'btn btn-primary' %>
+
+  <!-- Submit Button -->
+  <div class="flex justify-center mt-7">
+    <%= f.submit 'Update Profile', class: 'px-6 py-2 text-white font-semibold rounded-full', style: 'background-color: #471815; z-index: 1; position: relative;' %>
   </div>
 
 <% end %>
 
-<!-- edit view profile to show up as 'Cancel' -->
-<%= link_to t('.view_profile'), user_profile_path %><br>
-<%= link_to t('.back_to_dashboard'), root_path %>
+<!-- Cancel Button -->
+<div class="text-center mt-2">
+  <%= link_to t('Cancel'), user_profile_path, class: 'font-semibold' %><br>
+</div>
