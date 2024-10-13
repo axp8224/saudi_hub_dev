@@ -71,10 +71,46 @@ en:
       access_denied: "Access denied."
     resource:
       create_success: "Resource was successfully created."
-  home:
-    show:
+  pages:
+    home:
       welcome: "Welcome to the Saudi Community Hub!"
       description: "This website allows members of the Saudi Arabian community in the Bryan/College Station area to connect and share resources with one another. Please enjoy your time on here."
+    help:
+      title: "Help & Support"
+      subtitle: "Find answers to common questions and learn how to use our platform."
+      getting_started:
+        title: "Getting Started"
+        create_account: "Create an Account"
+        account_creation: "Create your account by clicking 'Login' from the navigation bar at the top of the screen."
+        google_auth: "This will direct you to Google's authentication service, where you can log in with your Google account."
+        privacy_policy: "You will be asked to agree to our Privacy Policy: as a member of our platform, your email will be visible to other members who are logged-in. This is for the sake of encouraging community members to connect with each other. Your information will NOT be used for any other purposes."
+        logged_in: "Once you're logged in, you'll be redirected back to the homepage, where you can start exploring!"
+      how_to_use:
+        title: "How to Use This Platform"
+        intro: "A quick intro to each feature."
+        profile_management:
+          title: "Profile Management"
+          instruction: "After logging in, navigate to your profile by clicking on your name in the top corner. Here, you can view and edit your personal information, including your name, major of study, graduation year, profile picture, and a brief 'About Me' for other users to read."
+          save_changes: "Make sure to save any changes before navigating away from the profile page."
+        resource_sharing:
+          title: "Resource Sharing Platform"
+          instruction: "To explore the resources available on the platform, go to the 'Resources' section from the main navigation menu. You can filter and search for specific items based on categories or keywords."
+          details: "Click on any resource to view more details, including images, descriptions, and address information."
+        member_directory:
+          title: "Member Directory"
+          instruction: "The purpose of this app is to bring the community together! You can search the Member Directory for users in your major of study, your class year, or who share similar interests in their bio. If you want to reach out to them, send them an email!"
+      faq:
+        title: "Frequently Asked Questions"
+        subtitle: "Here are answers to some of the most common questions from our users:"
+        logout:
+          title: "How do I log out?"
+          instruction: "There is a 'Sign Out' button in the navigation bar at the top of the screen. Once you are logged out, your session is securely closed. You can safely close the application, or log in with a different Google account."
+        resource_proposal:
+          title: "I submitted a resource proposal, but it hasn't appeared on the platform yet. What's going on?"
+          instruction: "All proposed posts must be reviewed and approved by an administrator before going live on the website. Sometimes, a resource isn't ready to be approved yet, and needs to be modified first. When this is the case, an administrator might leave feedback and request that you change the resource proposal before they approve it. You can check for feedback (or see the status of your posts) on the 'My Posts' page."
+      contact:
+        title: "Contact Us"
+        subtitle: "Still have questions? Reach out to our dev team for more assistance."
   users:
     index:
       back_to_dashboard: "Back to Dashboard"
