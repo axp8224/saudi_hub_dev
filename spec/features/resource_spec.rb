@@ -56,9 +56,7 @@ RSpec.feature 'Resources', type: :feature do
 
     resource = active_resources.first
 
-    within(".grid .sm\\:grid-cols-2 .lg\\:grid-cols-3") do
-      click_link 'Read More', href: resource_path(resource)
-    end  
+    click_link 'Read More', href: resource_path(resource)
 
     expect(page).to have_content(resource.title)
     expect(page).to have_content(resource.description)
