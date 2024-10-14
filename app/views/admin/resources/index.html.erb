@@ -1,6 +1,27 @@
 <h1><%= t(".resource_manager") %></h1>
 <%= link_to t(".back_to_resources"), resources_path, class: 'btn btn-primary' %>
 
+<%= link_to t(".create_new_resource_type"), new_admin_resource_type_path, class: 'btn btn-secondary mt-2' %> <!-- Add this button -->
+
+<table>
+  <thead>
+    <tr>
+      <th>Resource Type</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @resource_types.each do |resource_type| %>
+      <tr>
+        <td><%= resource_type.title %></td>
+        <td>
+          <%= link_to 'Edit', edit_admin_resource_type_path(resource_type), class: 'btn btn-secondary' %>
+          <%= button_to 'Delete', admin_resource_type_path(resource_type), method: :delete, data: { confirm: 'Are you sure you want to delete this resource type? This will archive associated resources.' }, class: 'btn btn-danger' %>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
 <%= form_with url: admin_resources_path, method: :get, local: true do %>
   <div class="form-group">
     <%= label_tag :search, t('.search_resources') %>
@@ -20,7 +41,6 @@
   </div>
 <% end %>
 
-
 <div style="display: flex;">
   <div style="width: 75%;">
     <table>
@@ -34,7 +54,7 @@
       <% @resources.each do |resource| %>
         <tr style="margin-bottom: 20px;">
           <td><%= t("admin.resources.status_#{resource.status}") %></td>
-          <td><%= resource.resource_type.title %>
+          <td><%= resource.resource_type.present? ? resource.resource_type.title : 'No Type' %></td>
           <td><%= resource.title %></td>
           <td><%= resource.description %></td>
           <td><%= resource.author.full_name %></td>

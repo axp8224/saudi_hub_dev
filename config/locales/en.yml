@@ -210,6 +210,9 @@ en:
       full_name: "Full Name"
       email: "Email"
       role: "Role"
+    resource_types:
+      new:
+        create_resource_type: "Create Resource Type"
     resources:
       status_active: "Active"
       status_pending: "Pending"

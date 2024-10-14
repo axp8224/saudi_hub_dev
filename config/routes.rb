@@ -15,6 +15,7 @@ Rails.application.routes.draw do
     resources :users, only: %i[index edit update]
     resources :resources, only: %i[index edit update]
     resources :logs, only: [:index]
+    resources :resource_types, only: [:new, :create, :edit, :update, :destroy]
   end
 
   get 'profile', to: 'users#show', as: 'user_profile'
@@ -33,4 +34,8 @@ Rails.application.routes.draw do
   get 'documentation', to: 'pages#documentation'
 
   resources :resources, only: [:index, :new, :create, :show]
+  
+  get 'controlpanel/home', to: 'control_panel#home', as: :control_panel_home
+  get 'controlpanel/promote/:id', to: 'control_panel#promote', as: :control_panel_promote
+  get 'controlpanel/demote/:id', to: 'control_panel#demote', as: :control_panel_demote
 end

@@ -1,5 +1,5 @@
 class ResourcesController < ApplicationController
-  before_action :authenticate_user!, only: [:user_posts]
+  before_action :authenticate_user!
 
   def index
     @resources = Resource.where(status: 'active')
