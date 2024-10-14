@@ -15,6 +15,7 @@ Rails.application.routes.draw do
     resources :users, only: %i[index edit update]
     resources :resources, only: %i[index edit update]
     resources :logs, only: [:index]
+    resources :resource_types, only: [:new, :create]
   end
 
   get 'profile', to: 'users#show', as: 'user_profile'
