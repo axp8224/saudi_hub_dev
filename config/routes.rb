@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  root to: 'home#show'
+  root to: 'pages#home'
 
   get '/switch_locale/:locale', to: 'application#switch_locale', as: :switch_locale
 
@@ -20,10 +20,14 @@ Rails.application.routes.draw do
   get 'profile', to: 'users#show', as: 'user_profile'
 
   resources :users, only: %i[index show]
-  resources :home, only: [:show]
+  
   get 'dashboards/show', to: 'dashboards#show', as: :dashboard_show
   get 'profile/edit', to: 'users#edit', as: 'edit_user_profile'
   patch 'profile', to: 'users#update', as: 'update_user_profile'
+
+  get 'home', to: 'pages#home'
+  get 'help', to: 'pages#help'
+  get 'documentation', to: 'pages#documentation'
 
   resources :resources, only: [:index, :new, :create, :show]
 end

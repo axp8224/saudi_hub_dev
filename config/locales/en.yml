@@ -39,6 +39,8 @@ en:
       manage_users: "Manage Users"
   shared:
     login: "Login"
+    help: "Help"
+    documentation: "Documentation"
     logs: "Activity Logs"
     saudi_hub: "Saudi Community Hub"
     accept: "I Accept"
@@ -71,10 +73,75 @@ en:
       access_denied: "Access denied."
     resource:
       create_success: "Resource was successfully created."
-  home:
-    show:
+  pages:
+    home:
       welcome: "Welcome to the Saudi Community Hub!"
       description: "This website allows members of the Saudi Arabian community in the Bryan/College Station area to connect and share resources with one another. Please enjoy your time on here."
+    help:
+      title: "Help & Support"
+      subtitle: "Find answers to common questions and learn how to use our platform."
+      getting_started:
+        title: "Getting Started"
+        create_account: "Create an Account"
+        account_creation: "Create your account by clicking 'Login' from the navigation bar at the top of the screen."
+        google_auth: "This will direct you to Google's authentication service, where you can log in with your Google account."
+        privacy_policy: "You will be asked to agree to our Privacy Policy: as a member of our platform, your email will be visible to other members who are logged-in. This is for the sake of encouraging community members to connect with each other. Your information will NOT be used for any other purposes."
+        logged_in: "Once you're logged in, you'll be redirected back to the homepage, where you can start exploring!"
+      how_to_use:
+        title: "How to Use This Platform"
+        intro: "A quick intro to each feature."
+        profile_management:
+          title: "Profile Management"
+          instruction: "After logging in, navigate to your profile by clicking on your name in the top corner. Here, you can view and edit your personal information, including your name, major of study, graduation year, profile picture, and a brief 'About Me' for other users to read."
+          save_changes: "Make sure to save any changes before navigating away from the profile page."
+        resource_sharing:
+          title: "Resource Sharing Platform"
+          instruction: "To explore the resources available on the platform, go to the 'Resources' section from the main navigation menu. You can filter and search for specific items based on categories or keywords."
+          details: "Click on any resource to view more details, including images, descriptions, and address information."
+        member_directory:
+          title: "Member Directory"
+          instruction: "The purpose of this app is to bring the community together! You can search the Member Directory for users in your major of study, your class year, or who share similar interests in their bio. If you want to reach out to them, send them an email!"
+      faq:
+        title: "Frequently Asked Questions"
+        subtitle: "Here are answers to some of the most common questions from our users:"
+        logout:
+          title: "How do I log out?"
+          instruction: "There is a 'Sign Out' button in the navigation bar at the top of the screen. Once you are logged out, your session is securely closed. You can safely close the application, or log in with a different Google account."
+        resource_proposal:
+          title: "I submitted a resource proposal, but it hasn't appeared on the platform yet. What's going on?"
+          instruction: "All proposed posts must be reviewed and approved by an administrator before going live on the website. Sometimes, a resource isn't ready to be approved yet, and needs to be modified first. When this is the case, an administrator might leave feedback and request that you change the resource proposal before they approve it. You can check for feedback (or see the status of your posts) on the 'My Posts' page."
+      contact:
+        title: "Contact Us"
+        subtitle: "Still have questions? Reach out to our dev team for more assistance."
+    documentation:
+      title: "Documentation"
+      subtitle: "Administrator's Guide to the SSA Hub"
+      overview:
+        title: "Overview"
+        content: "This page is only visible to administrators. It contains information about what the system is made of, important moving parts, and how to make changes (especially for translations). At the bottom of the page, you can find the README file for the project, which includes helpful information about deploying the app."
+      translation:
+        title: "How Translation Works"
+        content: "This is included first because it's a highly critical part of the system, and likely to be used by SSA leaders to build a more accurate website."
+        details: "Translation in this app is built with the <code style='font-weight:bold'>I18n</code> internationalization libary. All you need to know in order to change static text (and its translations) on the website, is where to find the translations. References to text fields that need translation in <code>html.erb</code> templates are formatted as <code>t('path.to.exact.field')</code> or <code>t('.relative_path_starting_on_current_page')</code>. The content that's returned from this function depends on the current language selected by the user. Translations are stored in the <code style='font-weight:bold'>en.yml</code> and <code style='font-weight:bold'>ar.yml</code> files (in <code style='font-weight:bold'>config/locales</code>), for English and Arabic translations, respectively. Each file has the same structure, and text is organized according to the pages of the website."
+      controllers:
+        title: "Controllers"
+        content: "The following is a description of important controllers in the app, and what their responsibilities are."
+        pages: "The <code style='font-weight:bold'>PagesController</code> displays static pages like the homepage, Help page, and documentation."
+        resources: "The <code style='font-weight:bold'>ResourcesController</code> manages active resources, allowing users to filter and search while providing pagination."
+        admin_resources: "The <code style='font-weight:bold'>Admin::ResourcesController</code> allows admins to manage resources, including viewing, editing, and filtering by type and status."
+        users: "The <code style='font-weight:bold'>UsersController</code> handles user profiles, enabling users to view, edit, and update their information, including searching and filtering."
+        admin_users: "The <code style='font-weight:bold'>Admin::UsersController</code> allows admins to manage user accounts, search for users, and edit roles while ensuring secure access."
+        logs: "The <code style='font-weight:bold'>Admin::LogsController</code> displays user action logs, ensuring that only admins can access and review them. <b>The purpose of logging is to ensure that there is accountability for important changes to data. (Non-repudiation.) We strongly advise you to ensure that logging is thoroughly maintained in future versions of the application.</b>"
+      models:
+        title: "Models"
+        content: "These are described in our Data Design diagram."
+      data_design:
+        title: "Data Design"
+        content: "This diagram shows the relationships between each of our database entities."
+      readme:
+        title: "README file"
+        content: "This is information for developers that helps to navigate our code."
+
   users:
     index:
       back_to_dashboard: "Back to Dashboard"
