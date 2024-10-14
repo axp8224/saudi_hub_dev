@@ -1,0 +1,14 @@
+<h1><%= t("admin.resource_types.new_resource_type") %></h1>
+
+<%= form_with model: @resource_type, url: admin_resource_types_path, method: :post do |form| %>
+  <div class="form-group">
+    <%= form.label :title, t("admin.resource_types.title") %>
+    <%= form.text_field :title, class: "form-control", required: true %>
+  </div>
+
+  <div class="form-group">
+    <%= form.submit t("admin.resource_types.save"), class: "btn btn-primary" %>
+  </div>
+<% end %>
+
+<%= link_to t("admin.resource_types.back_to_resources"), admin_resources_path %>
