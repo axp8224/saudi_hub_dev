@@ -1,4 +1,6 @@
 class ResourcesController < ApplicationController
+  before_action :authenticate_user!
+
   def index
     @resources = Resource.where(status: 'active')
     @resource_types = ResourceType.all
