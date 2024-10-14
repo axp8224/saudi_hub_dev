@@ -15,7 +15,7 @@
         <p class="text-gray-700 text-sm mb-4"><%= truncate(resource.description, length: 100) %></p>
 
         <!-- Read More Button -->
-        <%= link_to t('.read_more', default: 'Read More'), resource_path(resource), class: 'block bg-[#471815] text-white font-semibold text-center py-2 rounded-md hover:bg-[#633e23]' %>
+        <%= link_to t('.read_more', default: 'Read More'), resource_path(resource), class: 'block bg-[#471815] text-white font-semibold text-center py-2 rounded-md hover:bg-[#633e23]', id: "read-more-#{resource.id}" %>
       </div>
     </div>
   <% end %>
