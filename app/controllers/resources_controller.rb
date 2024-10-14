@@ -31,9 +31,7 @@ class ResourcesController < ApplicationController
     @resource = Resource.new(resource_params)
     @resource.author = current_user
 
-    # TODO: Once admin approval is implemented, change this to 'pending'
-    # @resource.status = 'pending'
-    @resource.status = 'active'
+    @resource.status = 'pending'
 
     if @resource.save
       flash[:success] = t('flash.resource.create_success')
