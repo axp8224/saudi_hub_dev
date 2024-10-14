@@ -1,1 +1,1 @@
-release: rails db:migrate && rails db:seed
+release: npm install && rails db:migrate && rails db:seed
