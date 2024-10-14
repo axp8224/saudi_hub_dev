@@ -184,6 +184,7 @@ ar:
     written_by: "كتب بواسطة: %{author_name}"
     user_posts:
       my_posts: "مشاركاتي"
+      no_posts: "لا توجد مشاركات متاحة."
       only_your_posts: "يمكنك عرض مشاركاتك فقط."
 
   admin:

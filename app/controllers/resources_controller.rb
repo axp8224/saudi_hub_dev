@@ -49,12 +49,6 @@ class ResourcesController < ApplicationController
     @resource_author = User.find(@resource.user_id) if @resource.user_id.present?
   end
 
-  private
-
-  def resource_params
-    params.require(:resource).permit(:title, :description, :resource_type_id, images: [])
-  end
-
   def user_posts 
     @user = User.find(params[:id])
 
@@ -64,6 +58,12 @@ class ResourcesController < ApplicationController
       redirect_to root_path, alert: t(".only_your_posts") 
     end
 
+  end
+
+  private
+
+  def resource_params
+    params.require(:resource).permit(:title, :description, :resource_type_id, images: [])
   end
 
 end

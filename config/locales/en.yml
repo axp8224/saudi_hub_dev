@@ -197,6 +197,7 @@ en:
     written_by: "Written by: %{author_name}"
     user_posts:
       my_posts: "My Posts"
+      no_posts: "No posts available."
       only_your_posts: "You can only view your posts."
 
   admin:
