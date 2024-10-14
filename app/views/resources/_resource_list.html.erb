@@ -1,9 +1,13 @@
 <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
   <% resources.each do |resource| %>
     <div class="bg-white rounded-lg shadow-lg overflow-hidden">
-      <!-- Resource Image (Placeholder for now) -->
+      <!-- Resource Image -->
       <div class="relative">
-        <%= image_tag '', class: 'w-full h-48 object-cover', alt: 'Placeholder image' %>
+        <% if resource.images.attached? %>
+          <%= image_tag resource.images.first, class: 'w-full h-48 object-cover', alt: resource.title %>
+        <% else %>
+          <%= image_tag '', class: 'w-full h-48 object-cover', alt: 'Placeholder image' %>
+        <% end %>
       </div>
 
       <!-- Resource Content -->
