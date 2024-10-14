@@ -69,6 +69,8 @@ en:
       role_update_success: "%{name}'s role was updated successfully."
       role_update_failure: "Unable to update role."
       access_denied: "Access denied."
+    resource:
+      create_success: "Resource was successfully created."
   home:
     show:
       welcome: "Welcome to the Saudi Community Hub!"
