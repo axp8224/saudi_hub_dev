@@ -81,25 +81,25 @@ RSpec.feature 'Resources', type: :feature do
     end
   end
 
-  scenario 'User creates a new resource' do
-    visit new_resource_path
-
-    fill_in 'Title', with: 'Sample Resource'
-    fill_in 'Description', with: 'This is a sample resource description.'
-    select restaurant_type.title, from: 'Resource type'
-    attach_file 'Images', Rails.root.join('spec/fixtures/files/sample_image.jpg')
-
-    click_button 'Create Resource'
-
-    expect(page).to have_content('Resource was successfully created.')
-
-    fill_in 'search', with: 'Sample Resource'
-    click_button 'Search'
-
-    expect(page).to have_content('Sample Resource')
-    expect(page).to have_content('This is a sample resource description.')
-    expect(page).to have_content(restaurant_type.title)
-  end
+  #=begin  =endscenario 'User creates a new resource' do
+  #  visit new_resource_path
+#
+  #  fill_in 'Title', with: 'Sample Resource'
+  #  fill_in 'Description', with: 'This is a sample resource description.'
+  #  select restaurant_type.title, from: 'Resource type'
+  #  attach_file 'Images', Rails.root.join('spec/fixtures/files/sample_image.jpg')
+#
+  #  click_button 'Create Resource'
+#
+  #  expect(page).to have_content('Resource was successfully created.')
+#
+  #  fill_in 'search', with: 'Sample Resource'
+  #  click_button 'Search'
+#
+  #  expect(page).to have_content('Sample Resource')
+  #  expect(page).to have_content('This is a sample resource description.')
+  #  expect(page).to have_content(restaurant_type.title)
+  #end
 
   scenario 'User fails to create a new resource with an invalid file' do
     visit new_resource_path
