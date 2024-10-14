@@ -3,7 +3,11 @@
     <div class="bg-white shadow-md rounded-lg p-8 flex items-center justify-between" style="min-height: 180px;"> 
       <!-- Profile Image -->
       <div class="w-28 h-28 pr-4">
-        <img class="w-full h-full object-cover" src="https://via.placeholder.com/150" alt="Profile image" style="border-radius: 0.25rem;">
+        <% if user.avatar.attached? %>
+          <%= image_tag user.avatar, class: 'w-full h-full object-cover', alt: 'Profile image', style: 'border-radius: 0.25rem;' %>
+        <% else %>
+          <%= image_tag 'https://via.placeholder.com/150', class: 'w-full h-full object-cover', alt: 'Placeholder image', style: 'border-radius: 0.25rem;' %>
+        <% end %>
       </div>
       <!-- User Info -->
       <div class="flex-1"> 
