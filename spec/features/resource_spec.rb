@@ -56,8 +56,8 @@ RSpec.feature 'Resources', type: :feature do
     visit resources_path
 
     resource = active_resources.first
-
-    click_link "read-more-#{resource.id}"
+    
+    first(:link, 'Read More', href: resource_path(resource)).click
 
     expect(page).to have_content(resource.title)
     expect(page).to have_content(resource.description)
