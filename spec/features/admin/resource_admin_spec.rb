@@ -9,7 +9,24 @@ RSpec.feature 'Resources', type: :feature do
   let(:active_restaurant_resources) { Resource.where(resource_type: restaurant_type, status: 'active') }
   let(:active_apartment_resources) { Resource.where(resource_type: apartment_type, status: 'active') }
 
-  before do
+  around do |example|
+    if example.metadata[:not_admin]
+      login_as_non_admin
+    else 
+      login_as_admin
+    end
+
+    example.run
+  end
+
+  def login_as_non_admin
+    omniauth_mock_auth_hash
+    visit new_user_session_path
+    click_button 'Log in with Google'
+    click_button 'I Accept'
+  end
+
+  def login_as_admin
     omniauth_mock_auth_hash_ADMIN
     visit new_user_session_path
     click_button 'Log in with Google'
@@ -32,6 +49,19 @@ RSpec.feature 'Resources', type: :feature do
     active_resources.each do |resource|
       expect(page).not_to have_content(resource.title)
     end
+  end
+
+  scenario 'Admin can search resources on this page' do 
+    visit admin_resources_path
+
+    expect(page).to have_content('Resource Manager')
+
+    fill_in t("admin.resources.index.search_resources"), with: "Bee"
+
+    click_on 'Search'
+
+    expect(page).to have_content("Bee Creek Park")
+    expect(page).not_to have_content("Lick Creek Park")
   end
 
   scenario 'Admin can edit resources' do
@@ -62,6 +92,61 @@ RSpec.feature 'Resources', type: :feature do
 
     expect(page).not_to have_content(original_description)
     expect(page).to have_content(new_description)
+  end
+ 
+  scenario 'Update fails' do 
+    visit admin_resources_path
+
+    resource = Resource.find(1)
+
+    visit edit_admin_resource_path(resource)
+
+    new_description = 'Updated sample resource description.'
+    fill_in 'Description', with: new_description
+    
+    allow_any_instance_of(Resource).to receive(:update).and_return(false)  # Stub update to return false
+
+    click_button 'Save Resource'
+
+    expect(page).to have_content(t('flash.admin.update_failed'))
+  end
+
+  scenario 'Admin can leave feedback on resources' do 
+    visit admin_resources_path
+
+    feedback_message = "Testing feedback in RSpec"
+
+    select t('admin.resources.status_pending'), from: 'status'
+    click_on 'Search'
+
+    pending_resource = pending_resources.first
+    original_description = pending_resource.description
+
+    expect(page).not_to have_content(feedback_message)
+
+    visit edit_admin_resource_path(pending_resource)
+
+    # click_on t('admin.resources.edit.add_feedback')
+    
+    # The button relies on using javascript, which doesn't work with our current configuration as far as I can tell.
+    # The only workaround is to artifically put feedback in ("empty") and refresh the page. This will make the feedback field display.
+
+    pending_resource.update(feedback: "empty")
+    pending_resource.save()
+
+    visit edit_admin_resource_path(pending_resource)
+
+    fill_in t('resources.feedback'), with: feedback_message
+
+    click_button 'Save Resource'
+
+    expect(page).to have_current_path(admin_resources_path) # redirect back to manage resources page
+
+    select t('admin.resources.status_pending'), from: 'status'
+    
+    click_on 'Search'
+
+    expect(page).to have_content(feedback_message)
   end
 
   scenario 'Admin can approve resources' do
@@ -128,5 +213,11 @@ RSpec.feature 'Resources', type: :feature do
     click_on 'Search'
 
     expect(page).to have_content(original_description)
+  end
+
+  scenario 'Users cannot access', not_admin: true do 
+    visit admin_resources_path
+
+    expect(page).to have_content(t('flash.admin.access_denied'))
   end
 end

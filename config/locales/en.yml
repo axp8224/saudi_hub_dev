@@ -184,10 +184,22 @@ en:
         log_in_with: "Log in with %{provider}"
 
   resources:
+    status: "Status"
+    title: "Title"
+    description: "Description"
+    type: "Type"
+    author: "Author"
+    feedback: "Feedback"
+
     index:
+      resources: "Resources"
       manage_resources: "Manage Resources"
     written_by: "Written by: %{author_name}"
-      
+    user_posts:
+      my_posts: "My Posts"
+      no_posts: "No posts available."
+      only_your_posts: "You can only view your posts."
+
   admin:
     users:
       edit:
@@ -207,7 +219,7 @@ en:
       status_archived: "Archived"
 
       edit_resource: "Edit Resource"
-      status: "Status"
+      status: "Status" # future refactor: these references can be altered to resources.status, etc. for reduced repetition
       title: "Title"
       description: "Description"
 
@@ -229,5 +241,6 @@ en:
         author: "Author"
       edit:
         resource_type: "Resource Type"
+        add_feedback: "Add Feedback"
         save_resource: "Save Resource"
         back_to_resource_manager: "Back to Resource Manager"

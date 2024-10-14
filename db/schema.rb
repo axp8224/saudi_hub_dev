@@ -75,6 +75,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_10_14_120531) do
     t.string "status"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "feedback"
     t.index ["resource_type_id"], name: "index_resources_on_resource_type_id"
     t.index ["user_id"], name: "index_resources_on_user_id"
   end
