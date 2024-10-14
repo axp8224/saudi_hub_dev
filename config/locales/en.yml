@@ -111,6 +111,35 @@ en:
       contact:
         title: "Contact Us"
         subtitle: "Still have questions? Reach out to our dev team for more assistance."
+    documentation:
+      title: "Documentation"
+      subtitle: "Administrator's Guide to the SSA Hub"
+      overview:
+        title: "Overview"
+        content: "This page is only visible to administrators. It contains information about what the system is made of, important moving parts, and how to make changes (especially for translations). At the bottom of the page, you can find the README file for the project, which includes helpful information about deploying the app."
+      translation:
+        title: "How Translation Works"
+        content: "This is included first because it's a highly critical part of the system, and likely to be used by SSA leaders to build a more accurate website."
+        details: "Translation in this app is built with the <code style='font-weight:bold'>I18n</code> internationalization libary. All you need to know in order to change static text (and its translations) on the website, is where to find the translations. References to text fields that need translation in <code>html.erb</code> templates are formatted as <code>t('path.to.exact.field')</code> or <code>t('.relative_path_starting_on_current_page')</code>. The content that's returned from this function depends on the current language selected by the user. Translations are stored in the <code style='font-weight:bold'>en.yml</code> and <code style='font-weight:bold'>ar.yml</code> files (in <code style='font-weight:bold'>config/locales</code>), for English and Arabic translations, respectively. Each file has the same structure, and text is organized according to the pages of the website."
+      controllers:
+        title: "Controllers"
+        content: "The following is a description of important controllers in the app, and what their responsibilities are."
+        pages: "The <code style='font-weight:bold'>PagesController</code> displays static pages like the homepage, Help page, and documentation."
+        resources: "The <code style='font-weight:bold'>ResourcesController</code> manages active resources, allowing users to filter and search while providing pagination."
+        admin_resources: "The <code style='font-weight:bold'>Admin::ResourcesController</code> allows admins to manage resources, including viewing, editing, and filtering by type and status."
+        users: "The <code style='font-weight:bold'>UsersController</code> handles user profiles, enabling users to view, edit, and update their information, including searching and filtering."
+        admin_users: "The <code style='font-weight:bold'>Admin::UsersController</code> allows admins to manage user accounts, search for users, and edit roles while ensuring secure access."
+        logs: "The <code style='font-weight:bold'>Admin::LogsController</code> displays user action logs, ensuring that only admins can access and review them. <b>The purpose of logging is to ensure that there is accountability for important changes to data. (Non-repudiation.) We strongly advise you to ensure that logging is thoroughly maintained in future versions of the application.</b>"
+      models:
+        title: "Models"
+        content: "These are described in our Data Design diagram."
+      data_design:
+        title: "Data Design"
+        content: "This diagram shows the relationships between each of our database entities."
+      readme:
+        title: "README file"
+        content: "This is information for developers that helps to navigate our code."
+
   users:
     index:
       back_to_dashboard: "Back to Dashboard"

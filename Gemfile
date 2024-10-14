@@ -91,3 +91,5 @@ gem 'dotenv-rails', groups: [:development, :test]
 gem 'kaminari'
 
 gem 'tailwindcss-rails'
+
+gem 'redcarpet' # for displaying Markdown (README)

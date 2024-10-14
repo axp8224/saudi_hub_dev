@@ -27,6 +27,7 @@ Rails.application.routes.draw do
 
   get 'home', to: 'pages#home'
   get 'help', to: 'pages#help'
+  get 'documentation', to: 'pages#documentation'
 
   resources :resources, only: [:index, :new, :create, :show]
 end
