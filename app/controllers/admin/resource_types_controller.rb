@@ -15,6 +15,31 @@ module Admin
         render :new
       end
     end
+
+    def edit
+      @resource_type = ResourceType.find(params[:id])
+    end
+  
+    def update
+      @resource_type = ResourceType.find(params[:id])
+      if @resource_type.update(resource_type_params)
+        redirect_to admin_resources_path, notice: 'Resource type was successfully updated.'
+      else
+        render :edit
+      end
+    end
+  
+    def destroy
+      @resource_type = ResourceType.find(params[:id])
+
+      @resource_type.resources.update_all(resource_type_id: nil, status: 'archived')
+      
+      if @resource_type.destroy
+        redirect_to admin_resources_path, notice: 'Resource type was successfully deleted and related resources archived.'
+      else
+        redirect_to admin_resources_path, alert: 'Failed to delete the resource type.'
+      end
+    end
   
     private
 
