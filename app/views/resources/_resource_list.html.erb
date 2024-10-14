@@ -1,22 +1,22 @@
-<ul id="resource-list" style="list-style-type: none; padding: 0;">
-  <% if resources.any? %>
-    <% @resources.each do |resource| %>
-        <li style="margin-bottom: 20px;">
-          <h3><%= link_to resource.title, resource_path(resource) %></h3>
-          <p><%= resource.description %></p>
-          <% if resource.images.attached? %>
-            <div style="display: flex; gap: 10px;">
-              <% resource.images.each do |image| %>
-                <%= image_tag image, style: "max-width: 100px; max-height: 100px;" %>
-              <% end %>
-            </div>
-          <% end %>
-        </li>
-      <% end %>
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+  <% resources.each do |resource| %>
+    <div class="bg-white rounded-lg shadow-lg overflow-hidden">
+      <!-- Resource Image (Placeholder for now) -->
+      <div class="relative">
+        <%= image_tag '', class: 'w-full h-48 object-cover', alt: 'Placeholder image' %>
+      </div>
 
-    <!-- Pagination -->
-    <%= paginate resources %>
-  <% else %>
-    <li><%= t('search.no_results')%></li>
+      <!-- Resource Content -->
+      <div class="p-6">
+        <!-- Resource Title -->
+        <h3 class="text-xl font-bold mb-2 text-[#471815]"><%= resource.title %></h3>
+        
+        <!-- Description -->
+        <p class="text-gray-700 text-sm mb-4"><%= truncate(resource.description, length: 100) %></p>
+
+        <!-- Read More Button -->
+        <%= link_to t('.read_more', default: 'Read More'), resource_path(resource), class: 'block bg-[#471815] text-white font-semibold text-center py-2 rounded-md hover:bg-[#633e23]', id: "read-more-#{resource.id}" %>
+      </div>
+    </div>
   <% end %>
-</ul>
+</div>

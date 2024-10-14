@@ -1,32 +1,78 @@
-<h1><%= t('shared.resources') %></h1>
-<%= link_to t('.manage_resources', default: "Manage Resources"), admin_resources_path, class: 'btn btn-primary' %>
-<%= link_to t('.submit_resource', default: "Submit Resource"), new_resource_path, class: 'btn btn-success', style: 'margin-left: 10px;' %>
-<div style="display: flex;">
-  <div style="width: 25%; padding-right: 20px;">
-    <h2>Resource Types</h2>
-    <ul style="list-style-type: none; padding: 0;">
-      <li style="margin-bottom: 10px;">
-        <%= link_to 'All Resources', resources_path, style: params[:resource_type_id].blank? ? "font-weight: bold;" : "" %>
+<div class="container mx-auto max-w-screen-xl p-6">
+  
+  <!-- Title for Resources -->
+  <div class="max-w-lg w-full">
+    <h1 class="text-2xl font-semibold" style="color: #471815;">Resources</h1>
+  </div>
+
+  <!-- Search Form -->
+  <div class="">
+    <%= render 'shared/search_form', 
+        form_url: resources_path, 
+        show_text_search: true,
+        text_search_label: t('search.resources.search_resources', default: "Search Resources"),
+        text_search_placeholder: t('search.resources.search_bar', default: "Enter resource title or description"),
+        show_major_filter: false, 
+        show_class_year_filter: false, 
+        show_per_page: true, 
+        per_page_label: t('users.index.items_per_page', default: "Items per page") %>
+  </div>
+
+  <!-- Show 'No Results' Message If Applicable -->
+  <% if flash[:notice] %>
+    <p class="text-red-600"><%= flash[:notice] %></p>
+  <% end %>
+
+  <!-- Tabs Component -->
+  <div class="flowbite-tabs mt-10">
+    <!-- Tabs navigation -->
+    <ul class="flex flex-wrap text-sm font-medium text-center border-b border-gray-200" id="myTab" data-tabs-toggle="#myTabContent" role="tablist">
+      <!-- All Resources Tab -->
+      <li class="mr-2">
+        <button id="all-resources-tab" data-tabs-target="#all-resources" type="button" role="tab" aria-controls="all-resources" aria-selected="<%= params[:resource_type_id].blank? ? 'true' : 'false' %>" 
+        class="inline-block p-4 rounded-t-lg <%= params[:resource_type_id].blank? ? '' : 'text-gray-500 hover:text-black' %>">
+          All Resources
+        </button>
       </li>
-      <% @resource_types.each do |resource_type| %>
-        <li style="margin-bottom: 10px;">
-          <%= link_to resource_type.title, resources_path(resource_type_id: resource_type.id), style: params[:resource_type_id].to_s == resource_type.id.to_s ? "font-weight: bold;" : "" %>
+
+      <!-- Dynamic Resource Type Tabs -->
+      <% @resource_types.each_with_index do |resource_type, index| %>
+        <li class="mr-2">
+          <button id="tab-<%= index %>" data-tabs-target="#tab-content-<%= index %>" type="button" role="tab" aria-controls="tab-content-<%= index %>" 
+          aria-selected="<%= params[:resource_type_id].to_s == resource_type.id.to_s ? 'true' : 'false' %>" 
+          class="inline-block p-4 rounded-t-lg <%= params[:resource_type_id].to_s == resource_type.id.to_s ? '' : 'text-gray-500 hover:text-black' %>">
+            <%= resource_type.title %>
+          </button>
         </li>
       <% end %>
     </ul>
+
+    <!-- Tabs Content -->
+    <div id="myTabContent" class="mt-6">
+      <!-- All Resources Tab Content -->
+      <div class="<%= params[:resource_type_id].blank? ? '' : 'hidden' %>" id="all-resources" role="tabpanel" aria-labelledby="all-resources-tab">
+        <!-- All Resources List -->
+        <div class="mt-4">
+          <%= render 'resource_list', resources: @resources %>
+        </div>
+      </div>
+
+      <!-- Dynamic Resource Type Tabs Content -->
+      <% @resource_types.each_with_index do |resource_type, index| %>
+        <div class="<%= params[:resource_type_id].to_s == resource_type.id.to_s ? '' : 'hidden' %>" id="tab-content-<%= index %>" role="tabpanel" aria-labelledby="tab-<%= index %>">
+          <!-- Resources List for specific type -->
+          <div class="mt-4">
+            <%= render 'resource_list', resources: @resources.where(resource_type_id: resource_type.id) %>
+          </div>
+        </div>
+      <% end %>
+    </div>
   </div>
 
-  <%= render 'shared/search_form', 
-           form_url: resources_path, 
-           show_text_search: true,
-           text_search_label: t('search.resources.search_resources', default: "Search Resources"),
-           text_search_placeholder: t('search.resources.search_bar', default: "Enter resource title or description"),
-           show_major_filter: false, 
-           show_class_year_filter: false, 
-           show_per_page: true, 
-           per_page_label: t('users.index.items_per_page', default: "Items per page")%>
+  <!-- Manage Resources Button -->
+  <%= link_to t('.manage_resources', default: "Manage Resources"), admin_resources_path, 
+  class: 'block bg-[#471815] text-white font-semibold text-center rounded-md fixed bottom-5 right-5 px-6 py-3 shadow-lg'
+  %>
 
-  <div style="width: 75%;">
-    <%= render 'resource_list', resources: @resources %>
-  </div>
 </div>
+
