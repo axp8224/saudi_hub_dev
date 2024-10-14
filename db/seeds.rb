@@ -240,7 +240,6 @@ sample_other_user = User.find_by(email: 'sample2@example.com')
 
 restaurant_type = ResourceType.find_by(title: 'Restaurants')
 
-{ name: "Piada Italian Street Food", description: "Specializing in handmade piadas and authentic Italian dishes, perfect for a quick and delicious meal.", type: restaurant_type }
 Resource.find_or_create_by!(
                               user_id: sample_other_user.id,
                               resource_type: restaurant_type,
