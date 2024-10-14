@@ -1,6 +1,8 @@
 <h1><%= t(".resource_manager") %></h1>
 <%= link_to t(".back_to_resources"), resources_path, class: 'btn btn-primary' %>
 
+<%= link_to t(".create_new_resource_type"), new_admin_resource_type_path, class: 'btn btn-secondary mt-2' %> <!-- Add this button -->
+
 <%= form_with url: admin_resources_path, method: :get, local: true do %>
   <div class="form-group">
     <%= label_tag :search, t('.search_resources') %>
@@ -20,7 +22,6 @@
   </div>
 <% end %>
 
-
 <div style="display: flex;">
   <div style="width: 75%;">
     <table>
@@ -32,7 +33,7 @@
       <% @resources.each do |resource| %>
         <tr style="margin-bottom: 20px;">
           <td><%= t("admin.resources.status_#{resource.status}") %></td>
-          <td><%= resource.resource_type.title %>
+          <td><%= resource.resource_type.title %></td>
           <td><%= resource.title %></td>
           <td><%= resource.description %></td>
           <td><%= resource.author.full_name %></td>
