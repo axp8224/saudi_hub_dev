@@ -34,7 +34,9 @@
 
   <!-- Resource Image Gallery -->
   <div class="mb-6">
-    <%= image_tag '', class: 'w-full h-96 object-cover rounded-lg' %>
+    <% @resource.images.each do |image| %>
+      <%= image_tag image, class: 'w-full h-96 object-cover rounded-lg mb-4' %>
+    <% end %>
   </div>
 
   <!-- Resource Info Section -->
@@ -43,11 +45,6 @@
       <!-- Left Section (Title, Ratings, Author, Address) -->
       <div>
         <h5 class="text-2xl font-semibold text-[#471815] mb-2"><%= @resource.title %></h5>
-        <div class="flex items-center mb-2">
-          <!-- Star Ratings -->
-          <span class="text-yellow-500">★★★★★</span>
-          <span class="ml-2 text-sm text-gray-600">(5)</span>
-        </div>
         <p class="text-gray-600"><%= t('resources.written_by', author_name: @resource_author.full_name) %></p>
       </div>
   
