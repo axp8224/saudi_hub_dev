@@ -30,6 +30,7 @@
           <ul class="py-2 text-sm text-gray-700" aria-labelledby="dropdownUserAvatarButton">
               <!-- Login Option -->
               <li>
+                  <%= link_to t('shared.help'), help_path, class: "block px-4 py-2 hover:bg-gray-100" %>
                   <%= link_to t('shared.login'), new_user_session_path, class: "block px-4 py-2 hover:bg-gray-100" %>
               </li>
           </ul>

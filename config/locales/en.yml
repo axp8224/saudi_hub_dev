@@ -39,6 +39,8 @@ en:
       manage_users: "Manage Users"
   shared:
     login: "Login"
+    help: "Help"
+    documentation: "Documentation"
     logs: "Activity Logs"
     saudi_hub: "Saudi Community Hub"
     accept: "I Accept"
