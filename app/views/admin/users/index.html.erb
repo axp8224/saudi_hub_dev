@@ -1,19 +1,19 @@
-<h1>Manage Users</h1>
+<h1><%= t('.manage_users') %></h1>
 
+<!-- Search Form -->
 <%= form_with url: admin_users_path, method: :get, local: true do %>
   <div class="form-group">
-    <%= label_tag :search, "Search Users" %>
-    <%= text_field_tag :search, params[:search], placeholder: "Enter full name or email" %>
+    <%= label_tag :search, t('admin.users.index.search_users') %> 
+    <%= text_field_tag :search, params[:search], placeholder: t('admin.users.index.search_bar', default: "Enter full name or email") %>
     
-    <%= submit_tag "Search" %>
+    <%= submit_tag t('admin.users.index.search_button', default: "Search") %> 
 
-    <%= label_tag :per_page, "Items per page" %>
+    <%= label_tag :per_page, t('admin.users.index.items_per_page', default: "Items per page") %> 
     <%= select_tag :per_page, options_for_select([5, 10, 20], params[:per_page] || 10), onchange: 'this.form.submit();' %>
   </div>
 <% end %>
 
-<div id="users-table">
-  <%= render 'users_table', users: @users %>
-</div>
+<!-- Users Table -->
+<%= render 'users_table', users: @users %>
 
-<%= link_to 'Back to Dashboard', root_path %>
+<%= link_to  t('admin.users.index.back_to_dashboard', default: 'Back to Dashboard'), root_path %>

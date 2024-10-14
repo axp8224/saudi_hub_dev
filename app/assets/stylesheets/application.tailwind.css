@@ -1,0 +1,45 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+  .btn {
+    @apply inline-block text-center rounded;
+  }
+
+  .btn-primary {
+    @apply bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded;
+  }
+
+  .nav-active {
+    @apply block p-3 text-white bg-[#173821] rounded lg:bg-transparent lg:font-bold lg:px-3;
+  }
+  
+  .nav-inactive {
+    @apply block p-3 text-gray-900 lg:text-white rounded hover:bg-[#173821] hover:bg-opacity-30 lg:hover:bg-transparent lg:hover:opacity-100 lg:opacity-70 lg:px-3 lg:-mx-3;
+  }  
+
+  
+}
+
+body {
+  min-width: 320px; 
+}
+
+.accept-btn {
+  background-color: #596c57 !important;
+  color: white !important;
+}
+
+.accept-btn:hover {
+  background-color: #173821 !important;
+}
+
+.decline-btn {
+  @apply text-gray-900
+}
+
+.decline-btn:hover {
+  color: #596c57 !important;
+}
+

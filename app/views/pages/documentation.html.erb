@@ -1,0 +1,89 @@
+<div class="container mx-auto py-12 px-4">
+  <div class="text-center mb-8">
+    <h1 class="text-4xl font-bold text-gray-800"><%= t('.title') %></h1>
+    <p class="text-gray-600 mt-2"><%= t('.subtitle') %></p>
+  </div>
+
+  <div class="space-y-12">
+    <!-- Overview -->
+    <div>
+      <h2 class="text-3xl font-semibold text-gray-800"><%= t('.overview.title') %></h2>
+      <p class="mt-4 text-gray-600"><%= t('.overview.content') %></p>
+    </div>
+
+    <br>
+
+    <!-- Translation -->
+    <div>
+      <h2 class="text-3xl font-semibold text-gray-800"><%= t('.translation.title') %></h2>
+      <p class="mt-4 text-gray-600"><%= t('.translation.content') %></p>
+      <p class="mt-4 text-gray-600"><%= t('.translation.details').html_safe %></p>
+    </div>
+
+    <br>
+    
+    <!-- Controllers -->
+    <div>
+      <h2 class="text-3xl font-semibold text-gray-800"><%= t('.controllers.title') %></h2>
+      <p class="mt-4 text-gray-600"><%= t('.controllers.content') %></p>
+      <ul class="mt-4 list-disc list-inside text-gray-600">
+        <li><%= t('.controllers.pages').html_safe %></li>
+        <li><%= t('.controllers.resources').html_safe %></li>
+        <li><%= t('.controllers.admin_resources').html_safe %></li>
+        <li><%= t('.controllers.users').html_safe %></li>
+        <li><%= t('.controllers.admin_users').html_safe %></li>
+        <li><%= t('.controllers.logs').html_safe %></li>
+        
+      </ul>
+    </div>
+
+    <br>
+
+    <!-- Models -->
+    <div>
+      <h2 class="text-3xl font-semibold text-gray-800"><%= t('.models.title') %></h2>
+      <p class="mt-4 text-gray-600"><%= t('.models.content') %></p>
+    </div>
+
+    <br>
+
+    <!-- Data Design -->
+    <div>
+        <h2 class="text-3xl font-semibold text-gray-800"><%= t('.data_design.title') %></h2>
+        <p class="mt-4 text-gray-600"><%= t('.data_design.content') %></p>
+        <img src="/data_design_diagram.png" />
+    </div>
+
+
+    <%# <!-- README Section -->
+    styling doesn't work yet
+    <link rel="stylesheet" href="github-markdown.css"> 
+    <style>
+        .markdown-body {
+            box-sizing: border-box;
+            min-width: 200px;
+            max-width: 980px;
+            margin: 0 auto;
+            padding: 45px;
+        }
+
+        @media (max-width: 767px) {
+            .markdown-body {
+                padding: 15px;
+            }
+        }
+    </style>
+
+    <article class=markdown-body>     
+    </article> %>
+    
+    <div>
+        <h2 class="text-3xl font-semibold text-gray-800"><%= t('.readme.title') %></h2>
+        <p class="mt-4 text-gray-600"><%= t('.readme.content') %></p>
+    </div>
+
+    <%= markdown(File.read(Rails.root.join('README.md'))) %>
+
+  </div>
+</div>
+

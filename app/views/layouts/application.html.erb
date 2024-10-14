@@ -1,31 +1,73 @@
 <!DOCTYPE html>
 <html lang="<%= I18n.locale %>">
   <head>
-    <title>GoogleOauthDevise</title>
+    <title><%= t("shared.saudi_hub") %></title>
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
-    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
-    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <%= stylesheet_link_tag "tailwind", "inter-font", "data-turbo-track": "reload" %>
+    <link rel="shortcut icon" href="/logo.svg"/>
+    <link href="https://cdn.jsdelivr.net/npm/flowbite@2.5.2/dist/flowbite.min.css" rel="stylesheet" />
     <style>
         .flash__alert   { color: red; }
         .flash__notice  { color: blue; }
         .flash__success { color: green; }
         body { direction: <%= I18n.locale == :ar ? 'rtl' : 'ltr' %>; }
     </style>
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        const avatarMenuWrapper = document.getElementById("avatarMenuWrapper");
+        const navBar = document.getElementById("navbar-sticky");
+
+        // Function to move the avatar dropdown depending on the screen size
+        function handleResize() {
+          if (window.innerWidth < 640) {
+            // For small screens, move the avatar into the navbar
+            if (!navBar.contains(avatarMenuWrapper)) {
+              navBar.appendChild(avatarMenuWrapper);
+            }
+          } else {
+            // For larger screens, ensure it's outside the navbar
+            if (!document.body.contains(avatarMenuWrapper)) {
+              document.body.appendChild(avatarMenuWrapper);
+            }
+          }
+        }
+
+        // Call the function initially
+        handleResize();
+
+        // Attach the resize event listener
+        window.addEventListener("resize", handleResize);
+      });
+    </script>
   </head>
 
   <body>
-
+    <%= render 'shared/navbar' %>
     <% if flash.any? %>
-      <% flash.each do |key, value| -%>
-        <section class="flash flash__<%= key %>"><%= value.html_safe %></section>
-      <% end -%>
+      <div class="fixed bottom-4 right-4 space-y-2 z-50">
+        <% flash.each do |key, value| %>
+          <% 
+            alert_classes = case key
+              when 'notice' then 'text-blue-800 bg-blue-50'
+              when 'alert' then 'text-red-800 bg-red-50'
+              when 'success' then 'text-green-800 bg-green-50'
+              when 'warning' then 'text-yellow-800 bg-yellow-50'
+              else 'text-gray-800 bg-gray-50'
+            end
+          %>
+          <div class="p-4 text-sm rounded-lg shadow-lg <%= alert_classes %>" role="alert">
+            <span class="font-medium">
+              <%= t("flash.types.#{key}") %>!
+            </span> 
+            <%= value.html_safe %>
+          </div>
+        <% end %>
+      </div>
     <% end %>
     <%= yield %>
-    <div class="language-switcher">
-      <%= link_to 'English', switch_locale_path(locale: 'en') %> |
-      <%= link_to 'العربية', switch_locale_path(locale: 'ar') %>
-    </div>
+    <script src="https://cdn.jsdelivr.net/npm/flowbite@2.5.2/dist/flowbite.min.js"></script>
+    <script src="../path/to/flowbite/dist/flowbite.min.js"></script>
   </body>
 </html>
 

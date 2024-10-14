@@ -36,6 +36,112 @@ en:
       view_profile: "View My Profile"
       member_directory: "Member Directory"
       sign_out: "Sign Out"
+      manage_users: "Manage Users"
+  shared:
+    login: "Login"
+    help: "Help"
+    documentation: "Documentation"
+    logs: "Activity Logs"
+    saudi_hub: "Saudi Community Hub"
+    accept: "I Accept"
+    decline: "Decline"
+    close_modal: "Close modal"
+    privacy_policy: "Privacy Policy"
+    privacy_policy_pg_1: "By creating an account on our website, you acknowledge that certain personal information will be made available in the member directory, accessible to all other registered members. This information includes, but is not limited to, your full name, major, phone number, and email address."
+    privacy_policy_pg_2: "Please note that agreement to this policy is mandatory for account creation. If you do not agree to the visibility of your information in the member directory, you will be unable to proceed with creating an account."
+  search:
+    no_results: "No results match your search or filter criteria."
+    search_button: "Search"
+    items_per_page: "Items per page"
+    resources:
+      search_resources: "Search Resources"
+      search_bar: "Enter resource title or description"
+  flash:
+    types:
+      success: "Success"
+      notice: "Notice"
+      alert: "Alert"
+      warning: "Warning"
+    profile:
+      update_success: "Profile updated successfully!"
+      update_failure: "There was an error updating your profile. Please try again."
+    admin:
+      resource_updated: "Resource %{title} was updated successfully."
+      update_failed: "Unable to update resource."
+      role_update_success: "%{name}'s role was updated successfully."
+      role_update_failure: "Unable to update role."
+      access_denied: "Access denied."
+    resource:
+      create_success: "Resource was successfully created."
+  pages:
+    home:
+      welcome: "Welcome to the Saudi Community Hub!"
+      description: "This website allows members of the Saudi Arabian community in the Bryan/College Station area to connect and share resources with one another. Please enjoy your time on here."
+    help:
+      title: "Help & Support"
+      subtitle: "Find answers to common questions and learn how to use our platform."
+      getting_started:
+        title: "Getting Started"
+        create_account: "Create an Account"
+        account_creation: "Create your account by clicking 'Login' from the navigation bar at the top of the screen."
+        google_auth: "This will direct you to Google's authentication service, where you can log in with your Google account."
+        privacy_policy: "You will be asked to agree to our Privacy Policy: as a member of our platform, your email will be visible to other members who are logged-in. This is for the sake of encouraging community members to connect with each other. Your information will NOT be used for any other purposes."
+        logged_in: "Once you're logged in, you'll be redirected back to the homepage, where you can start exploring!"
+      how_to_use:
+        title: "How to Use This Platform"
+        intro: "A quick intro to each feature."
+        profile_management:
+          title: "Profile Management"
+          instruction: "After logging in, navigate to your profile by clicking on your name in the top corner. Here, you can view and edit your personal information, including your name, major of study, graduation year, profile picture, and a brief 'About Me' for other users to read."
+          save_changes: "Make sure to save any changes before navigating away from the profile page."
+        resource_sharing:
+          title: "Resource Sharing Platform"
+          instruction: "To explore the resources available on the platform, go to the 'Resources' section from the main navigation menu. You can filter and search for specific items based on categories or keywords."
+          details: "Click on any resource to view more details, including images, descriptions, and address information."
+        member_directory:
+          title: "Member Directory"
+          instruction: "The purpose of this app is to bring the community together! You can search the Member Directory for users in your major of study, your class year, or who share similar interests in their bio. If you want to reach out to them, send them an email!"
+      faq:
+        title: "Frequently Asked Questions"
+        subtitle: "Here are answers to some of the most common questions from our users:"
+        logout:
+          title: "How do I log out?"
+          instruction: "There is a 'Sign Out' button in the navigation bar at the top of the screen. Once you are logged out, your session is securely closed. You can safely close the application, or log in with a different Google account."
+        resource_proposal:
+          title: "I submitted a resource proposal, but it hasn't appeared on the platform yet. What's going on?"
+          instruction: "All proposed posts must be reviewed and approved by an administrator before going live on the website. Sometimes, a resource isn't ready to be approved yet, and needs to be modified first. When this is the case, an administrator might leave feedback and request that you change the resource proposal before they approve it. You can check for feedback (or see the status of your posts) on the 'My Posts' page."
+      contact:
+        title: "Contact Us"
+        subtitle: "Still have questions? Reach out to our dev team for more assistance."
+    documentation:
+      title: "Documentation"
+      subtitle: "Administrator's Guide to the SSA Hub"
+      overview:
+        title: "Overview"
+        content: "This page is only visible to administrators. It contains information about what the system is made of, important moving parts, and how to make changes (especially for translations). At the bottom of the page, you can find the README file for the project, which includes helpful information about deploying the app."
+      translation:
+        title: "How Translation Works"
+        content: "This is included first because it's a highly critical part of the system, and likely to be used by SSA leaders to build a more accurate website."
+        details: "Translation in this app is built with the <code style='font-weight:bold'>I18n</code> internationalization libary. All you need to know in order to change static text (and its translations) on the website, is where to find the translations. References to text fields that need translation in <code>html.erb</code> templates are formatted as <code>t('path.to.exact.field')</code> or <code>t('.relative_path_starting_on_current_page')</code>. The content that's returned from this function depends on the current language selected by the user. Translations are stored in the <code style='font-weight:bold'>en.yml</code> and <code style='font-weight:bold'>ar.yml</code> files (in <code style='font-weight:bold'>config/locales</code>), for English and Arabic translations, respectively. Each file has the same structure, and text is organized according to the pages of the website."
+      controllers:
+        title: "Controllers"
+        content: "The following is a description of important controllers in the app, and what their responsibilities are."
+        pages: "The <code style='font-weight:bold'>PagesController</code> displays static pages like the homepage, Help page, and documentation."
+        resources: "The <code style='font-weight:bold'>ResourcesController</code> manages active resources, allowing users to filter and search while providing pagination."
+        admin_resources: "The <code style='font-weight:bold'>Admin::ResourcesController</code> allows admins to manage resources, including viewing, editing, and filtering by type and status."
+        users: "The <code style='font-weight:bold'>UsersController</code> handles user profiles, enabling users to view, edit, and update their information, including searching and filtering."
+        admin_users: "The <code style='font-weight:bold'>Admin::UsersController</code> allows admins to manage user accounts, search for users, and edit roles while ensuring secure access."
+        logs: "The <code style='font-weight:bold'>Admin::LogsController</code> displays user action logs, ensuring that only admins can access and review them. <b>The purpose of logging is to ensure that there is accountability for important changes to data. (Non-repudiation.) We strongly advise you to ensure that logging is thoroughly maintained in future versions of the application.</b>"
+      models:
+        title: "Models"
+        content: "These are described in our Data Design diagram."
+      data_design:
+        title: "Data Design"
+        content: "This diagram shows the relationships between each of our database entities."
+      readme:
+        title: "README file"
+        content: "This is information for developers that helps to navigate our code."
+
   users:
     index:
       back_to_dashboard: "Back to Dashboard"
@@ -51,9 +157,11 @@ en:
       full_name: "Full Name"
       email: "Email"
       class_year: "Classification"
+      grad_year: "Graduation Year"
       back_to_dashboard: "Back to Dashboard"
       bio: "About Me"
     edit:
+      your_profile: "Your Profile"
       bio: "About Me"
       update_profile: "Update Profile"
       full_name: "Full Name"
@@ -61,24 +169,78 @@ en:
       avatar: "Avatar"
       major: "Major"
       class_year: "Classification"
+      grad_year: "Graduation Year"
       edit_your_profile: "Edit Your Profile"
       view_profile: "View Profile"
       back_to_dashboard: "Back to Dashboard"
       submit_changes: "Submit Changes"
       select_major: "Select Major"
       error_messages:
-        file_size_too_large: "Avatar must be smaller than 250KB."
-        file_type_error: "Avatar must be a JPEG or PNG file."
+        file_size_too_large: "Avatar picture must be smaller than 2MB."
+        file_type_error: "Avatar picture must be a JPEG or PNG file."
     sessions:
       new:
         logged_out: "You're Logged out! Log in to the Dashboard!!"
         log_in_with: "Log in with %{provider}"
+
+  resources:
+    status: "Status"
+    title: "Title"
+    description: "Description"
+    type: "Type"
+    author: "Author"
+    feedback: "Feedback"
+
+    index:
+      resources: "Resources"
+      manage_resources: "Manage Resources"
+    written_by: "Written by: %{author_name}"
+    user_posts:
+      my_posts: "My Posts"
+      no_posts: "No posts available."
+      only_your_posts: "You can only view your posts."
+
   admin:
     users:
       edit:
+        your_profile: ""
         update_role: "Update Role"
       edit_profile: "Edit Profile for %{name}"
       back_to_users: "Back to Users"
       full_name: "Full Name"
       email: "Email"
       role: "Role"
+    resource_types:
+      new:
+        create_resource_type: "Create Resource Type"
+    resources:
+      status_active: "Active"
+      status_pending: "Pending"
+      status_archived: "Archived"
+
+      edit_resource: "Edit Resource"
+      status: "Status" # future refactor: these references can be altered to resources.status, etc. for reduced repetition
+      title: "Title"
+      description: "Description"
+
+      select_status: "Select Status"
+
+      index:
+        select_type: "Select Resource Type"
+
+        resource_manager: "Resource Manager"
+        back_to_resources: "Back to Resources Page"
+        search_resources: "Search Resources"
+        search_bar: "Enter resource title or description"
+        filter_by_status: "Filter by status"
+        filter_by_resource_type: "Filter by resource type"
+      
+        search_button: "Search"
+
+        type: "Type"
+        author: "Author"
+      edit:
+        resource_type: "Resource Type"
+        add_feedback: "Add Feedback"
+        save_resource: "Save Resource"
+        back_to_resource_manager: "Back to Resource Manager"

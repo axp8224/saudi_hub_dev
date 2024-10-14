@@ -70,6 +70,9 @@ Rails.application.configure do
   # Suppress logger output for asset requests.
   config.assets.quiet = true
 
+  # Add debug log
+  config.log_level = :debug
+
   # Raises error for missing translations.
   # config.i18n.raise_on_missing_translations = true
 
@@ -83,4 +86,5 @@ Rails.application.configure do
 
   ENV["GOOGLE_CLIENT_ID"]='618206101977-cifrtdj0fsnqbmhv3025rq0gre9ugev1.apps.googleusercontent.com';
   ENV["GOOGLE_CLIENT_SECRET"]='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';
+  ENV["ENABLE_PANEL"] = 'true'
 end

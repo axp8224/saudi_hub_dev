@@ -1,0 +1,35 @@
+<h1>Testing Control Panel</h1>
+
+<p>This control panel is enabled because the environment variable <code>ENABLE_PANEL</code> is set to <code>true</code>. This feature is intended for testing purposes only and should not be active on the live site.</p>
+<p>The control panel serves to make testing easier by allowing testers to promote or demote their account.</p>
+
+<% if @users.any? %>
+    <table>
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Role</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% @users.each do |user| %>
+                <tr>
+                    <td><%= user.full_name %></td>
+                    <td><%= user.email %></td>
+                    <td><%= user.role.name %></td>
+                    <td>
+                        <% if user.role.name != 'admin' %>
+                            <%= link_to 'Promote to Admin', control_panel_promote_path(user), method: :post, data: { confirm: 'Are you sure you want to promote this user to admin?' } %>
+                        <% else %>
+                            <%= link_to 'Demote to User', control_panel_demote_path(user), method: :post, data: { confirm: 'Are you sure you want to demote this user to user?' } %>
+                        <% end %>
+                    </td>
+                </tr>
+            <% end %>
+        </tbody>
+    </table>
+<% else %>
+    <p>No users found.</p>
+<% end %>
