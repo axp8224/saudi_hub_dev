@@ -38,4 +38,6 @@ RSpec.feature 'ActivityLogging', type: :feature do
     expect(page).to have_content('status from \'pending\' to \'active\'')
     expect(page).to have_content('resource type from \'1\' to \'3\'')
   end
+
+  
 end

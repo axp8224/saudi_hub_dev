@@ -10,6 +10,20 @@ require 'rails_helper'
 #     end
 #   end
 # end
+
+module Admin
+  module LogsHelper
+    def format_log_date(timestamp)
+      timestamp.strftime("%Y-%m-%d %H:%M:%S")
+    end
+  end
+end
+
 RSpec.describe Admin::LogsHelper, type: :helper do
-  pending "add some examples to (or delete) #{__FILE__}"
+  describe "format log date" do
+    it "formats a timestamp into a readable string" do
+      timestamp = Time.zone.parse("2020-01-01 12:00:00")
+      expect(helper.format_log_date(timestamp)).to eq("2020-01-01 12:00:00")
+    end
+  end
 end
