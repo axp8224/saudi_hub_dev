@@ -1,3 +1,3 @@
 class Log < ApplicationRecord
-  belongs_to :user, primary_key: 'email', foreign_key: 'user_email'
+  belongs_to :user
 end
