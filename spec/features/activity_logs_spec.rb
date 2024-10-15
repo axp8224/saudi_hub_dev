@@ -2,6 +2,7 @@ require 'rails_helper'
 
 RSpec.feature 'ActivityLogging', type: :feature do
   let(:admin) { User.find_by(email: 'admin@example.com') }
+  let(:user) { User.find_by(email: 'sample@example.com') }
 
   before do
     omniauth_mock_auth_hash_ADMIN
@@ -39,5 +40,16 @@ RSpec.feature 'ActivityLogging', type: :feature do
     expect(page).to have_content('resource type from \'1\' to \'3\'')
   end
 
-  
+  scenario 'Admin changes user to an admin' do
+    visit edit_admin_user_path(user)
+
+    select 'admin', from: 'user_role_id'
+    click_button 'Update Role'
+
+    visit admin_logs_path
+    expect(page).to have_content('admin@example.com')
+    expect(page).to have_content('Updated User')
+    expect(page).to have_content('Role changed from \'user\' to \'admin\'')
+  end
+
 end
