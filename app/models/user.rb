@@ -28,4 +28,5 @@ class User < ApplicationRecord
   end
 
   has_many :resources, foreign_key: 'user_id'
+  has_many :logs, primary_key: 'email', foreign_key: 'user_email'
 end
