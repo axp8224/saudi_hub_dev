@@ -244,13 +244,12 @@ ar:
       select_status: "اختر الحالة"
 
       index:
-        
         select_type: "اختر نوع المورد"
 
-        resource_manager: "مدير المورد"
+        resource_manager: "مدير الموارد"
         back_to_resources: "العودة إلى صفحة الموارد"
-        search_resources: "بحث عن الموارد"
-        search_bar: "أدخل عنوان أو وصف المورد"
+        search_resources: "بحث في الموارد"
+        search_bar: "أدخل عنوان المورد أو الوصف"
         filter_by_status: "تصفية حسب الحالة"
         filter_by_resource_type: "تصفية حسب نوع المورد"
 
@@ -262,4 +261,10 @@ ar:
         resource_type: "نوع المورد"
         add_feedback: "إضافة ملاحظات"
         save_resource: "حفظ المورد"
-        back_to_resource_manager: "العودة إلى مدير المورد"
+        delete_resource: "حذف المورد"
+        back_to_resource_manager: "العودة إلى مدير الموارد"
+        delete:
+          delete_heading: "أنت على وشك حذف مورد نهائياً."
+          delete_body: "لا يمكن التراجع عن هذا الإجراء. هل أنت متأكد أنك تريد الاستمرار؟"
+          delete_no: "لا، إلغاء."
+          delete_yes: "نعم، احذف."
