@@ -73,6 +73,77 @@ module Admin
       end
     end
 
+    def approve
+      @resource = Resource.find(params[:id])
+      
+      if @resource.update(status: 'active')
+        flash[:success] = t('flash.admin.resource_approved', title: @resource.title)
+        Log.create(
+          user_email: current_user.email,
+          action: "Approved Resource",
+          description: "Approved resource [#{@resource.title}] and set status to active",
+          action_timestamp: Time.current
+        )
+      else
+        flash[:alert] = t('flash.admin.update_failed')
+      end
+      
+      redirect_to admin_resources_path
+    end
+    
+    def archive
+      @resource = Resource.find(params[:id])
+      
+      if @resource.update(status: 'archived')
+        flash[:success] = t('flash.admin.resource_archived', title: @resource.title)
+        Log.create(
+          user_email: current_user.email,
+          action: "Archived Resource",
+          description: "Archived resource [#{@resource.title}] and set status to archived",
+          action_timestamp: Time.current
+        )
+      else
+        flash[:alert] = t('flash.admin.update_failed')
+      end
+      
+      redirect_to admin_resources_path
+    end
+    
+    def reinstate
+      @resource = Resource.find(params[:id])
+      
+      if @resource.update(status: 'active')
+        flash[:success] = t('flash.admin.resource_reinstated', title: @resource.title)
+        Log.create(
+          user_email: current_user.email,
+          action: "Reinstated Resource",
+          description: "Reinstated resource [#{@resource.title}] to active status",
+          action_timestamp: Time.current
+        )
+      else
+        flash[:alert] = t('flash.admin.update_failed')
+      end
+      
+      redirect_to admin_resources_path
+    end
+    
+    def destroy
+      @resource = Resource.find(params[:id])
+      if @resource.destroy
+        flash[:success] = t('flash.admin.resource_deleted', title: @resource.title)
+        Log.create(
+          user_email: current_user.email,
+          action: "Deleted Resource",
+          description: "Deleted resource [#{@resource.title}]",
+          action_timestamp: Time.current
+        )
+      else
+        flash[:alert] = t('flash.admin.delete_failed')
+      end
+      
+      redirect_to admin_resources_path
+    end
+    
     private
 
     def admin_only

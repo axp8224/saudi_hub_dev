@@ -13,7 +13,13 @@ Rails.application.routes.draw do
 
   namespace :admin do
     resources :users, only: %i[index edit update]
-    resources :resources, only: %i[index edit update]
+    resources :resources, only: %i[index edit update destroy] do
+      member do
+        patch :approve
+        patch :archive
+        patch :reinstate
+      end
+    end
     resources :logs, only: [:index]
     resources :resource_types, only: [:new, :create, :edit, :update, :destroy]
   end

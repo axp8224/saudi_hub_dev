@@ -248,7 +248,8 @@ en:
         back_to_resource_manager: "Back to Resource Manager"
         delete:
           delete_heading: "You are about to permanently delete a resource."
-          delete_body: "This action cannot be reversed. Are you sure you want to continue?"
+          delete_body: "This action cannot be reversed. If you only need to remove this resource temporarily, or if you would like to access it again in the future, you can archive it instead. Are you sure you want to continue?"
           delete_no: "No, cancel."
-          delete_yes: "Yes, delete."
+          delete_archive: "Archive this resource."
+          delete_yes: "Yes, permanently delete."
       
