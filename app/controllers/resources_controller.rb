@@ -8,6 +8,8 @@ class ResourcesController < ApplicationController
     # Filter resources by type if specified
     @resources = @resources.where(resource_type_id: params[:resource_type_id]) if params[:resource_type_id].present?
 
+    @user_is_admin = ( current_user.role.name == 'admin' )
+
     # Filter by search query if present
     if params[:search].present?
       @resources = @resources.where('title ILIKE :search OR description ILIKE :search', search: "%#{params[:search]}%")
