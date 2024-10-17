@@ -93,6 +93,33 @@ RSpec.feature 'Resources', type: :feature do
     expect(page).not_to have_content(original_description)
     expect(page).to have_content(new_description)
   end
+
+  scenario 'Admin can permanently delete resources' do 
+    visit admin_resources_path
+
+    select t('admin.resources.status_active'), from: 'status'
+    click_on t('shared.search_button')
+
+    active_resource = active_resources.first
+    original_description = active_resource.description
+
+    expect(page).to have_content(original_description)
+
+    visit edit_admin_resource_path(active_resource)
+
+    expect(page).to have_content(original_description) # ensure this is the page for the first pending resource
+
+    click_button t('admin.resources.edit.delete_resource')
+
+    click_button t('admin.resources.edit.delete.yes')
+
+    expect(page).to have_current_path(admin_resources_path) # redirect back to manage resources page
+
+    select t('admin.resources.status_active'), from: 'status'
+    click_on t('shared.search_button')
+
+    expect(page).not_to have_content(original_description) # resource should no longer exist
+  end
  
   scenario 'Update fails' do 
     visit admin_resources_path
