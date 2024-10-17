@@ -13,6 +13,7 @@ ar:
     sign_out: "تسجيل الخروج"
     login: "تسجيل الدخول"
     help: "مساعدة"
+    search_button: "بحث"
     documentation: "التوثيق"
     logs: "سجلات النشاط"
     open_main_menu: "افتح القائمة الرئيسية"

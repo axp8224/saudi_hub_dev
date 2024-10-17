@@ -40,6 +40,7 @@ en:
   shared:
     login: "Login"
     help: "Help"
+    search_button: "Search"
     documentation: "Documentation"
     logs: "Activity Logs"
     saudi_hub: "Saudi Community Hub"
@@ -243,4 +244,11 @@ en:
         resource_type: "Resource Type"
         add_feedback: "Add Feedback"
         save_resource: "Save Resource"
+        delete_resource: "Delete Resource"
         back_to_resource_manager: "Back to Resource Manager"
+        delete:
+          delete_heading: "You are about to permanently delete a resource."
+          delete_body: "This action cannot be reversed. Are you sure you want to continue?"
+          delete_no: "No, cancel."
+          delete_yes: "Yes, delete."
+      
