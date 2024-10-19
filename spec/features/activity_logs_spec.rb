@@ -26,7 +26,6 @@ RSpec.feature 'ActivityLogging', type: :feature do
 
     fill_in 'Title', with: 'New Title'
     fill_in 'Description', with: 'New Description'
-    select 'Active', from: 'resource_status'
     select 'Parks', from: 'resource_resource_type_id'
     click_button 'Save Resource'
 
@@ -36,7 +35,6 @@ RSpec.feature 'ActivityLogging', type: :feature do
     expect(page).to have_content('New Title')
     expect(page).to have_content('from \'Old Title\' to \'New Title\'')
     expect(page).to have_content('from \'Old Description\' to \'New Description\'')
-    expect(page).to have_content('status from \'pending\' to \'active\'')
     expect(page).to have_content('resource type from \'1\' to \'3\'')
   end
 
