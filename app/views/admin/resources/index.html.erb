@@ -1,7 +1,7 @@
 <h1><%= t(".resource_manager") %></h1>
 <%= link_to t(".back_to_resources"), resources_path, class: 'btn btn-primary' %>
 
-<%= link_to t(".create_new_resource_type"), new_admin_resource_type_path, class: 'btn btn-secondary mt-2' %> <!-- Add this button -->
+<%= link_to t(".create_new_resource_type"), new_admin_resource_type_path, class: 'btn btn-info mt-2' %> <!-- Add this button -->
 
 <table>
   <thead>
@@ -15,7 +15,7 @@
       <tr>
         <td><%= resource_type.title %></td>
         <td>
-          <%= link_to 'Edit', edit_admin_resource_type_path(resource_type), class: 'btn btn-secondary' %>
+          <%= link_to 'Edit', edit_admin_resource_type_path(resource_type), class: 'btn btn-info' %>
           <%= button_to 'Delete', admin_resource_type_path(resource_type), method: :delete, data: { confirm: 'Are you sure you want to delete this resource type? This will archive associated resources.' }, class: 'btn btn-danger' %>
       </tr>
     <% end %>
@@ -59,7 +59,7 @@
           <td><%= resource.description %></td>
           <td><%= resource.author.full_name %></td>
           <td><%= link_to t("admin.resources.edit_resource"), edit_admin_resource_path(resource) %></td>
-          <td><%= resource.feedback.present? ? resource.feedback : "" %></td>
+          <td><%= (resource.feedback.present? && resource.status == 'pending') ? resource.feedback : "" %></td>
         </tr>
       <% end %>
     </table>

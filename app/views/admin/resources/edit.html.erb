@@ -1,8 +1,8 @@
 <h1><%= t("admin.resources.edit_resource") %></h1>
 
-<%= form_with model: @resource, url: admin_resource_path(@resource), method: :patch do |form| %>
+<div class="flex">
 
-  <div class="flex">
+  <%= form_with model: @resource, url: admin_resource_path(@resource), method: :patch do |form| %>
     <table class="table-auto max-w-4xl space-y-4 border-separate border-spacing-y-4">
       <tbody>
         <tr>
@@ -41,29 +41,31 @@
           </td>
         </tr>
 
-        <% if @feedback %>
-          <tr id="feedback-field">
-            <td class="w-1/4 text-right pr-4">
-              <%= form.label :feedback, t("resources.feedback") %>
-            </td>
-            <td class="w-3/4">
-              <%= form.text_field :feedback, class: "form-control w-full" %>
-            </td>
-          </tr>
-        <% else %>
-          <tr id="feedback-field" class="hidden">
-            <td class="w-1/4 text-right pr-4">
-              <%= form.label :feedback, t("resources.feedback") %>
-            </td>
-            <td class="w-3/4">
-              <%= form.text_field :feedback, class: "form-control w-full" %>
-            </td>
-          </tr>
-          <tr>
-            <td colspan="2">
-              <button type="button" id="add-feedback" class="btn btn-primary" onclick="showFeedback()"><%=t('.add_feedback')%></button>
-            </td>
-          </tr>
+        <% if @resource.status == 'pending' %>
+          <% if @feedback %>
+            <tr id="feedback-field">
+              <td class="w-1/4 text-right pr-4">
+                <%= form.label :feedback, t("resources.feedback") %>
+              </td>
+              <td class="w-3/4">
+                <%= form.text_field :feedback, class: "form-control w-full" %>
+              </td>
+            </tr>
+          <% else %>
+            <tr id="feedback-field" class="hidden">
+              <td class="w-1/4 text-right pr-4">
+                <%= form.label :feedback, t("resources.feedback") %>
+              </td>
+              <td class="w-3/4">
+                <%= form.text_field :feedback, class: "form-control w-full" %>
+              </td>
+            </tr>
+            <tr>
+              <td colspan="2">
+                <button type="button" id="add-feedback" class="btn btn-primary" onclick="showFeedback()"><%=t('.add_feedback')%></button>
+              </td>
+            </tr>
+          <% end %>
         <% end %>
 
         <tr>
@@ -73,35 +75,79 @@
         </tr>
       </tbody>
     </table>
+  <% end %>
 
-    <div class="space-y-4 ml-4 mt-4 flex flex-col">
-      <% if @resource.status == 'pending' %>
-        <%= form_with url: approve_admin_resource_path(@resource), method: :patch, local: true do %>
-          <%= submit_tag t(".approve_resource"), class: "btn btn-success" %>
-        <% end %>
+  <div class="space-y-4 ml-4 mt-4 flex flex-col">
+    <% if @resource.status == 'pending' %>
+      <%= form_with url: approve_admin_resource_path(@resource), method: :patch, local: true do %>
+        <%= submit_tag t(".approve_resource"), class: "btn btn-success" %>
       <% end %>
+    <% end %>
 
-      <% if @resource.status == 'archived' %>
-        <%= form_with url: reinstate_admin_resource_path(@resource), method: :patch, local: true do %>
-          <%= submit_tag t(".reinstate_resource"), class: "btn btn-info" %>
-        <% end %>
+    <% if @resource.status == 'archived' %>
+      <%= form_with url: reinstate_admin_resource_path(@resource), method: :patch, local: true do %>
+        <%= submit_tag t(".reinstate_resource"), class: "btn btn-info" %>
       <% end %>
+    <% end %>
 
+    <% if @resource.status != 'archived' %>
       <%= form_with url: archive_admin_resource_path(@resource), method: :patch, local: true do %>
         <%= submit_tag t(".archive_resource"), class: "btn btn-warning" %>
       <% end %>
+    <% end %>
+
+    <% if @resource.status != 'pending' %>
+      <%= button_tag t('.delete_resource'), class: "btn btn-danger", id: "delete-btn" %>
+    <% end %>
+  </div>
+</div>
+
+<div id="delete-modal" class="fixed inset-0 z-50 flex items-center justify-center hidden">
+  <div class="bg-white rounded-lg shadow-lg w-full max-w-xl p-6">
+    <h2 class="text-lg font-semibold">
+      <%= t('.delete.heading') %>
+    </h2>
+    <p class="mt-2">
+      <%= t('.delete.body') %>
+    </p>
+    <div class="mt-4 flex justify-end space-x-2">
+      <button id="cancel-btn" class="btn btn-secondary">
+        <%= t('.delete.no_cancel') %>
+      </button>
+    
+      <% if @resource.status != 'archived' %>
+        <%= form_with url: archive_admin_resource_path(@resource), method: :patch, local: true do %>
+          <%= submit_tag t(".delete.archive"), class: "btn btn-warning" %>
+        <% end %>
+      <% end %>
 
       <%= form_with url: admin_resource_path(@resource), method: :delete, local: true do %>
-        <%= submit_tag t(".delete_resource"), class: "btn btn-danger", data: { confirm: t('.confirm_delete') } %>
+        <%= submit_tag t('.delete.yes_delete'), class: "btn btn-danger" %>
       <% end %>
     </div>
   </div>
-
-<% end %>
+</div>
 
 <%= link_to t(".back_to_resource_manager"), admin_resources_path, class: "btn btn-primary" %>
 
 <script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const deleteButton = document.getElementById('delete-btn');
+    const modal = document.getElementById('delete-modal');
+    const cancelButton = document.getElementById('cancel-btn');
+
+    if (deleteButton && modal && cancelButton) {
+      deleteButton.addEventListener('click', function(event) {
+        event.preventDefault(); 
+        modal.classList.remove('hidden');
+      });
+
+      cancelButton.addEventListener('click', function() {
+        modal.classList.add('hidden');
+      });
+    }
+  });
+
   function showFeedback() {
     const feedbackField = document.getElementById('feedback-field');
     feedbackField.classList.remove('hidden');
