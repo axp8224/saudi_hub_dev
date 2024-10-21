@@ -23,7 +23,7 @@ RSpec.feature "UserEditPosts", type: :feature do
   end
 
   scenario "user edits a pending post" do 
-    pending_post = Resource.where(author: :user, status: 'pending')[0]
+    pending_post = Resource.where(author: user, status: 'pending')[0]
 
     visit edit_resource_path(pending_post)
 
@@ -32,7 +32,7 @@ RSpec.feature "UserEditPosts", type: :feature do
   end
 
   scenario "user edits an active post" do 
-    active_post = Resource.where(author: :user, status: 'active')[0]
+    active_post = Resource.where(author: user, status: 'active')[0]
 
     visit edit_resource_path(active_post)
 
@@ -44,8 +44,10 @@ RSpec.feature "UserEditPosts", type: :feature do
     restaurant_type = ResourceType.find_by(title: 'Restaurants')
     other_post = Resource.create(title: "someone else", 
         resource_type: restaurant_type,
+        description: "someone else's post",
         author: other_user,
         status: 'pending')
+    puts "Other post: #{other_post}"
 
     visit edit_resource_path(other_post)
 
