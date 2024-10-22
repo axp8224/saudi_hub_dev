@@ -33,7 +33,7 @@ RSpec.feature 'Resources', type: :feature do
   scenario 'User filters resources by type' do
     visit resources_path
   
-    click_button restaurant_type.title
+    click_link restaurant_type.title
 
     active_restaurant_resources.each do |resource|
       expect(page).to have_content(resource.title)

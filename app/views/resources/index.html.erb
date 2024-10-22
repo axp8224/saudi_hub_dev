@@ -24,50 +24,47 @@
   <% end %>
 
   <!-- Tabs Component -->
-  <div class="flowbite-tabs mt-10">
+  <div class="text-md font-medium text-center text-gray-500 border-b border-gray-200 my-4">
     <!-- Tabs navigation -->
-    <ul class="flex flex-wrap text-sm font-medium text-center border-b border-gray-200" id="myTab" data-tabs-toggle="#myTabContent" role="tablist">
+    <ul class="flex flex-wrap -mb-px" id="myTab" role="tablist">
       <!-- All Resources Tab -->
-      <li class="mr-2">
-        <button id="all-resources-tab" data-tabs-target="#all-resources" type="button" role="tab" aria-controls="all-resources" aria-selected="<%= params[:resource_type_id].blank? ? 'true' : 'false' %>" 
-        class="inline-block p-4 rounded-t-lg <%= params[:resource_type_id].blank? ? '' : 'text-gray-500 hover:text-black' %>">
-          All Resources
-        </button>
+      <li class="<%= 'mr-2 border-b-2 ' + (params[:resource_type_id].blank? ? 'border-color1' : 'border-transparent hover:border-gray-300') %>">
+        <%= link_to "All Resources", resources_path, class: "inline-block p-4 rounded-t-lg #{params[:resource_type_id].blank? ? 'text-color1 border-color1 font-bold' : 'border-transparent hover:text-gray-600 hover:border-gray-300 hover:font-bold'}" %>
       </li>
 
       <!-- Dynamic Resource Type Tabs -->
-      <% @resource_types.each_with_index do |resource_type, index| %>
-        <li class="mr-2">
-          <button id="tab-<%= index %>" data-tabs-target="#tab-content-<%= index %>" type="button" role="tab" aria-controls="tab-content-<%= index %>" 
-          aria-selected="<%= params[:resource_type_id].to_s == resource_type.id.to_s ? 'true' : 'false' %>" 
-          class="inline-block p-4 rounded-t-lg <%= params[:resource_type_id].to_s == resource_type.id.to_s ? '' : 'text-gray-500 hover:text-black' %>">
-            <%= resource_type.title %>
-          </button>
+      <% @resource_types.each do |resource_type| %>
+        <li class="mr-2 border-b-2 <%= params[:resource_type_id].to_s == resource_type.id.to_s ? 'border-color1' : 'border-transparent hover:border-gray-300' %>">
+          <%= link_to resource_type.title, resources_path(resource_type_id: resource_type.id), class: "inline-block p-4 rounded-t-lg #{params[:resource_type_id].to_s == resource_type.id.to_s ? 'text-color1 border-color1 font-bold' : 'border-transparent hover:text-gray-600 hover:border-gray-300 hover:font-bold'}" %>
         </li>
       <% end %>
     </ul>
+  </div>
 
-    <!-- Tabs Content -->
-    <div id="myTabContent" class="mt-6">
-      <!-- All Resources Tab Content -->
-      <div class="<%= params[:resource_type_id].blank? ? '' : 'hidden' %>" id="all-resources" role="tabpanel" aria-labelledby="all-resources-tab">
-        <!-- All Resources List -->
+  <%= paginate @resources %>
+
+  <!-- Tabs Content -->
+  <div id="myTabContent" class="mt-6">
+    <!-- All Resources Tab Content -->
+    <div class="<%= params[:resource_type_id].blank? ? '' : 'hidden' %>" id="all-resources" role="tabpanel" aria-labelledby="all-resources-tab">
+      <!-- All Resources List -->
+      <div class="mt-4">
+        <%= render 'resource_list', resources: @resources %>
+      </div>
+    </div>
+
+    <!-- Dynamic Resource Type Tabs Content -->
+    <% @resource_types.each do |resource_type| %>
+      <div class="<%= params[:resource_type_id].to_s == resource_type.id.to_s ? '' : 'hidden' %>" id="tab-content-<%= resource_type.id %>" role="tabpanel" aria-labelledby="tab-<%= resource_type.id %>">
+        <!-- Resources List for specific type -->
         <div class="mt-4">
-          <%= render 'resource_list', resources: @resources %>
+          <%= render 'resource_list', resources: @resources.where(resource_type_id: resource_type.id) %>
         </div>
       </div>
-
-      <!-- Dynamic Resource Type Tabs Content -->
-      <% @resource_types.each_with_index do |resource_type, index| %>
-        <div class="<%= params[:resource_type_id].to_s == resource_type.id.to_s ? '' : 'hidden' %>" id="tab-content-<%= index %>" role="tabpanel" aria-labelledby="tab-<%= index %>">
-          <!-- Resources List for specific type -->
-          <div class="mt-4">
-            <%= render 'resource_list', resources: @resources.where(resource_type_id: resource_type.id) %>
-          </div>
-        </div>
-      <% end %>
-    </div>
+    <% end %>
   </div>
+
+  <%= paginate @resources %>
 
   <!-- Manage Resources Button -->
   <div class="fixed bottom-5 right-5 space-y-3">

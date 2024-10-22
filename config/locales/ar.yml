@@ -1,17 +1,21 @@
 ar:
   dashboards:
-    show:
-      welcome: "مرحبا بكم في المركز السعودي!"
-      view_profile: "عرض ملفي الشخصي"
-      member_directory: "دليل الأعضاء"
-      sign_out: "تسجيل الخروج"
-      manage_users: "إدارة قائمة المستخدمين"  
+    user_greeting: "مرحبًا, %{name}"
+    welcome: "مرحبا بكم في المركز السعودي!"
+    view_profile: "عرض ملفي الشخصي"
+    member_directory: "دليل الأعضاء"
+    sign_out: "تسجيل الخروج"
+    manage_users: "إدارة قائمة المستخدمين"  
+    view_my_posts: "عرض مشاركاتي"
+    logs: "سجلات النشاط"
   shared:
     home: "الصفحة الرئيسية"
     resources: "موارد"
     member_directory: "دليل الأعضاء"
     sign_out: "تسجيل الخروج"
     login: "تسجيل الدخول"
+    view_my_posts: "عرض مشاركاتي"
+    manage_resources: "إدارة الموارد"
     help: "مساعدة"
     search_button: "بحث"
     documentation: "التوثيق"

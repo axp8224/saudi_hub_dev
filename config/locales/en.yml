@@ -31,14 +31,19 @@
 
 en:
   dashboards:
-    show:
-      welcome: "Welcome to Saudi Hub!"
-      view_profile: "View My Profile"
-      member_directory: "Member Directory"
-      sign_out: "Sign Out"
-      manage_users: "Manage Users"
+    user_greeting: "Howdy, %{name}"
+    welcome: "Welcome to Saudi Hub!"
+    view_profile: "View My Profile"
+    member_directory: "Member Directory"
+    sign_out: "Sign Out"
+    manage_users: "Manage Users"
+    view_my_posts: "View My Posts"
+    logs: "Activity Logs"
   shared:
     login: "Login"
+    profile: "Profile"
+    view_my_posts: "View My Posts"
+    manage_resources: "Manage Resources"
     help: "Help"
     search_button: "Search"
     documentation: "Documentation"
