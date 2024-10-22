@@ -11,8 +11,22 @@ module Admin
       @resource_type = ResourceType.new(resource_type_params)
       if @resource_type.save
         redirect_to admin_resources_path, notice: 'Resource type was successfully created.'
+
+        Log.create(
+          user_email: current_user.email,
+          action: "Created Resource Type",
+          description: "Created new resource type named '#{@resource_type.title}'",
+          action_timestamp: Time.current
+        )
+
       else
         render :new
+        Log.create(
+          user_email: current_user.email,
+          action: "Failed to Create Resource Type",
+          description: "Attempt to create new resource type failed",
+          action_timestamp: Time.current
+        )
       end
     end
 
