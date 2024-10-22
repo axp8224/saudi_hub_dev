@@ -222,7 +222,7 @@ en:
     edit:
       title: "Edit Your Resource"
       content: "Note: you can only edit your post before it's been approved. After the post is approved, you'll need to contact an administrator to make changes on your behalf."
-
+      update: "Update Resource"
 
   admin:
     users:

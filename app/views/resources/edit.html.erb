@@ -1,0 +1,38 @@
+<h1><%= t('.title') %>: <%= @resource.title %></h1>
+<p><%= t('.content') %></h1>
+<%= form_with model: @resource, local: true do |form| %>
+    <% if @resource.errors.any? %>
+        <div id="error_explanation">
+            <h2><%= pluralize(@resource.errors.count, "error") %> prohibited this resource from being saved:</h2>
+            <ul>
+                <% @resource.errors.full_messages.each do |message| %>
+                    <li><%= message %></li>
+                <% end %>
+            </ul>
+        </div>
+    <% end %>
+
+    <div class="field">
+        <%= form.label :title %>
+        <%= form.text_field :title, value: @resource.title %>
+    </div>
+
+    <div class="field">
+        <%= form.label :description %>
+        <%= form.text_area :description, value: @resource.description %>
+    </div>
+
+    <div class="field">
+        <%= form.label :resource_type_id %>
+        <%= form.collection_select :resource_type_id, ResourceType.all, :id, :title, selected: @resource.resource_type_id %>
+    </div>
+
+    <div class="field">
+        <%= form.label :images %>
+        <%= form.file_field :images, multiple: true %>
+    </div>
+
+    <div class="actions">
+        <%= form.submit t('.update') %>
+    </div>
+<% end %>
