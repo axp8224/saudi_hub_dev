@@ -36,9 +36,24 @@ class ResourcesController < ApplicationController
     if @resource.save
       flash[:success] = t('flash.resource.create_success')
       redirect_to resources_path
+
+      Log.create(
+        user_email: current_user.email,
+        action: "Created Resource Proposal",
+        description: "Created new resource proposal titled '#{@resource.title}' with description '#{@resource.description}'",
+        action_timestamp: Time.current
+      )
+
     else
       @resource_types = ResourceType.all
       render :new
+
+      Log.create(
+        user_email: current_user.email,
+        action: "Failed to Create Resource Proposal",
+        description: "Attempt to create new resource proposal failed",
+        action_timestamp: Time.current
+      )
     end
   end
 
