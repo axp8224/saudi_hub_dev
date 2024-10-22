@@ -1,19 +1,24 @@
-<h1><%= t('.edit_profile', name: @user.full_name) %></h1>
+<div class="max-w-screen-xl mx-auto p-4">
+  <%= render 'shared/dashboard_nav' %>
 
-<% if @user.avatar_url.present? %>
-  <p><%= image_tag(@user.avatar_url, alt: t('.your_profile')) %></p>
-<% end %>
+  <h1><%= t('.edit_profile', name: @user.full_name) %></h1>
 
-<p><strong><%= t('.full_name') %>:</strong> <%= @user.full_name %></p>
-<p><strong><%= t('.email') %>:</strong> <%= @user.email %></p>
+  <% if @user.avatar_url.present? %>
+    <p><%= image_tag(@user.avatar_url, alt: t('.your_profile')) %></p>
+  <% end %>
 
-<%= form_with model: @user, url: admin_user_path(@user), method: :patch do |f| %>
-  <div>
-    <label for="role"><strong><%= t('.role') %>:</strong></label>
-    <%= f.collection_select :role_id, @roles, :id, :name, {}%>
-  </div>
-  
-  <%= f.submit t('.update_role')%>
-<% end %>
+  <p><strong><%= t('.full_name') %>:</strong> <%= @user.full_name %></p>
+  <p><strong><%= t('.email') %>:</strong> <%= @user.email %></p>
 
-<%= link_to t('.back_to_users'), admin_users_path %>
+  <%= form_with model: @user, url: admin_user_path(@user), method: :patch do |f| %>
+    <div>
+      <label for="role"><strong><%= t('.role') %>:</strong></label>
+      <%= f.collection_select :role_id, @roles, :id, :name, {}%>
+    </div>
+    
+    <%= f.submit t('.update_role')%>
+  <% end %>
+
+  <%= link_to t('.back_to_users'), admin_users_path %>
+</div>
+
