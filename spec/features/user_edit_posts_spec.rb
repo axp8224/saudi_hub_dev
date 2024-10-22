@@ -51,7 +51,7 @@ RSpec.feature "UserEditPosts", type: :feature do
 
     visit edit_resource_path(other_post)
 
-    expect(page).to have_content("flash.resource.edit.only_your_posts")
+    expect(page).to have_content(t("flash.resource.edit.only_your_posts"))
 
   end
 
