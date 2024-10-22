@@ -66,13 +66,28 @@ module Admin
   
     def destroy
       @resource_type = ResourceType.find(params[:id])
+      resource_type_name = @resource_type.title
 
       @resource_type.resources.update_all(resource_type_id: nil, status: 'archived')
       
       if @resource_type.destroy
         redirect_to admin_resources_path, notice: 'Resource type was successfully deleted and related resources archived.'
+
+        Log.create(
+          user_email: current_user.email,
+          action: "Deleted Resource Type",
+          description: "Deleted resource type '#{resource_type_name}' and archived related resources",
+          action_timestamp: Time.current
+        )
       else
         redirect_to admin_resources_path, alert: 'Failed to delete the resource type.'
+
+        Log.create(
+          user_email: current_user.email,
+          action: "Failed to Delete Resource Type",
+          description: "Attempt to delete resource type '#{resource_type_name}' failed",
+          action_timestamp: Time.current
+        )
       end
     end
   
