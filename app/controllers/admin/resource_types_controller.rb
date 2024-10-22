@@ -36,10 +36,31 @@ module Admin
   
     def update
       @resource_type = ResourceType.find(params[:id])
+      original_name = @resource_type.title
+
       if @resource_type.update(resource_type_params)
         redirect_to admin_resources_path, notice: 'Resource type was successfully updated.'
+
+        changes = []
+        changes << "name from '#{original_name}' to '#{@resource_type.title}'" if @resource_type.title != original_name
+        change_description = changes.join(", ")
+
+        Log.create(
+          user_email: current_user.email,
+          action: "Updated Resource Type",
+          description: "Updated resource type [#{original_name}] -> #{change_description}",
+          action_timestamp: Time.current
+        )
+
       else
         render :edit
+
+        Log.create(
+          user_email: current_user.email,
+          action: "Failed to Update ResourceType",
+          description: "Failed to update resource type: '#{original_name}'",
+          action_timestamp: Time.current
+        )
       end
     end
   
