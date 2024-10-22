@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.feature 'Resources', type: :feature do
+RSpec.feature 'Admin Resources', type: :feature do
   let(:admin) { User.find_by(email: 'admin@example.com') }
   let(:restaurant_type) { ResourceType.find_by(title: 'Restaurants') }
   let(:apartment_type) { ResourceType.find_by(title: 'Apartments') }
@@ -37,7 +37,7 @@ RSpec.feature 'Resources', type: :feature do
     # can filter resources on status
     visit admin_resources_path
 
-    expect(page).to have_content('Resource Manager')
+    expect(page).to have_content('Manage Resources')
 
     select t('admin.resources.status_pending'), from: 'status'
 
@@ -54,7 +54,7 @@ RSpec.feature 'Resources', type: :feature do
   scenario 'Admin can search resources on this page' do 
     visit admin_resources_path
 
-    expect(page).to have_content('Resource Manager')
+    expect(page).to have_content('Manage Resources')
 
     fill_in t("admin.resources.index.search_resources"), with: "Bee"
 
