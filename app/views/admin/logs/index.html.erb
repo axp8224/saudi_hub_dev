@@ -1,6 +1,21 @@
 <div class="max-w-screen-xl mx-auto p-4">
   <%= render 'shared/dashboard_nav' %>
 
+  <div class="">
+  <%= render 'shared/search_form', 
+      form_url: admin_logs_path, 
+      show_text_search: true,
+      text_search_label: t('logs.search_logs', default: "Search Logs"),
+      text_search_placeholder: t('logs.search_placeholder', default: "Enter email, action, or description"),
+      show_major_filter: false, 
+      show_class_year_filter: false, 
+      show_per_page: false %>
+  </div>
+
+  <% if flash[:notice] %>
+    <p class="text-red-600"><%= flash[:notice] %></p>
+  <% end %>
+
   <table>
     <thead>
       <tr>

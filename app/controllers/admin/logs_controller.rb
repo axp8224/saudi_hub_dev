@@ -5,6 +5,18 @@ module Admin
 
     def index
       @logs = Log.order(action_timestamp: :desc).all
+
+      # filter implementation
+
+      # search functionality implementation
+      if params[:search].present?
+        @logs = @logs.where("user_email ILIKE :search OR action ILIKE :search OR description ILIKE :search", search: "%#{params[:search]}%")
+      end
+
+      if @logs.empty?
+        flash.now[:notice] = t('search.no_results')
+      end
+
     end
 
     private
