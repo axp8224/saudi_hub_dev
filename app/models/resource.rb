@@ -12,6 +12,7 @@ class Resource < ApplicationRecord
   private
 
   def images_are_images
+    return if images.empty? || images.nil?
     images.each do |image|
       unless image.content_type.in?(%w[image/jpeg image/png image/gif image/jpg])
         errors.add(:images, 'must be a JPG, JPEG, PNG, or GIF')

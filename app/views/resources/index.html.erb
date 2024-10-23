@@ -71,9 +71,11 @@
   <%= link_to t('.submit_resource', default: "Submit Resource"), new_resource_path, 
     class: 'block bg-[#471815] text-white font-semibold text-center rounded-md px-6 py-3 shadow-lg' %>
   
-  <%= link_to t('.manage_resources', default: "Manage Resources"), admin_resources_path, 
-    class: 'block bg-[#471815] text-white font-semibold text-center rounded-md px-6 py-3 shadow-lg' %>
-  </div>
+  <% if @user_is_admin %>
+    <%= link_to t('.manage_resources', default: "Manage Resources"), admin_resources_path, 
+      class: 'block bg-[#471815] text-white font-semibold text-center rounded-md px-6 py-3 shadow-lg' %>
+    </div>
+  <% end %>
 
 </div>
 
