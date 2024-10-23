@@ -16,6 +16,8 @@
     <p class="text-red-600"><%= flash[:notice] %></p>
   <% end %>
 
+ <%= paginate @logs %>
+
   <table>
     <thead>
       <tr>
@@ -37,4 +39,5 @@
     </tbody>
   </table>
 </div>
+
 

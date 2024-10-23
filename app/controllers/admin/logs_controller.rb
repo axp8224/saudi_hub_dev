@@ -17,6 +17,9 @@ module Admin
         flash.now[:notice] = t('search.no_results')
       end
 
+      per_page = params[:per_page] || 10 # Set a default per page value
+      @logs = @logs.page(params[:page]).per(per_page)
+
     end
 
     private
