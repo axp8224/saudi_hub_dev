@@ -24,8 +24,6 @@ Rails.application.routes.draw do
     resources :resource_types, only: [:new, :create, :edit, :update, :destroy]
   end
 
-  get 'profile', to: 'users#show', as: 'user_profile'
-
   resources :users, only: %i[index show] do 
     get 'posts', to: 'resources#user_posts', on: :member # posts_user_path(user)
   end
@@ -34,6 +32,7 @@ Rails.application.routes.draw do
   get 'dashboards/show', to: 'dashboards#show', as: :dashboard_show
   get 'profile/edit', to: 'users#edit', as: 'edit_user_profile'
   patch 'profile', to: 'users#update', as: 'update_user_profile'
+  get 'profile/:id', to: 'users#show', as: 'user_profile'
 
   get 'home', to: 'pages#home'
   get 'help', to: 'pages#help'

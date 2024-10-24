@@ -5,7 +5,8 @@ class UsersController < ApplicationController
   before_action :set_classifications, only: %i[edit update]
 
   def show
-    @user = current_user
+    @user = User.find(params[:id])
+    @is_current_user = (@user.id == current_user.id)
   end
 
   def index
@@ -40,7 +41,7 @@ class UsersController < ApplicationController
   def update
     if @user.update(user_params)
       flash[:success] = t('flash.profile.update_success')
-      redirect_to user_profile_path
+      redirect_to user_profile_path(@user)
     else
       flash.now[:alert] = t('flash.profile.update_failure')
       render :edit
