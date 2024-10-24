@@ -66,4 +66,31 @@ RSpec.feature "UserProfile", type: :feature do
     expect(user.class_year.name).to eq 'Junior'
     expect(user.major.name).to eq 'Accounting'
   end
+
+  scenario "User views some else's profile" do 
+    visit users_path 
+
+    other_user = User.find_by(email: "sample2@example.com")
+
+    fill_in 'search', with: other_user.email
+    click_button 'Search'
+
+    expect(page).to have_content(other_user.full_name)
+
+    click_on 'View Profile'
+
+    expect(page).to have_current_path(user_path(other_user))
+    expect(page).to have_content(other_user.full_name)
+
+    expect(page).not_to have_content(t('users.edit.edit_your_profile')) # I should not be able to edit someone else's profile.
+  end
+
+  scenario "User tries to edit someone else's profile" do 
+    other_user = User.find_by(email: "sample2@example.com")
+
+    visit edit_user_profile_path(other_user)
+
+    expect(page).to have_content(t('flash.profile.edit.only_your_profile')) 
+  end
+
 end
