@@ -48,6 +48,8 @@ ar:
     profile:
       update_success: "تحديث الملف الشخصي بنجاح!"
       update_failure: "حدث خطأ أثناء تحديث الملف الشخصي. يرجى المحاولة مرة أخرى."
+      edit:
+        only_your_profile: "يمكنك تعديل ملفك الشخصي فقط."
     admin:
       resource:
         updated: "تم تحديث المورد %{title} بنجاح."
