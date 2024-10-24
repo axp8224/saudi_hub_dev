@@ -80,11 +80,18 @@ en:
         deleted: "Resource %{title} has been deleted."
         delete_failed: "Failed to delete resource %{title}."
         update_failed: "Unable to update resource."
+      resource_updated: "Resource %{title} was updated successfully." #TODO: refactor to resource
+      update_failed: "Unable to update resource." #TODO: refactor to resource
       role_update_success: "%{name}'s role was updated successfully."
       role_update_failure: "Unable to update role."
       access_denied: "Access denied."
     resource:
       create_success: "Resource was successfully created."
+      edit:
+        only_pending: "You can only edit a resource before it's been approved."
+        only_your_posts: "You can only edit your posts."
+        resource_updated: "Resource %{title} was updated successfully."
+        update_failed: "Unable to update resource."
   pages:
     home:
       welcome: "Welcome to the Saudi Community Hub!"
@@ -209,8 +216,13 @@ en:
     written_by: "Written by: %{author_name}"
     user_posts:
       my_posts: "My Posts"
+      edit_post: "Edit Post"
       no_posts: "No posts available."
-      only_your_posts: "You can only view your posts."
+      only_your_posts: "You can only view your posts." # TODO: refactor to flash
+    edit:
+      title: "Edit Your Resource"
+      content: "Note: you can only edit your post before it's been approved. After the post is approved, you'll need to contact an administrator to make changes on your behalf."
+      update: "Update Resource"
 
   admin:
     users:

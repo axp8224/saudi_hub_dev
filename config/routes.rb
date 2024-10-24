@@ -39,7 +39,11 @@ Rails.application.routes.draw do
   get 'help', to: 'pages#help'
   get 'documentation', to: 'pages#documentation'
 
-  resources :resources, only: [:index, :new, :create, :show]
+  resources :resources, only: [:index, :new, :create, :show, :edit, :update] do
+    member do 
+      delete :remove_image
+    end
+  end
   
   get 'controlpanel/home', to: 'control_panel#home', as: :control_panel_home
   get 'controlpanel/promote/:id', to: 'control_panel#promote', as: :control_panel_promote
