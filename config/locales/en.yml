@@ -87,6 +87,8 @@ en:
       access_denied: "Access denied."
     resource:
       create_success: "Resource was successfully created."
+      user_posts:
+        only_your_posts: "You can only view your posts."
       edit:
         only_pending: "You can only edit a resource before it's been approved."
         only_your_posts: "You can only edit your posts."
@@ -218,7 +220,6 @@ en:
       my_posts: "My Posts"
       edit_post: "Edit Post"
       no_posts: "No posts available."
-      only_your_posts: "You can only view your posts." # TODO: refactor to flash
     edit:
       title: "Edit Your Resource"
       content: "Note: you can only edit your post before it's been approved. After the post is approved, you'll need to contact an administrator to make changes on your behalf."
