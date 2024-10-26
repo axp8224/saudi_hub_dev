@@ -6,7 +6,6 @@ module Admin
     def index
 
       # filter implementation
-      Rails.logger.debug "Current action param: #{params[:action]}"
       if params[:log_action].present?
         @logs = Log.where("action ILIKE ?", "%#{params[:log_action]}%")
       else
