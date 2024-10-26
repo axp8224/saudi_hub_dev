@@ -35,6 +35,31 @@
         </div>
       <% end %>
 
+      <% if show_resource_status_filter %>
+        <div class="w-auto mb-4 min-w-[12rem] <%= I18n.locale == :ar ? 'ml-4' : 'mr-4' %>">
+          <%= label_tag :status, t('.filter_by_status') %>
+          <%= select_tag :status, options_for_select( 
+            [[t('admin.resources.status_active'), 'active'], 
+            [t('admin.resources.status_pending'), 'pending'], 
+            [t('admin.resources.status_archived'), 'archived']], 
+            params[:status]), prompt: t("admin.resources.select_status"), onchange: 'this.form.submit();' %>
+        </div>
+      <% end %> 
+
+      <% if show_log_action_filter %>
+        <div class="w-auto mb-4 min-w-[12rem] <%= I18n.locale == :ar ? 'ml-4' : 'mr-4' %>">
+          <%= label_tag :status, t('.filter_by_status') %>
+          <%= select_tag :status, options_for_select( 
+            [['Created Resource Proposal'],
+            ['Updated Resource'],
+            ['Deleted Resource Type'],
+            ['Updated Resource Type'],
+            ['Created Resource Type'],
+            ['Failed to Create Resource Type']],
+            params[:status]), prompt: t("admin.resources.select_status"), onchange: 'this.form.submit();' %>
+        </div>
+      <% end %>
+
       <div class="flex items-center">
         <% if show_per_page %>
           <div class="w-30 mb-4 min-w-[5rem] <%= I18n.locale == :ar ? 'ml-4' : 'mr-4' %>">

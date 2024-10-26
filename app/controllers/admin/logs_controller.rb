@@ -7,6 +7,7 @@ module Admin
       @logs = Log.order(action_timestamp: :desc).all
 
       # filter implementation
+      # @logs = @logs.where(action: params[:action]) if params[:action].present?
 
       # search functionality implementation
       if params[:search].present?
