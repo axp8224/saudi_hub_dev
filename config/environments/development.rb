@@ -34,7 +34,7 @@ Rails.application.configure do
   end
 
   # Store uploaded files on the local file system (see config/storage.yml for options).
-  config.active_storage.service = :local
+  config.active_storage.service = :amazon
 
   # Don't care if the mailer can't send.
   config.action_mailer.delivery_method = :smtp
@@ -87,4 +87,9 @@ Rails.application.configure do
   ENV["GOOGLE_CLIENT_ID"]='618206101977-cifrtdj0fsnqbmhv3025rq0gre9ugev1.apps.googleusercontent.com';
   ENV["GOOGLE_CLIENT_SECRET"]='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';
   ENV["ENABLE_PANEL"] = 'true'
+
+  ENV["BUCKETEER_AWS_ACCESS_KEY_ID"] = "AKIARVGPJVYVGMJYWXES"
+  ENV["BUCKETEER_AWS_REGION"] = "us-east-1"
+  ENV["BUCKETEER_AWS_SECRET_ACCESS_KEY"] = "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"
+  ENV["BUCKETEER_BUCKET_NAME"] = "bucketeer-ea59976f-b397-4382-a231-7d798c7cbd46"
 end

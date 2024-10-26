@@ -1,45 +1,50 @@
-<h1><%= t(".resource_manager") %></h1>
-<%= link_to t(".back_to_resources"), resources_path, class: 'btn btn-primary' %>
+<div class="max-w-screen-xl mx-auto p-4">
+  <%= render 'shared/dashboard_nav' %>
 
-<%= link_to t(".create_new_resource_type"), new_admin_resource_type_path, class: 'btn btn-secondary mt-2' %> <!-- Add this button -->
+  <%= link_to t(".back_to_resources"), resources_path, class: 'btn btn-primary' %>
 
-<table>
-  <thead>
-    <tr>
-      <th>Resource Type</th>
-      <th>Actions</th>
-    </tr>
-  </thead>
-  <tbody>
-    <% @resource_types.each do |resource_type| %>
+  <%= link_to t("admin.resource_types.index.create_new_resource_type"), new_admin_resource_type_path, class: 'btn btn-secondary mt-2' %>
+
+  <table>
+    <thead>
       <tr>
-        <td><%= resource_type.title %></td>
-        <td>
-          <%= link_to 'Edit', edit_admin_resource_type_path(resource_type), class: 'btn btn-secondary' %>
-          <%= button_to 'Delete', admin_resource_type_path(resource_type), method: :delete, data: { confirm: 'Are you sure you want to delete this resource type? This will archive associated resources.' }, class: 'btn btn-danger' %>
+        <th><%= t('admin.resource_types.index.resource_type') %></th>
+        <th><%= t('admin.resource_types.index.actions') %></th>
       </tr>
-    <% end %>
-  </tbody>
-</table>
+    </thead>
+    <tbody>
+      <% @resource_types.each do |resource_type| %>
+        <tr>
+          <td><%= resource_type.title %></td>
+          <td> 
+            <%= link_to t('admin.resource_types.index.edit_button'), edit_admin_resource_type_path(resource_type), class: 'btn btn-secondary' %>
+          </td>
+          <td>
+            <%= button_to t('admin.resource_types.index.delete_button'), admin_resource_type_path(resource_type), method: :delete, data: { confirm: t('admin.resource_types.index.delete_confirm') }, class: 'btn btn-danger' %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
 
-<%= form_with url: admin_resources_path, method: :get, local: true do %>
-  <div class="form-group">
-    <%= label_tag :search, t('.search_resources') %>
-    <%= text_field_tag :search, params[:search], placeholder: t('admin.resources.index.search_bar') %> 
+  <%= form_with url: admin_resources_path, method: :get, local: true do %>
+    <div class="form-group">
+      <%= label_tag :search, t('.search_resources') %>
+      <%= text_field_tag :search, params[:search], placeholder: t('admin.resources.index.search_bar') %> 
 
-    <%= label_tag :status, t('.filter_by_status') %>
-    <%= select_tag :status, options_for_select( 
-      [[t('admin.resources.status_active'), 'active'], 
-      [t('admin.resources.status_pending'), 'pending'], 
-      [t('admin.resources.status_archived'), 'archived']], 
-      params[:status]), prompt: t("admin.resources.select_status"), onchange: 'this.form.submit();' %>
+      <%= label_tag :status, t('.filter_by_status') %>
+      <%= select_tag :status, options_for_select( 
+        [[t('admin.resources.status_active'), 'active'], 
+        [t('admin.resources.status_pending'), 'pending'], 
+        [t('admin.resources.status_archived'), 'archived']], 
+        params[:status]), prompt: t("admin.resources.select_status"), onchange: 'this.form.submit();' %>
 
-    <%= label_tag :resource_type_id, t('.filter_by_resource_type') %>
-    <%= select_tag :resource_type_id, options_from_collection_for_select(ResourceType.all, :id, :title, params[:resource_type_id]), prompt: t(".select_type"), onchange: 'this.form.submit();' %>
-  
-    <%= submit_tag t('.search_button') %>
-  </div>
-<% end %>
+      <%= label_tag :resource_type_id, t('.filter_by_resource_type') %>
+      <%= select_tag :resource_type_id, options_from_collection_for_select(ResourceType.all, :id, :title, params[:resource_type_id]), prompt: t(".select_type"), onchange: 'this.form.submit();' %>
+    
+      <%= submit_tag t('.search_button') %>
+    </div>
+  <% end %>
 
 <div style="display: flex;">
   <div style="width: 75%;">
@@ -59,7 +64,7 @@
           <td><%= resource.description %></td>
           <td><%= resource.author.full_name %></td>
           <td><%= link_to t("admin.resources.edit_resource"), edit_admin_resource_path(resource) %></td>
-          <td><%= resource.feedback.present? ? resource.feedback : "" %></td>
+          <td><%= (resource.feedback.present? && resource.status == 'pending') ? resource.feedback : "" %></td>
         </tr>
       <% end %>
     </table>

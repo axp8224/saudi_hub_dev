@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.feature 'Resources', type: :feature do
+RSpec.feature 'Admin Resources', type: :feature do
   let(:admin) { User.find_by(email: 'admin@example.com') }
   let(:restaurant_type) { ResourceType.find_by(title: 'Restaurants') }
   let(:apartment_type) { ResourceType.find_by(title: 'Apartments') }
@@ -37,7 +37,7 @@ RSpec.feature 'Resources', type: :feature do
     # can filter resources on status
     visit admin_resources_path
 
-    expect(page).to have_content('Resource Manager')
+    expect(page).to have_content('Manage Resources')
 
     select t('admin.resources.status_pending'), from: 'status'
 
@@ -54,7 +54,7 @@ RSpec.feature 'Resources', type: :feature do
   scenario 'Admin can search resources on this page' do 
     visit admin_resources_path
 
-    expect(page).to have_content('Resource Manager')
+    expect(page).to have_content('Manage Resources')
 
     fill_in t("admin.resources.index.search_resources"), with: "Bee"
 
@@ -71,12 +71,12 @@ RSpec.feature 'Resources', type: :feature do
     select t('admin.resources.status_pending'), from: 'status'
     click_on 'Search'
 
-    pending_resource = pending_resources.first
-    original_description = pending_resource.description
+    archived_resource = pending_resources.first
+    original_description = archived_resource.description
 
     expect(page).to have_content(original_description)
 
-    visit edit_admin_resource_path(pending_resource)
+    visit edit_admin_resource_path(archived_resource)
 
     expect(page).to have_content(original_description) # ensure this is the page for the first pending resource
 
@@ -93,6 +93,47 @@ RSpec.feature 'Resources', type: :feature do
     expect(page).not_to have_content(original_description)
     expect(page).to have_content(new_description)
   end
+
+  scenario 'Admin can permanently delete resources' do 
+    visit admin_resources_path
+
+    select t('admin.resources.status_active'), from: 'status'
+    click_on t('shared.search_button')
+
+    active_resource = active_resources.first
+    original_description = active_resource.description
+
+    expect(page).to have_content(original_description)
+
+    visit edit_admin_resource_path(active_resource)
+
+    expect(page).to have_content(original_description) # ensure this is the page for the first pending resource
+
+    click_button t('admin.resources.edit.delete_resource')
+
+    click_button t('admin.resources.edit.delete.yes_delete')
+
+    expect(page).to have_current_path(admin_resources_path) # redirect back to manage resources page
+
+    select t('admin.resources.status_active'), from: 'status'
+    click_on t('shared.search_button')
+
+    expect(page).not_to have_content(original_description) # resource should no longer exist
+  end
+
+  scenario 'Delete fails' do 
+    visit admin_resources_path
+
+    resource = Resource.find(1)
+
+    visit edit_admin_resource_path(resource)
+    
+    allow_any_instance_of(Resource).to receive(:destroy).and_return(false)  # Stub update to return false
+
+    click_on t('admin.resources.edit.delete.yes_delete')
+
+    expect(page).to have_content(t('flash.admin.resource.delete_failed'))
+  end
  
   scenario 'Update fails' do 
     visit admin_resources_path
@@ -108,7 +149,7 @@ RSpec.feature 'Resources', type: :feature do
 
     click_button 'Save Resource'
 
-    expect(page).to have_content(t('flash.admin.update_failed'))
+    expect(page).to have_content(t('flash.resource.edit.update_failed'))
   end
 
   scenario 'Admin can leave feedback on resources' do 
@@ -119,22 +160,22 @@ RSpec.feature 'Resources', type: :feature do
     select t('admin.resources.status_pending'), from: 'status'
     click_on 'Search'
 
-    pending_resource = pending_resources.first
-    original_description = pending_resource.description
+    archived_resource = pending_resources.first
+    original_description = archived_resource.description
 
     expect(page).not_to have_content(feedback_message)
 
-    visit edit_admin_resource_path(pending_resource)
+    visit edit_admin_resource_path(archived_resource)
 
     # click_on t('admin.resources.edit.add_feedback')
     
     # The button relies on using javascript, which doesn't work with our current configuration as far as I can tell.
     # The only workaround is to artifically put feedback in ("empty") and refresh the page. This will make the feedback field display.
 
-    pending_resource.update(feedback: "empty")
-    pending_resource.save()
+    archived_resource.update(feedback: "empty")
+    archived_resource.save()
 
-    visit edit_admin_resource_path(pending_resource)
+    visit edit_admin_resource_path(archived_resource)
 
     fill_in t('resources.feedback'), with: feedback_message
 
@@ -157,18 +198,16 @@ RSpec.feature 'Resources', type: :feature do
 
     pending_resources = Resource.where(status: 'pending')
 
-    pending_resource = pending_resources.first
-    original_description = pending_resource.description
+    archived_resource = pending_resources.first
+    original_description = archived_resource.description
 
     expect(page).to have_content(original_description)
 
-    visit edit_admin_resource_path(pending_resource)
+    visit edit_admin_resource_path(archived_resource)
 
     expect(page).to have_content(original_description) # ensure this is the page for the first pending resource
 
-    select t('admin.resources.status_active'), from: 'resource[status]'
-
-    click_button 'Save Resource'
+    click_on t('admin.resources.edit.approve_resource')
 
     expect(page).to have_current_path(admin_resources_path) # redirect back to manage resources page
 
@@ -181,6 +220,20 @@ RSpec.feature 'Resources', type: :feature do
     click_on 'Search'
 
     expect(page).to have_content(original_description)
+  end
+
+  scenario 'Approve fails' do 
+    visit admin_resources_path
+
+    resource = Resource.where(status: 'pending')[0]
+
+    visit edit_admin_resource_path(resource)
+    
+    allow_any_instance_of(Resource).to receive(:update).and_return(false)  # Stub update to return false
+
+    click_on t('admin.resources.edit.approve_resource')
+
+    expect(page).to have_content(t('flash.resource.edit.update_failed'))
   end
 
   scenario 'Admin can reject resources' do
@@ -198,9 +251,7 @@ RSpec.feature 'Resources', type: :feature do
 
     expect(page).to have_content(original_description) # ensure this is the page for the first pending resource
 
-    select t('admin.resources.status_archived'), from: 'resource[status]'
-
-    click_button 'Save Resource'
+    click_on t('admin.resources.edit.archive_resource')
 
     expect(page).to have_current_path(admin_resources_path) # redirect back to manage resources page
 
@@ -213,6 +264,76 @@ RSpec.feature 'Resources', type: :feature do
     click_on 'Search'
 
     expect(page).to have_content(original_description)
+  end
+
+  scenario 'Archive fails' do 
+    visit admin_resources_path
+
+    resource = Resource.where(status: 'active')[0]
+
+    visit edit_admin_resource_path(resource)
+    
+    allow_any_instance_of(Resource).to receive(:update).and_return(false)  # Stub update to return false
+
+    click_on t('admin.resources.edit.archive_resource')
+
+    expect(page).to have_content(t('flash.resource.edit.update_failed'))
+  end
+
+  scenario 'Admin can reinstate archived resources' do 
+    # edit status of a resource from pending to active
+    visit admin_resources_path
+
+    # first archive a resource to work with
+    active_resource = Resource.where(status: 'active')[0]
+    active_resource.status = 'archived'
+    active_resource.save
+
+    select t('admin.resources.status_archived'), from: 'status'
+
+    archived_resources = Resource.where(status: 'archived')
+
+    archived_resource = archived_resources.first
+    original_description = archived_resource.description
+
+    expect(page).to have_content(original_description)
+
+    visit edit_admin_resource_path(archived_resource)
+
+    expect(page).to have_content(original_description) # ensure this is the page for the first pending resource
+
+    click_on t('admin.resources.edit.reinstate_resource')
+
+    expect(page).to have_current_path(admin_resources_path) # redirect back to manage resources page
+
+    select t('admin.resources.status_archived'), from: 'status'
+    click_on 'Search'
+
+    expect(page).not_to have_content(original_description)
+
+    select t('admin.resources.status_active'), from: 'status'
+    click_on 'Search'
+
+    expect(page).to have_content(original_description)
+  end
+
+  scenario 'Reinstate fails' do 
+    visit admin_resources_path
+
+    # first archive a resource to work with
+    active_resource = Resource.where(status: 'active')[0]
+    active_resource.status = 'archived'
+    active_resource.save
+
+    resource = Resource.where(status: 'archived')[0]
+
+    visit edit_admin_resource_path(resource)
+    
+    allow_any_instance_of(Resource).to receive(:update).and_return(false)  # Stub update to return false
+
+    click_on t('admin.resources.edit.reinstate_resource')
+
+    expect(page).to have_content(t('flash.resource.edit.update_failed'))
   end
 
   scenario 'Users cannot access', not_admin: true do 

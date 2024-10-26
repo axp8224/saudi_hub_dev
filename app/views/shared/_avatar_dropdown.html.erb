@@ -21,25 +21,28 @@
 <div id="dropdownAvatarName" class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 ">
     <ul class="py-2 text-sm text-gray-700" aria-labelledby="dropdownUserAvatarButton">
         <li>
-            <%= link_to t('shared.dashboard'), dashboard_show_path, class:"block px-4 py-2 hover:bg-gray-100" %>
+            <%= link_to t('shared.profile'), user_profile_path(current_user), class:"block px-4 py-2 hover:bg-gray-100" %>
         </li>
         <li>
-            <%= link_to t('shared.profile'), user_profile_path, class:"block px-4 py-2 hover:bg-gray-100" %>
-        </li>
-        <li>
-            <%= link_to t('shared.settings'), root_path, class:"block px-4 py-2 hover:bg-gray-100" %>
-        </li>
-        <li>
-            <%= link_to t('shared.help'), help_path, class: "block px-4 py-2 hover:bg-gray-100" %>
+            <%= link_to t('shared.view_my_posts'), posts_user_path(current_user), class:"block px-4 py-2 hover:bg-gray-100" %>
         </li>
         <% if current_user&.role&.name == 'admin' %>
             <li>
                 <%= link_to t('shared.logs'), admin_logs_path, class: "block px-4 py-2 hover:bg-gray-100" %>
             </li>
             <li>
+                <%= link_to t('shared.manage_resources'), admin_resources_path, class: "block px-4 py-2 hover:bg-gray-100" %>
+            </li>
+            <li>
+                <%= link_to t('dashboards.manage_users'), admin_users_path, class:"block px-4 py-2 hover:bg-gray-100" %>
+            </li>
+            <li>
                 <%= link_to t('shared.documentation'), documentation_path, class: "block px-4 py-2 hover:bg-gray-100" %>
             </li>
         <% end %>
+        <li>
+            <%= link_to t('shared.help'), help_path, class: "block px-4 py-2 hover:bg-gray-100" %>
+        </li>
     </ul>
      <!-- Language Switcher -->
     <div class="py-2 text-sm text-gray-700">

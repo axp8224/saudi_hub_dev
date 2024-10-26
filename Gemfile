@@ -93,3 +93,5 @@ gem 'kaminari'
 gem 'tailwindcss-rails'
 
 gem 'redcarpet' # for displaying Markdown (README)
+
+gem "aws-sdk-s3"
