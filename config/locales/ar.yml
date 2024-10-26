@@ -17,6 +17,7 @@ ar:
     view_my_posts: "عرض مشاركاتي"
     manage_resources: "إدارة الموارد"
     help: "مساعدة"
+    search_button: "بحث"
     documentation: "التوثيق"
     logs: "سجلات النشاط"
     open_main_menu: "افتح القائمة الرئيسية"
@@ -48,13 +49,24 @@ ar:
       update_success: "تحديث الملف الشخصي بنجاح!"
       update_failure: "حدث خطأ أثناء تحديث الملف الشخصي. يرجى المحاولة مرة أخرى."
     admin:
-      resource_updated: "تم تحديث المورد %{title} بنجاح."
-      update_failed: "تعذر تحديث المورد."
+      resource:
+        updated: "تم تحديث المورد %{title} بنجاح."
+        approved: "تمت الموافقة على المورد %{title}."
+        archived: "تم أرشفة المورد %{title}."
+        reinstated: "تم إعادة المورد %{title} إلى الحالة النشطة."
+        deleted: "تم حذف المورد %{title}."
+        delete_failed: "فشل حذف المورد %{title}."
+        update_failed: "لا يمكن تحديث المورد."
       role_update_success: "تم تحديث دور %{name} بنجاح."
       role_update_failure: "تعذر تحديث الدور."
       access_denied: "تم رفض الوصول."
     resource:
       create_success: "تم إنشاء المورد بنجاح."
+      edit:
+        only_pending: "يمكنك تعديل المورد فقط قبل الموافقة عليه."
+        only_your_posts: "يمكنك تعديل منشوراتك فقط."
+        resource_updated: "تم تحديث المورد %{title} بنجاح."
+        update_failed: "تعذر تحديث المورد."
   pages:
     home:
       welcome: "مرحبا بكم في مركز المجتمع السعودي!"
@@ -190,6 +202,11 @@ ar:
       my_posts: "مشاركاتي"
       no_posts: "لا توجد مشاركات متاحة."
       only_your_posts: "يمكنك عرض مشاركاتك فقط."
+    edit:
+      title: "تعديل المورد الخاص بك"
+      content: "ملاحظة: يمكنك تعديل منشورك فقط قبل الموافقة عليه. بعد الموافقة على المنشور، ستحتاج إلى الاتصال بمسؤول لإجراء التغييرات نيابة عنك."
+      update: "تحديث المورد"
+
 
   admin:
     logs:
@@ -249,13 +266,12 @@ ar:
       select_status: "اختر الحالة"
 
       index:
-        
         select_type: "اختر نوع المورد"
 
-        resource_manager: "مدير المورد"
+        resource_manager: "مدير الموارد"
         back_to_resources: "العودة إلى صفحة الموارد"
-        search_resources: "بحث عن الموارد"
-        search_bar: "أدخل عنوان أو وصف المورد"
+        search_resources: "بحث في الموارد"
+        search_bar: "أدخل عنوان المورد أو الوصف"
         filter_by_status: "تصفية حسب الحالة"
         filter_by_resource_type: "تصفية حسب نوع المورد"
 
@@ -267,4 +283,14 @@ ar:
         resource_type: "نوع المورد"
         add_feedback: "إضافة ملاحظات"
         save_resource: "حفظ المورد"
-        back_to_resource_manager: "العودة إلى مدير المورد"
+        approve_resource: "الموافقة على المورد"
+        reinstate_resource: "إعادة المورد إلى الحالة النشطة"
+        archive_resource: "أرشفة المورد"
+        delete_resource: "حذف المورد"
+        back_to_resource_manager: "العودة إلى مدير الموارد"
+        delete:
+          heading: "أنت على وشك حذف المورد بشكل دائم."
+          body: "لا يمكن عكس هذا الإجراء. إذا كنت بحاجة فقط إلى إزالة هذا المورد مؤقتًا، أو إذا كنت ترغب في الوصول إليه مرة أخرى في المستقبل، يمكنك أرشفته بدلاً من ذلك. هل أنت متأكد أنك تريد الاستمرار؟"
+          no_cancel: "لا، إلغاء."
+          archive: "أرشفة هذا المورد."
+          yes_delete: "نعم، حذف بشكل دائم."

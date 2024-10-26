@@ -47,6 +47,20 @@ RSpec.feature "UserViewPosts", type: :feature do
   
   end
 
+  scenario "user can edit their pending post" do 
+    
+    restaurant_type = ResourceType.find_by(title: 'Restaurants')
+    pending_resource = Resource.create( title: "New Resources Should Have Edit Buttons", 
+      resource_type: restaurant_type, 
+      author: user,
+      description: "A resource that hasn't yet been approved.",
+      status: "pending")
+
+    visit posts_user_path(user)
+
+    expect(page).to have_content(t("resources.user_posts.edit_post")) # the button allowing users to edit pending posts.
+  end
+
   scenario "user navigates to someone else's posts" do 
     other_user = User.find_by(email: "sample2@example.com")
 

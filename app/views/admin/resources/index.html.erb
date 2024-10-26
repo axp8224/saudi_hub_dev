@@ -43,28 +43,27 @@
     </div>
   <% end %>
 
-  <div style="display: flex;">
-    <div style="width: 75%;">
-      <table>
-        <th><%= t("resources.status") %></th>
-        <th><%= t("resources.type") %></th>
-        <th><%= t("resources.title") %></th>
-        <th><%= t("resources.description") %></th>
-        <th><%= t("resources.author") %></th>
-        <th><%= t("resources.feedback") %></th>
-        
-        <% @resources.each do |resource| %>
-          <tr style="margin-bottom: 20px;">
-            <td><%= t("admin.resources.status_#{resource.status}") %></td>
-            <td><%= resource.resource_type.present? ? resource.resource_type.title : 'No Type' %></td>
-            <td><%= resource.title %></td>
-            <td><%= resource.description %></td>
-            <td><%= resource.author.full_name %></td>
-            <td><%= link_to t("admin.resources.edit_resource"), edit_admin_resource_path(resource) %></td>
-            <td><%= resource.feedback.present? ? resource.feedback : "" %></td>
-          </tr>
-        <% end %>
-      </table>
-    </div>
+<div style="display: flex;">
+  <div style="width: 75%;">
+    <table>
+      <th><%= t("resources.status") %></th>
+      <th><%= t("resources.type") %></th>
+      <th><%= t("resources.title") %></th>
+      <th><%= t("resources.description") %></th>
+      <th><%= t("resources.author") %></th>
+      <th><%= t("resources.feedback") %></th>
+      
+      <% @resources.each do |resource| %>
+        <tr style="margin-bottom: 20px;">
+          <td><%= t("admin.resources.status_#{resource.status}") %></td>
+          <td><%= resource.resource_type.present? ? resource.resource_type.title : 'No Type' %></td>
+          <td><%= resource.title %></td>
+          <td><%= resource.description %></td>
+          <td><%= resource.author.full_name %></td>
+          <td><%= link_to t("admin.resources.edit_resource"), edit_admin_resource_path(resource) %></td>
+          <td><%= (resource.feedback.present? && resource.status == 'pending') ? resource.feedback : "" %></td>
+        </tr>
+      <% end %>
+    </table>
   </div>
 </div>

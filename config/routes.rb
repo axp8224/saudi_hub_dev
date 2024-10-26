@@ -13,7 +13,13 @@ Rails.application.routes.draw do
 
   namespace :admin do
     resources :users, only: %i[index edit update]
-    resources :resources, only: %i[index edit update]
+    resources :resources, only: %i[index edit update destroy] do
+      member do
+        patch :approve
+        patch :archive
+        patch :reinstate
+      end
+    end
     resources :logs, only: [:index]
     resources :resource_types, only: [:new, :create, :edit, :update, :destroy]
   end
@@ -33,7 +39,11 @@ Rails.application.routes.draw do
   get 'help', to: 'pages#help'
   get 'documentation', to: 'pages#documentation'
 
-  resources :resources, only: [:index, :new, :create, :show]
+  resources :resources, only: [:index, :new, :create, :show, :edit, :update] do
+    member do 
+      delete :remove_image
+    end
+  end
   
   get 'controlpanel/home', to: 'control_panel#home', as: :control_panel_home
   get 'controlpanel/promote/:id', to: 'control_panel#promote', as: :control_panel_promote
