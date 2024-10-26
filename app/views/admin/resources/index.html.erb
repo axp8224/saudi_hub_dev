@@ -16,9 +16,12 @@
       <% @resource_types.each do |resource_type| %>
         <tr>
           <td><%= resource_type.title %></td>
-          <td>
+          <td> 
             <%= link_to t('admin.resource_types.index.edit_button'), edit_admin_resource_type_path(resource_type), class: 'btn btn-secondary' %>
+          </td>
+          <td>
             <%= button_to t('admin.resource_types.index.delete_button'), admin_resource_type_path(resource_type), method: :delete, data: { confirm: t('admin.resource_types.index.delete_confirm') }, class: 'btn btn-danger' %>
+          </td>
         </tr>
       <% end %>
     </tbody>
