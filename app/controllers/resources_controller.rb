@@ -79,10 +79,34 @@ class ResourcesController < ApplicationController
 
   def update 
     @resource = Resource.find(params[:id])
+    original_values = {
+      title: @resource.title,
+      description: @resource.description,
+      resource_type_id: @resource.resource_type_id,
+      feedback: @resource.feedback
+    }
     if @resource.update(resource_params)
+      changes = []
+      original_values.each do |key, original_value|
+        new_value = @resource.send(key)
+        changes << "#{key} changed from '#{original_value}' to '#{new_value}'" if original_value != new_value
+      end
+
+      Log.create(
+        user_email: current_user.email,
+        action: "User Resource Proposal Updated",
+        description: "User resource proposal [#{@resource.title}] updated: #{changes.join(', ')}",
+        action_timestamp: Time.current
+      )
       flash[:success] = t('flash.resource.edit.resource_updated', title: @resource.title)
       redirect_to posts_user_path(current_user)
     else
+      Log.create(
+        user_email: current_user.email,
+        action: "Resource Proposal Update Failed",
+        description: "Failed to update resource propsal [#{@resource.title}]",
+        action_timestamp: Time.current
+      )
       redirect_to posts_user_path, alert: t('flash.resource.edit.update_failed')
     end
 
