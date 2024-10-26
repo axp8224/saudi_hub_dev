@@ -72,6 +72,8 @@ en:
     profile:
       update_success: "Profile updated successfully!"
       update_failure: "There was an error updating your profile. Please try again."
+      edit:
+        only_your_profile: "You can only edit your profile."
     admin:
       resource:
         updated: "Resource %{title} was updated successfully."
@@ -180,7 +182,7 @@ en:
       grad_year: "Graduation Year"
       back_to_dashboard: "Back to Dashboard"
       bio: "About Me"
-    edit:
+    edit: # todo: refactor, separate 'edit' and 'show' 
       your_profile: "Your Profile"
       bio: "About Me"
       update_profile: "Update Profile"
