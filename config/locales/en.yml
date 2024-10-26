@@ -73,15 +73,11 @@ en:
       update_failure: "There was an error updating your profile. Please try again."
     admin:
       resource:
-        updated: "Resource %{title} was updated successfully."
         approved: "Resource %{title} has been approved."
         archived: "Resource %{title} has been archived."
         reinstated: "Resource %{title} has been reinstated."
         deleted: "Resource %{title} has been deleted."
         delete_failed: "Failed to delete resource %{title}."
-        update_failed: "Unable to update resource."
-      resource_updated: "Resource %{title} was updated successfully." #TODO: refactor to resource
-      update_failed: "Unable to update resource." #TODO: refactor to resource
       role_update_success: "%{name}'s role was updated successfully."
       role_update_failure: "Unable to update role."
       access_denied: "Access denied."

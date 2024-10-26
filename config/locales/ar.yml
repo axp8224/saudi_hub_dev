@@ -50,13 +50,11 @@ ar:
       update_failure: "حدث خطأ أثناء تحديث الملف الشخصي. يرجى المحاولة مرة أخرى."
     admin:
       resource:
-        updated: "تم تحديث المورد %{title} بنجاح."
         approved: "تمت الموافقة على المورد %{title}."
         archived: "تم أرشفة المورد %{title}."
         reinstated: "تم إعادة المورد %{title} إلى الحالة النشطة."
         deleted: "تم حذف المورد %{title}."
         delete_failed: "فشل حذف المورد %{title}."
-        update_failed: "لا يمكن تحديث المورد."
       role_update_success: "تم تحديث دور %{name} بنجاح."
       role_update_failure: "تعذر تحديث الدور."
       access_denied: "تم رفض الوصول."
