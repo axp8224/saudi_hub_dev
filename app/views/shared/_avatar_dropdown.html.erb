@@ -21,7 +21,7 @@
 <div id="dropdownAvatarName" class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 ">
     <ul class="py-2 text-sm text-gray-700" aria-labelledby="dropdownUserAvatarButton">
         <li>
-            <%= link_to t('shared.profile'), user_profile_path, class:"block px-4 py-2 hover:bg-gray-100" %>
+            <%= link_to t('shared.profile'), user_profile_path(current_user), class:"block px-4 py-2 hover:bg-gray-100" %>
         </li>
         <li>
             <%= link_to t('shared.view_my_posts'), posts_user_path(current_user), class:"block px-4 py-2 hover:bg-gray-100" %>
