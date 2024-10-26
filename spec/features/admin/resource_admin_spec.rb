@@ -149,7 +149,7 @@ RSpec.feature 'Admin Resources', type: :feature do
 
     click_button 'Save Resource'
 
-    expect(page).to have_content(t('flash.admin.resource.update_failed'))
+    expect(page).to have_content(t('flash.resource.edit.update_failed'))
   end
 
   scenario 'Admin can leave feedback on resources' do 
@@ -233,7 +233,7 @@ RSpec.feature 'Admin Resources', type: :feature do
 
     click_on t('admin.resources.edit.approve_resource')
 
-    expect(page).to have_content(t('flash.admin.resource.update_failed'))
+    expect(page).to have_content(t('flash.resource.edit.update_failed'))
   end
 
   scenario 'Admin can reject resources' do
@@ -277,7 +277,7 @@ RSpec.feature 'Admin Resources', type: :feature do
 
     click_on t('admin.resources.edit.archive_resource')
 
-    expect(page).to have_content(t('flash.admin.resource.update_failed'))
+    expect(page).to have_content(t('flash.resource.edit.update_failed'))
   end
 
   scenario 'Admin can reinstate archived resources' do 
@@ -333,7 +333,7 @@ RSpec.feature 'Admin Resources', type: :feature do
 
     click_on t('admin.resources.edit.reinstate_resource')
 
-    expect(page).to have_content(t('flash.admin.resource.update_failed'))
+    expect(page).to have_content(t('flash.resource.edit.update_failed'))
   end
 
   scenario 'Users cannot access', not_admin: true do 

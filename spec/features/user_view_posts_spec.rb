@@ -66,7 +66,7 @@ RSpec.feature "UserViewPosts", type: :feature do
 
     visit posts_user_path(other_user)
 
-    expect(page).to have_content(t('resources.user_posts.only_your_posts'))
+    expect(page).to have_content(t('flash.resource.user_posts.only_your_posts'))
   
   end
 

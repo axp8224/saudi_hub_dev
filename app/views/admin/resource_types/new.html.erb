@@ -2,7 +2,7 @@
 
 <%= form_with model: @resource_type, url: admin_resource_types_path, local: true do |form| %>
   <div class="form-group">
-    <%= form.label :title, t('.title') %>
+    <%= form.label :title, t('admin.resource_types.title') %>
     <%= form.text_field :title, class: 'form-control', required: true %>
   </div>
 

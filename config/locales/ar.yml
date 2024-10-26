@@ -52,18 +52,18 @@ ar:
         only_your_profile: "يمكنك تعديل ملفك الشخصي فقط."
     admin:
       resource:
-        updated: "تم تحديث المورد %{title} بنجاح."
         approved: "تمت الموافقة على المورد %{title}."
         archived: "تم أرشفة المورد %{title}."
         reinstated: "تم إعادة المورد %{title} إلى الحالة النشطة."
         deleted: "تم حذف المورد %{title}."
         delete_failed: "فشل حذف المورد %{title}."
-        update_failed: "لا يمكن تحديث المورد."
       role_update_success: "تم تحديث دور %{name} بنجاح."
       role_update_failure: "تعذر تحديث الدور."
       access_denied: "تم رفض الوصول."
     resource:
       create_success: "تم إنشاء المورد بنجاح."
+      user_posts:
+        only_your_posts: "يمكنك عرض مشاركاتك فقط."
       edit:
         only_pending: "يمكنك تعديل المورد فقط قبل الموافقة عليه."
         only_your_posts: "يمكنك تعديل منشوراتك فقط."
@@ -203,7 +203,6 @@ ar:
     user_posts:
       my_posts: "مشاركاتي"
       no_posts: "لا توجد مشاركات متاحة."
-      only_your_posts: "يمكنك عرض مشاركاتك فقط."
     edit:
       title: "تعديل المورد الخاص بك"
       content: "ملاحظة: يمكنك تعديل منشورك فقط قبل الموافقة عليه. بعد الموافقة على المنشور، ستحتاج إلى الاتصال بمسؤول لإجراء التغييرات نيابة عنك."
@@ -229,8 +228,7 @@ ar:
         update_role: "تغيير الدور"
         role: "دور"
         back_to_users: "العودة إلى قائمة المستخدمين"
-        edit_profile: "تحرير الملف الشخصي ل %{name}"
-      
+        edit_profile: "تحرير الملف الشخصي ل %{name}"      
       index:
         search_users: "البحث عن المستخدمين" 
         search_button: "يبحث" 
@@ -252,16 +250,29 @@ ar:
           update_role: "تغيير الدور"
           role: "دور"
           action: "فعل"
-          manage_users: "إدارة قائمة المستخدمين"
+          manage_users: "إدارة قائمة المستخدمين"   
+    resource_types:
+      title: "العنوان"
+      index:
+        create_new_resource_type: "إنشاء نوع مورد جديد"
+        resource_type: "نوع المورد"
+        actions: "الإجراءات"
+        edit_button: "تعديل"
+        delete_button: "حذف"
+        delete_confirm: "هل أنت متأكد أنك تريد حذف نوع المورد هذا؟ سيؤدي ذلك إلى أرشفة الموارد المرتبطة."
+      new:
+        new_resource_type: "نوع مورد جديد"
+        create_resource_type: "إنشاء نوع مورد"
+        back_to_resource_manager: "العودة إلى مدير الموارد"
+      edit:
+        edit_resource_type: "تعديل نوع المورد"
+        update_resource_type: "تحديث نوع المورد"
     resources:
       status_active: "نشط"
       status_pending: "معلق"
       status_archived: "أرشف"
 
       edit_resource: "تعديل المورد"
-      status: "الحالة"
-      title: "العنوان"
-      description: "الوصف"
 
       select_status: "اختر الحالة"
 
@@ -276,9 +287,6 @@ ar:
         filter_by_resource_type: "تصفية حسب نوع المورد"
 
         search_button: "بحث"
-
-        type: "النوع"
-        author: "المؤلف"
       edit:
         resource_type: "نوع المورد"
         add_feedback: "إضافة ملاحظات"
