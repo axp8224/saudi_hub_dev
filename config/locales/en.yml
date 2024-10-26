@@ -240,9 +240,6 @@ en:
       status_archived: "Archived"
 
       edit_resource: "Edit Resource"
-      status: "Status" # future refactor: these references can be altered to resources.status, etc. for reduced repetition
-      title: "Title"
-      description: "Description"
 
       select_status: "Select Status"
 
@@ -257,9 +254,6 @@ en:
         filter_by_resource_type: "Filter by resource type"
       
         search_button: "Search"
-
-        type: "Type"
-        author: "Author"
       edit:
         resource_type: "Resource Type"
         add_feedback: "Add Feedback"

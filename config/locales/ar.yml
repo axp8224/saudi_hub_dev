@@ -256,9 +256,6 @@ ar:
       status_archived: "أرشف"
 
       edit_resource: "تعديل المورد"
-      status: "الحالة"
-      title: "العنوان"
-      description: "الوصف"
 
       select_status: "اختر الحالة"
 
@@ -273,9 +270,6 @@ ar:
         filter_by_resource_type: "تصفية حسب نوع المورد"
 
         search_button: "بحث"
-
-        type: "النوع"
-        author: "المؤلف"
       edit:
         resource_type: "نوع المورد"
         add_feedback: "إضافة ملاحظات"
