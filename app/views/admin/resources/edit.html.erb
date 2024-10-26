@@ -7,7 +7,7 @@
       <tbody>
         <tr>
           <td class="w-1/4 text-right pr-4">
-            <%= form.label :title, t("admin.resources.title") %>
+            <%= form.label :title, t("resources.title") %>
           </td>
           <td class="w-3/4">
             <%= form.text_field :title, class: "form-control w-full", value: @resource.title, required: true %>
@@ -16,7 +16,7 @@
 
         <tr>
           <td class="w-1/4 text-right pr-4">
-            <%= form.label :description, t("admin.resources.description") %>
+            <%= form.label :description, t("resources.description") %>
           </td>
           <td class="w-3/4">
             <%= form.text_area :description, class: "form-control w-full", rows: 3, value: @resource.description, required: true %>
@@ -25,7 +25,7 @@
 
         <tr>
           <td class="w-1/4 text-right pr-4">
-            <%= form.label :status, t("admin.resources.status") %>
+            <%= form.label :status, t("resources.status") %>
           </td>
           <td class="w-3/4">
             <span class="font-semibold"><%= @resource.status.humanize %></span>

@@ -50,6 +50,8 @@ module Admin
 
       change_description = changes.join(", ")
 
+      flash[:success] = t('flash.resource.edit.resource_updated', title: @resource.title)
+
       Log.create(
         user_email: current_user.email,
         action: "Updated Resource",
@@ -66,7 +68,7 @@ module Admin
           description: "Attempted update on resource: #{@resource.title} failed to apply",
           action_timestamp: Time.current
         )
-        flash[:alert] = t('flash.admin.resource.update_failed') # doing flash.now and render :edit caused bugs in the view because the @variables don't get populated. Changing to alert and a redirect.
+        flash[:alert] = t('flash.resource.edit.update_failed') # doing flash.now and render :edit caused bugs in the view because the @variables don't get populated. Changing to alert and a redirect.
         redirect_to edit_admin_resource_path(@resource)
       end
     end
@@ -83,7 +85,7 @@ module Admin
           action_timestamp: Time.current
         )
       else
-        flash[:alert] = t('flash.admin.resource.update_failed')
+        flash[:alert] = t('flash.resource.edit.update_failed')
       end
       
       redirect_to admin_resources_path
@@ -101,7 +103,7 @@ module Admin
           action_timestamp: Time.current
         )
       else
-        flash[:alert] = t('flash.admin.resource.update_failed')
+        flash[:alert] = t('flash.resource.edit.update_failed')
       end
       
       redirect_to admin_resources_path
@@ -119,7 +121,7 @@ module Admin
           action_timestamp: Time.current
         )
       else
-        flash[:alert] = t('flash.admin.resource.update_failed')
+        flash[:alert] = t('flash.resource.edit.update_failed')
       end
       
       redirect_to admin_resources_path

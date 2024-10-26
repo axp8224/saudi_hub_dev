@@ -118,7 +118,7 @@ class ResourcesController < ApplicationController
     if @user == current_user 
       @posts = Resource.where(author: @user)
     else 
-      redirect_to root_path, alert: t(".only_your_posts") 
+      redirect_to root_path, alert: t("flash.resource.user_posts.only_your_posts") 
     end
 
   end
