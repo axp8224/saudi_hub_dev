@@ -227,6 +227,11 @@ en:
   admin:
     logs:
       select_action: "Select Action"
+      index:
+        user_email: "User Email"
+        action: "Action"
+        description: "Description"
+        timestamp: "Timestamp"
     users:
       edit:
         your_profile: ""
@@ -239,7 +244,7 @@ en:
     resource_types:
       title: "Title"
       index:
-        create_new_resource_type: "Create new Resource Type"
+        create_new_resource_type: "Create New Resource Type"
         resource_type: "Resource Type"
         actions: "Actions"
         edit_button: "Edit"

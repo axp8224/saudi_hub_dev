@@ -9,7 +9,6 @@
       text_search_placeholder: t('logs.search_placeholder', default: "Enter email, action, or description"),
       show_major_filter: false, 
       show_class_year_filter: false,
-      # show_resource_status_filter: false,
       show_log_action_filter: true, 
       show_per_page: false %>
   </div>
@@ -24,10 +23,10 @@
   <table>
     <thead>
       <tr>
-        <th>User Email</th>
-        <th>Action</th>
-        <th>Description</th>
-        <th>Timestamp</th>
+        <th><%= t('admin.logs.index.user_email') %></th>
+        <th><%= t('admin.logs.index.action') %></th>
+        <th><%= t('admin.logs.index.description') %></th>
+        <th><%= t('admin.logs.index.timestamp') %></th>
       </tr>
     </thead>
     <tbody>

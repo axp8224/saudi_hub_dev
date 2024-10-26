@@ -19,7 +19,6 @@
            class_year_options: @class_years.map { |cy| [cy.name, cy.id] },
            show_per_page: true,
            show_log_action_filter: false,
-          #  show_resource_status_filter: false,
            per_page_label: t('users.index.items_per_page', default: "Items per Page") %>
 
   <% if @users.any? %>
