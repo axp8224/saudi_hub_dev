@@ -226,8 +226,7 @@ ar:
         update_role: "تغيير الدور"
         role: "دور"
         back_to_users: "العودة إلى قائمة المستخدمين"
-        edit_profile: "تحرير الملف الشخصي ل %{name}"
-      
+        edit_profile: "تحرير الملف الشخصي ل %{name}"      
       index:
         search_users: "البحث عن المستخدمين" 
         search_button: "يبحث" 
@@ -249,7 +248,23 @@ ar:
           update_role: "تغيير الدور"
           role: "دور"
           action: "فعل"
-          manage_users: "إدارة قائمة المستخدمين"
+          manage_users: "إدارة قائمة المستخدمين"   
+    resource_types:
+      title: "العنوان"
+      index:
+        create_new_resource_type: "إنشاء نوع مورد جديد"
+        resource_type: "نوع المورد"
+        actions: "الإجراءات"
+        edit_button: "تعديل"
+        delete_button: "حذف"
+        delete_confirm: "هل أنت متأكد أنك تريد حذف نوع المورد هذا؟ سيؤدي ذلك إلى أرشفة الموارد المرتبطة."
+      new:
+        new_resource_type: "نوع مورد جديد"
+        create_resource_type: "إنشاء نوع مورد"
+        back_to_resource_manager: "العودة إلى مدير الموارد"
+      edit:
+        edit_resource_type: "تعديل نوع المورد"
+        update_resource_type: "تحديث نوع المورد"
     resources:
       status_active: "نشط"
       status_pending: "معلق"

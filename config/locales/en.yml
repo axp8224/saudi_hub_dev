@@ -232,8 +232,21 @@ en:
       email: "Email"
       role: "Role"
     resource_types:
+      title: "Title"
+      index:
+        create_new_resource_type: "Create new Resource Type"
+        resource_type: "Resource Type"
+        actions: "Actions"
+        edit_button: "Edit"
+        delete_Button: "Delete"
+        delete_confirm: "Are you sure you want to delete this resource type? This will archive associated resources."
       new:
+        new_resource_type: "New Resource Type"
         create_resource_type: "Create Resource Type"
+        back_to_resource_manager: "Back to Resource Manager"
+      edit:
+        edit_resource_type: "Edit Resource Type"
+        update_resource_type: "Update Resource Type"
     resources:
       status_active: "Active"
       status_pending: "Pending"
