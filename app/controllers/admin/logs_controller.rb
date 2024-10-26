@@ -4,12 +4,15 @@ module Admin
     before_action :admin_only
 
     def index
-      @logs = Log.order(action_timestamp: :desc).all
 
       # filter implementation
-      Rails.logger.debug "Action param: #{params[:action].inspect}"
-      @logs = @logs.where("action ILIKE ?", "%#{params[:action]}%") if params[:action].present? && params[:action].strip != ""
-
+      Rails.logger.debug "Current action param: #{params[:action]}"
+      if params[:log_action].present?
+        @logs = Log.where("action ILIKE ?", "%#{params[:log_action]}%")
+      else
+        @logs = Log.order(action_timestamp: :desc).all
+      end
+      
       # search functionality implementation
       if params[:search].present?
         @logs = @logs.where("user_email ILIKE :search OR action ILIKE :search OR description ILIKE :search", search: "%#{params[:search]}%")

@@ -43,6 +43,7 @@ en:
     login: "Login"
     profile: "Profile"
     view_my_posts: "View My Posts"
+    filter_by_action: "Filter By Action"
     manage_resources: "Manage Resources"
     help: "Help"
     documentation: "Documentation"
@@ -206,6 +207,8 @@ en:
       only_your_posts: "You can only view your posts."
 
   admin:
+    logs:
+      select_action: "Select Action"
     users:
       edit:
         your_profile: ""

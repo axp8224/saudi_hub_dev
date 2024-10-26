@@ -192,6 +192,8 @@ ar:
       only_your_posts: "يمكنك عرض مشاركاتك فقط."
 
   admin:
+    logs:
+      select_action: "حدد الإجراء"
     users:
       edit:
         your_profile: "ملفك الشخصي"
