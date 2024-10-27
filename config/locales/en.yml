@@ -213,6 +213,7 @@ en:
     type: "Type"
     author: "Author"
     feedback: "Feedback"
+    images: "Images"
 
     index:
       resources: "Resources"

@@ -200,6 +200,7 @@ ar:
     type: "النوع"
     author: "المؤلف"
     feedback: "ملاحظات"
+    images: "صور"
 
     index:
       resources: "الموارد"
