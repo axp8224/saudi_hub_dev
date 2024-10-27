@@ -17,7 +17,7 @@
         <tbody>
             <% @posts.each do |post| %>
             <tr class="border-b">
-                <td class="p-4"><%= post.resource_type.title %></td>
+                <td class="p-4"><%= post.resource_type&.title || "No Type" %></td>
                 <td class="p-4"><%= link_to post.title, resource_path(post), class: 'text-blue-500 hover:underline' %></td>
                 <td class="p-4"><%= post.description %></td>
                 <td class="p-4"><%= post.status %></td> 
