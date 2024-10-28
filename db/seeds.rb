@@ -11,6 +11,7 @@
 # --------- SEEDING MAJORS TABLE ------------
 
 majors = [
+  { name: '' },
   { name: 'Accounting' },
   { name: 'Aerospace Engineering' },
   { name: 'Agribusiness' },
