@@ -27,30 +27,35 @@
 
     <!-- Full Name -->
     <div class="relative mb-6 max-w-sm mx-auto"> 
-      <%= f.text_field :full_name, class: 'w-full px-4 py-3 border-2 border-gray-300 rounded-full focus:outline-none focus:border-[#471815]', placeholder: 'Full Name' %>
+      <label for="full_name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"><%= t('users.edit.full_name') %></label>
+      <%= f.text_field :full_name, class: 'w-full px-4 py-3 border-2 border-gray-300 rounded-full focus:outline-none focus:border-[#471815]', placeholder: t('users.edit.full_name') %>
       <i class="absolute right-4 top-1/2 transform -translate-y-1/2 text-gray-400 fa fa-user"></i>
     </div>
 
-  <!-- Email -->
-  <div class="relative mb-6 max-w-sm mx-auto">
-    <%= f.email_field :email, class: 'w-full px-4 py-3 border-2 border-gray-300 rounded-full text-gray-400 bg-gray-200', readonly: true, placeholder: 'Email' %>
-    <i class="absolute right-4 top-1/2 transform -translate-y-1/2 text-gray-400 fa fa-envelope"></i>
-  </div>
+    <!-- Email -->
+    <div class="relative mb-6 max-w-sm mx-auto">
+      <label for="email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"><%= t('users.edit.email') %></label>
+      <%= f.email_field :email, class: 'w-full px-4 py-3 border-2 border-gray-300 rounded-full text-gray-400 bg-gray-200', readonly: true, placeholder: t('users.edit.email') %>
+      <i class="absolute right-4 top-1/2 transform -translate-y-1/2 text-gray-400 fa fa-envelope"></i>
+    </div>
 
     <!-- Major Dropdown -->
-    <div class="relative mb-6 max-w-sm mx-auto">
+    <div class="relative mb-6 max-w-sm mx-auto">      
+      <label for="major" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"><%= t('users.edit.major') %></label>
       <%= f.collection_select :major_id, @majors, :id, :name, { include_blank: 'Select Major' }, { class: 'w-full px-4 py-3 border-2 border-gray-300 rounded-full focus:outline-none focus:border-[#471815]' } %>
       <i class="absolute right-4 top-1/2 transform -translate-y-1/2 text-gray-400 fa fa-graduation-cap"></i>
     </div>
 
     <!-- Class Year Dropdown -->
     <div class="relative mb-6 max-w-sm mx-auto">
+      <label for="classification" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"><%= t('users.edit.class_year') %></label>
       <%= f.collection_select :class_year_id, @class_years, :id, :name, { include_blank: 'Select Class Year' }, { class: 'w-full px-4 py-3 border-2 border-gray-300 rounded-full focus:outline-none focus:border-[#471815]' } %>
     </div>
 
     <!-- Graduation Year Field -->
     <div class="relative mb-6 max-w-sm mx-auto <%= 'has-error' if @user.errors[:grad_year].any? %>">
-      <%= f.number_field :grad_year, placeholder: 'Graduation Year', 
+      <label for="graduation_year" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"><%= t('users.edit.grad_year') %></label>
+      <%= f.number_field :grad_year, placeholder: t('users.edit.grad_placeholder'), 
           class: 'w-full px-4 py-3 border-2 border-gray-300 rounded-full focus:outline-none focus:border-[#471815]' %>
     
       <!-- Display validation error for grad_year if any -->
@@ -64,7 +69,8 @@
 
     <!-- Bio -->
     <div class="relative mb-6 max-w-sm mx-auto">
-      <%= f.text_area :bio, class: 'w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:outline-none focus:border-[#471815]', placeholder: 'About Me', style: 'height: 8rem;' %> <!-- Set height using inline style -->
+      <label for="bio" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"><%= t('users.edit.bio') %></label>
+      <%= f.text_area :bio, class: 'w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:outline-none focus:border-[#471815]', placeholder: t('users.edit.about_placeholder'), style: 'height: 8rem;' %> <!-- Set height using inline style -->
     </div>
 
 

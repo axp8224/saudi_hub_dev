@@ -39,11 +39,11 @@ RSpec.feature "UserProfile", type: :feature do
 
     expect(page).to have_field('Full Name', with: user.full_name)
     expect(page).to have_selector("input[type='email'][readonly][value='#{user.email}']")    
-    expect(page).to have_field('Graduation Year', with: user.grad_year.to_s)
+    expect(page).to have_field('Enter year here', with: user.grad_year.to_s)
     expect(page).to have_field('About Me', with: user.bio)
     
     fill_in 'Full Name', with: 'Updated Name'
-    fill_in 'Graduation Year', with: '2023'
+    fill_in 'Enter year here', with: '2023'
     fill_in 'About Me', with: 'Updated bio here.'
 
     save_and_open_page
@@ -72,11 +72,11 @@ RSpec.feature "UserProfile", type: :feature do
 
     expect(page).to have_field('Full Name', with: user.full_name)
     expect(page).to have_selector("input[type='email'][readonly][value='#{user.email}']")    
-    expect(page).to have_field('Graduation Year', with: user.grad_year.to_s)
+    expect(page).to have_field('Enter year here', with: user.grad_year.to_s)
     expect(page).to have_field('About Me', with: user.bio)
     
     fill_in 'Full Name', with: 'Updated Name'
-    fill_in 'Graduation Year', with: '2023'
+    fill_in 'Enter year here', with: '2023'
     fill_in 'About Me', with: 'Updated bio here.'
 
     save_and_open_page
