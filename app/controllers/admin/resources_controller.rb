@@ -28,10 +28,12 @@ module Admin
       @resource = Resource.find(params[:id])
 
       # Store original params for detailed logging
-      original_title = @resource.title
-      original_description = @resource.description
-      original_resource_type_id = @resource.resource_type_id
-      original_feedback = @resource.feedback.present? ? @resource.feedback : "No feedback"
+      original_values = {
+        title: @resource.title,
+        description: @resource.description,
+        resource_type: @resource.resource_type.title,
+        feedback: @resource.feedback || "No feedback"
+      }
 
       if @resource.update(
         title: params[:resource][:title],
@@ -41,11 +43,10 @@ module Admin
       )
 
       # Constructing a description of what was changed
-      changes = []
-      changes << "title from '#{original_title}' to '#{@resource.title}'" if @resource.title != original_title
-      changes << "description from '#{original_description}' to '#{@resource.description}'" if @resource.description != original_description
-      changes << "resource type from '#{original_resource_type_id}' to '#{@resource.resource_type_id}'" if @resource.resource_type_id != original_resource_type_id
-      changes << "feedback from '#{original_feedback}' to '#{@resource.feedback}'" if @resource.feedback.present? && @resource.feedback != original_feedback
+      changes = original_values.map do |key, original_value|
+        new_value = key == :resource_type ? @resource.resource_type.title : @resource.send(key)
+        "#{key} from '#{original_value}' to '#{new_value}'" if original_value != new_value
+      end.compact
 
       change_description = changes.join(", ")
 
@@ -57,6 +58,8 @@ module Admin
         description: "Updated resource [#{@resource.title}] -> #{change_description}",
         action_timestamp: Time.current
       )
+
+      flash[:success] = t('flash.admin.resource.updated', title: @resource.title)
       redirect_to admin_resources_path
       else
         Log.create(

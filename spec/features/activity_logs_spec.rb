@@ -35,7 +35,7 @@ RSpec.feature 'ActivityLogging', type: :feature do
     expect(page).to have_content('New Title')
     expect(page).to have_content('from \'Old Title\' to \'New Title\'')
     expect(page).to have_content('from \'Old Description\' to \'New Description\'')
-    expect(page).to have_content('resource type from \'1\' to \'3\'')
+    expect(page).to have_content('resource_type from \'Restaurants\' to \'Parks\'')
   end
 
   scenario 'Admin changes user to an admin' do
