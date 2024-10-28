@@ -182,7 +182,9 @@ en:
       bio: "About Me"
     edit: # todo: refactor, separate 'edit' and 'show' 
       your_profile: "Your Profile"
-      bio: "About Me"
+      grad_placeholder: "Enter year here"
+      about_placeholder: "About Me"
+      bio: "Bio"
       update_profile: "Update Profile"
       full_name: "Full Name"
       email: "Email"

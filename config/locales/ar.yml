@@ -169,6 +169,8 @@ ar:
       role: "دور"
     edit:
       bio: "ْعَنِّي"
+      grad_placeholder: "أدخل السنة هنا"
+      about_placeholder: "ْعَنِّي"
       class_year: "تصنيف"
       edit_your_profile: "تعديل ملفك الشخصي"
       full_name: "الاسم الكامل"
