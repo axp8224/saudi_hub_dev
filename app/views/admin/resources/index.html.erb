@@ -67,7 +67,7 @@
         resource.description,
         resource.author.full_name,
         (resource.feedback.present? && resource.status == 'pending') ? resource.feedback : "",
-        link_to("Edit", edit_admin_resource_path(resource), class: 'btn btn-secondary')
+        link_to("admin.resources.edit_resource", edit_admin_resource_path(resource), class: 'btn btn-secondary')
       ]
     end %>
     
