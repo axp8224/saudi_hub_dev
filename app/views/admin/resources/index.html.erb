@@ -4,19 +4,23 @@
   <%= link_to t(".back_to_resources"), resources_path, class: 'btn btn-primary' %>
 
   <%= link_to t("admin.resource_types.index.create_new_resource_type"), new_admin_resource_type_path, class: 'btn btn-secondary mt-2' %>
+  <div style="display: flex;">
+    <div style="width: 30%;">
+      <% columns = [t('admin.resource_types.index.resource_type'), t('admin.resource_types.index.actions')] %>
+      <% rows = @resource_types.map do |resource_type| 
+        [
+          resource_type.title,
+          content_tag(:div, class: 'flex space-x-2') do
+            link_to(t('admin.resource_types.index.edit_button'), edit_admin_resource_type_path(resource_type), class: 'btn btn-secondary') +
+            button_to(t('admin.resource_types.index.delete_button'), admin_resource_type_path(resource_type), method: :delete, data: { confirm: t('admin.resource_types.index.delete_confirm') }, class: 'btn btn-danger')
+          end
+        ]
+      end %>
 
-  <% columns = [t('admin.resource_types.index.resource_type'), t('admin.resource_types.index.actions')] %>
-  <% rows = @resource_types.map do |resource_type| 
-    [
-      resource_type.title,
-      content_tag(:div, class: 'flex space-x-2') do
-        link_to(t('admin.resource_types.index.edit_button'), edit_admin_resource_type_path(resource_type), class: 'btn btn-secondary') +
-        button_to(t('admin.resource_types.index.delete_button'), admin_resource_type_path(resource_type), method: :delete, data: { confirm: t('admin.resource_types.index.delete_confirm') }, class: 'btn btn-danger')
-      end
-    ]
-  end %>
+      <%= render 'shared/table', columns: columns, rows: rows %>
+    </div>
+  </div>
 
-  <%= render 'shared/table', columns: columns, rows: rows %>
 
   <%= form_with url: admin_resources_path, method: :get, local: true do %>
     <div class="form-group">
@@ -39,25 +43,26 @@
 
 <div style="display: flex;">
   <div style="width: 75%;">
-    <table>
-      <th><%= t("resources.status") %></th>
-      <th><%= t("resources.type") %></th>
-      <th><%= t("resources.title") %></th>
-      <th><%= t("resources.description") %></th>
-      <th><%= t("resources.author") %></th>
-      <th><%= t("resources.feedback") %></th>
-      
-      <% @resources.each do |resource| %>
-        <tr style="margin-bottom: 20px;">
-          <td><%= t("admin.resources.status_#{resource.status}") %></td>
-          <td><%= resource.resource_type.present? ? resource.resource_type.title : 'No Type' %></td>
-          <td><%= resource.title %></td>
-          <td><%= resource.description %></td>
-          <td><%= resource.author.full_name %></td>
-          <td><%= link_to t("admin.resources.edit_resource"), edit_admin_resource_path(resource) %></td>
-          <td><%= (resource.feedback.present? && resource.status == 'pending') ? resource.feedback : "" %></td>
-        </tr>
-      <% end %>
-    </table>
+    <% columns = [
+      t("resources.status"),
+      t("resources.type"),
+      t("resources.title"),
+      t("resources.description"),
+      t("resources.author"),
+      t("resources.feedback")
+    ] %>
+    
+    <% rows = @resources.map do |resource|
+      [
+        t("admin.resources.status_#{resource.status}"),
+        resource.resource_type.present? ? resource.resource_type.title : 'No Type',
+        resource.title,
+        resource.description,
+        resource.author.full_name,
+        (resource.feedback.present? && resource.status == 'pending') ? resource.feedback : ""
+      ]
+    end %>
+    
+    <%= render 'shared/table', columns: columns, rows: rows %>
   </div>
 </div>
