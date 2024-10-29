@@ -9,11 +9,11 @@
   <% rows = @resource_types.map do |resource_type| 
     [
       resource_type.title,
-      link_to(t('admin.resource_types.index.edit_button'), edit_admin_resource_type_path(resource_type), class: 'btn btn-secondary') +
-      button_to(t('admin.resource_types.index.delete_button'), admin_resource_type_path(resource_type), method: :delete, data: { confirm: t('admin.resource_types.index.delete_confirm') }, class: 'btn btn-danger ml-2')
+      content_tag(:div, class: 'flex space-x-2') do
+        link_to(t('admin.resource_types.index.edit_button'), edit_admin_resource_type_path(resource_type), class: 'btn btn-secondary') +
+        button_to(t('admin.resource_types.index.delete_button'), admin_resource_type_path(resource_type), method: :delete, data: { confirm: t('admin.resource_types.index.delete_confirm') }, class: 'btn btn-danger')
+      end
     ]
-
-
   end %>
 
   <%= render 'shared/table', columns: columns, rows: rows %>
