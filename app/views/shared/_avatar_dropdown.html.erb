@@ -1,5 +1,5 @@
 <!-- Avatar Button -->
-<button id="dropdownAvatarNameButton" data-dropdown-toggle="dropdownAvatarName" class="flex items-center text-md pe-1 font-medium bg-[#471815] text-white hover:bg-transparent hover:text-opacity-100 text-opacity-75 rounded p-2" type="button">
+<button id="dropdownAvatarNameButton" data-dropdown-toggle="dropdownAvatarName" class="flex items-center text-md font-medium bg-[#471815] text-white hover:bg-transparent hover:text-opacity-100 text-opacity-75 rounded p-2 sm:me-0" type="button">
     <span class="sr-only"><%= t('shared.open_user_menu') %></span>
 
     <% if current_user.avatar.attached? %>
@@ -9,9 +9,9 @@
     <% end %>
 
     <!-- Text and arrow elements hidden on sm -->
-    <span class="ms-2 hidden sm:inline md:inline lg:inline xl:inline"><%= current_user.full_name %></span>
+    <span class="ms-2 hidden md:inline lg:inline xl:inline"><%= current_user.full_name %></span>
 
-    <svg class="w-2.5 h-2.5 mx-2 hidden sm:inline md:inline lg:inline xl:inline" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
+    <svg class="w-2.5 h-2.5 mx-2 hidden md:inline lg:inline xl:inline" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
         <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 4 4 4-4"/>
     </svg>
 </button>
