@@ -14,17 +14,17 @@
           <%= label_tag :search, t('.search_resources'), class: 'block font-semibold' %>
           <%= text_field_tag :search, params[:search], placeholder: t('admin.resources.index.search_bar'), class: "w-full p-2 border rounded" %> 
 
-          <%= label_tag :status, t('.filter_by_status'), class: 'block font-semibold mt-4 pt-2' %>
+          <%= label_tag :status, t('.filter_by_status'), class: 'block font-semibold pt-2' %>
           <%= select_tag :status, options_for_select(
             [[t('admin.resources.status_active'), 'active'], 
             [t('admin.resources.status_pending'), 'pending'], 
             [t('admin.resources.status_archived'), 'archived']], 
             params[:status]), prompt: t("admin.resources.select_status"), onchange: 'this.form.submit();', class: "w-full p-2 border rounded" %>
 
-          <%= label_tag :resource_type_id, t('.filter_by_resource_type'), class: 'block font-semibold mt-4 pt-2' %>
+          <%= label_tag :resource_type_id, t('.filter_by_resource_type'), class: 'block font-semibold pt-2' %>
           <%= select_tag :resource_type_id, options_from_collection_for_select(ResourceType.all, :id, :title, params[:resource_type_id]), prompt: t(".select_type"), onchange: 'this.form.submit();', class: "w-full p-2 border rounded" %>
         
-          <%= submit_tag t('.search_button'), class: "btn btn-primary", style: "margin-top: 16px;" %>
+          <%= submit_tag t('.search_button'), class: "btn btn-primary", style: "margin-top: 24px;" %>
 
         </div>
       <% end %>
