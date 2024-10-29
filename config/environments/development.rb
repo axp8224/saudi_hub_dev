@@ -92,4 +92,6 @@ Rails.application.configure do
   ENV["BUCKETEER_AWS_REGION"] = "us-east-1"
   ENV["BUCKETEER_AWS_SECRET_ACCESS_KEY"] = "Y7LIs36mAP2/53J8EUzcgOFmcdZMTPd/bgR8i4X/"
   ENV["BUCKETEER_BUCKET_NAME"] = "bucketeer-ea59976f-b397-4382-a231-7d798c7cbd46"
+
+  ENV["GEOAPIFY_API_KEY"] = "f7751ad016f04fd7aeb97ba1e6aa3e63"
 end

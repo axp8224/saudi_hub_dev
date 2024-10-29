@@ -54,6 +54,9 @@
       <th><%= t("resources.title") %></th>
       <th><%= t("resources.description") %></th>
       <th><%= t("resources.author") %></th>
+      <th><%= t("resources.address") %></th>
+      <th><%= t("resources.latitude") %></th>
+      <th><%= t("resources.longitude") %></th>
       <th><%= t("resources.feedback") %></th>
       
       <% @resources.each do |resource| %>
@@ -63,6 +66,9 @@
           <td><%= resource.title %></td>
           <td><%= resource.description %></td>
           <td><%= resource.author.full_name %></td>
+          <td><%= resource.address %></td>
+          <td><%= resource.latitude %></td>
+          <td><%= resource.longitude %></td>
           <td><%= link_to t("admin.resources.edit_resource"), edit_admin_resource_path(resource) %></td>
           <td><%= (resource.feedback.present? && resource.status == 'pending') ? resource.feedback : "" %></td>
         </tr>

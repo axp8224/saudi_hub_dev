@@ -42,6 +42,10 @@ Rails.application.routes.draw do
     member do 
       delete :remove_image
     end
+
+    collection do
+      get :address_suggestions
+    end
   end
   
   get 'controlpanel/home', to: 'control_panel#home', as: :control_panel_home
