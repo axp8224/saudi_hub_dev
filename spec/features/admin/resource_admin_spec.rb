@@ -247,7 +247,7 @@ RSpec.feature 'Admin Resources', type: :feature do
 
     expect(page).to have_content(original_description)
 
-    click_link 'Edit Resource', match: :first
+    click_link 'Edit', match: :first
 
     expect(page).to have_content(original_description) # ensure this is the page for the first pending resource
 
