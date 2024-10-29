@@ -26,6 +26,16 @@
     </div>
 
     <div class="field">
+        <%= form.label :address %>
+        <%= form.text_field :address, id: 'autocomplete' %>
+        <div id="suggestions" style="border: 1px solid #ccc; max-height: 200px; overflow-y: auto;"></div>
+    </div>
+
+    <!-- Hidden fields for storing latitude and longitude (if needed) -->
+    <%= form.hidden_field :latitude %>
+    <%= form.hidden_field :longitude %>
+
+    <div class="field">
         <%= form.label :images %>
         <%= form.file_field :images, multiple: true %>
     </div>
@@ -34,3 +44,73 @@
         <%= form.submit %>
     </div>
 <% end %>
+
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+  const autocompleteInput = document.getElementById('autocomplete');
+
+  function debounce(func, wait) {
+    let timeout;
+    return function(...args) {
+      clearTimeout(timeout);
+      timeout = setTimeout(() => func.apply(this, args), wait);
+    };
+  }
+
+  function fetchSuggestions() {
+    const query = autocompleteInput.value.trim();
+
+    if (query.length > 2) {
+      const encodedQuery = encodeURIComponent(query);
+      fetch(`https://photon.komoot.io/api/?q=${encodedQuery}&limit=5`)
+        .then(response => response.json())
+        .then(data => {
+          const suggestions = data.features.map(feature => feature);
+          showSuggestions(suggestions);
+        })
+        .catch(error => console.error('Error fetching suggestions:', error));
+    }
+  }
+
+  const debouncedFetchSuggestions = debounce(fetchSuggestions, 300);
+  autocompleteInput.addEventListener('input', debouncedFetchSuggestions);
+
+  function showSuggestions(suggestions) {
+    const suggestionsContainer = document.getElementById('suggestions');
+    suggestionsContainer.innerHTML = '';
+
+    suggestions.forEach(suggestion => {
+      const properties = suggestion.properties;
+      const housenumber = properties.housenumber || '';
+      const name = properties.name || '';
+      const street = properties.street || '';
+      const postcode = properties.postcode || '';
+      const city = properties.city || '';
+      const state = properties.state || '';
+      const country = properties.country || '';
+
+      let addressParts = [];
+
+      if (name) addressParts.push(name);
+      if (housenumber || street) addressParts.push(`${housenumber} ${street}`.trim());
+      if (city) addressParts.push(city);
+      if (state) addressParts.push(state);
+      if (postcode) addressParts.push(postcode);
+      if (country) addressParts.push(country);
+
+      let suggestionText = addressParts.join(', ');
+
+      const suggestionItem = document.createElement('div');
+      suggestionItem.style.cursor = 'pointer';
+      suggestionItem.innerText = suggestionText;
+
+      suggestionItem.addEventListener('click', () => {
+        autocompleteInput.value = suggestionText;
+        suggestionsContainer.innerHTML = '';
+      });
+
+      suggestionsContainer.appendChild(suggestionItem);
+    });
+  }
+});
+</script>

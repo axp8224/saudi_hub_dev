@@ -9,6 +9,9 @@ class Resource < ApplicationRecord
   validates :status, presence: true, inclusion: { in: ['active', 'pending', 'archived'] }
   validate :images_are_images
 
+  geocoded_by :address
+  after_validation :geocode, if: ->(obj){ obj.address.present? and obj.address_changed? }
+
   private
 
   def images_are_images
