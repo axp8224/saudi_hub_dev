@@ -1,11 +1,32 @@
-<div class="max-w-screen-xl mx-auto p-4">
+<div class="max-w-screen-xl mx-auto p-4 space-y-6">
   <%= render 'shared/dashboard_nav' %>
 
-  <%= link_to t(".back_to_resources"), resources_path, class: 'btn btn-primary' %>
+  <div class="flex justify-between items-center mb-4">
+    <%= link_to t(".back_to_resources"), resources_path, class: 'btn btn-primary' %>
+    <%= link_to t("admin.resource_types.index.create_new_resource_type"), new_admin_resource_type_path, class: 'btn btn-secondary' %>
+  </div>
 
-  <%= link_to t("admin.resource_types.index.create_new_resource_type"), new_admin_resource_type_path, class: 'btn btn-secondary mt-2' %>
-  <div style="display: flex;">
-    <div style="width: 30%;">
+  <%= form_with url: admin_resources_path, method: :get, local: true, class: "space-y-4 p-4 border rounded-md" do %>
+    <div class="form-group space-y-2">
+      <%= label_tag :search, t('.search_resources'), class: 'block font-semibold' %>
+      <%= text_field_tag :search, params[:search], placeholder: t('admin.resources.index.search_bar'), class: "w-full p-2 border rounded" %> 
+
+      <%= label_tag :status, t('.filter_by_status'), class: 'block font-semibold mt-4' %>
+      <%= select_tag :status, options_for_select(
+        [[t('admin.resources.status_active'), 'active'], 
+        [t('admin.resources.status_pending'), 'pending'], 
+        [t('admin.resources.status_archived'), 'archived']], 
+        params[:status]), prompt: t("admin.resources.select_status"), onchange: 'this.form.submit();', class: "w-full p-2 border rounded" %>
+
+      <%= label_tag :resource_type_id, t('.filter_by_resource_type'), class: 'block font-semibold mt-4' %>
+      <%= select_tag :resource_type_id, options_from_collection_for_select(ResourceType.all, :id, :title, params[:resource_type_id]), prompt: t(".select_type"), onchange: 'this.form.submit();', class: "w-full p-2 border rounded" %>
+    
+      <%= submit_tag t('.search_button'), class: "btn btn-primary mt-4" %>
+    </div>
+  <% end %>
+
+  <div class="flex space-x-6">
+    <div class="w-1/3">
       <% columns = [t('admin.resource_types.index.resource_type'), t('admin.resource_types.index.actions')] %>
       <% rows = @resource_types.map do |resource_type| 
         [
@@ -19,50 +40,29 @@
 
       <%= render 'shared/table', columns: columns, rows: rows %>
     </div>
-  </div>
 
-
-  <%= form_with url: admin_resources_path, method: :get, local: true do %>
-    <div class="form-group">
-      <%= label_tag :search, t('.search_resources') %>
-      <%= text_field_tag :search, params[:search], placeholder: t('admin.resources.index.search_bar') %> 
-
-      <%= label_tag :status, t('.filter_by_status') %>
-      <%= select_tag :status, options_for_select( 
-        [[t('admin.resources.status_active'), 'active'], 
-        [t('admin.resources.status_pending'), 'pending'], 
-        [t('admin.resources.status_archived'), 'archived']], 
-        params[:status]), prompt: t("admin.resources.select_status"), onchange: 'this.form.submit();' %>
-
-      <%= label_tag :resource_type_id, t('.filter_by_resource_type') %>
-      <%= select_tag :resource_type_id, options_from_collection_for_select(ResourceType.all, :id, :title, params[:resource_type_id]), prompt: t(".select_type"), onchange: 'this.form.submit();' %>
-    
-      <%= submit_tag t('.search_button') %>
+    <div class="w-2/3">
+      <% columns = [
+        t("resources.status"),
+        t("resources.type"),
+        t("resources.title"),
+        t("resources.description"),
+        t("resources.author"),
+        t("resources.feedback")
+      ] %>
+      
+      <% rows = @resources.map do |resource|
+        [
+          t("admin.resources.status_#{resource.status}"),
+          resource.resource_type.present? ? resource.resource_type.title : 'No Type',
+          resource.title,
+          resource.description,
+          resource.author.full_name,
+          (resource.feedback.present? && resource.status == 'pending') ? resource.feedback : ""
+        ]
+      end %>
+      
+      <%= render 'shared/table', columns: columns, rows: rows %>
     </div>
-  <% end %>
-
-<div style="display: flex;">
-  <div style="width: 75%;">
-    <% columns = [
-      t("resources.status"),
-      t("resources.type"),
-      t("resources.title"),
-      t("resources.description"),
-      t("resources.author"),
-      t("resources.feedback")
-    ] %>
-    
-    <% rows = @resources.map do |resource|
-      [
-        t("admin.resources.status_#{resource.status}"),
-        resource.resource_type.present? ? resource.resource_type.title : 'No Type',
-        resource.title,
-        resource.description,
-        resource.author.full_name,
-        (resource.feedback.present? && resource.status == 'pending') ? resource.feedback : ""
-      ]
-    end %>
-    
-    <%= render 'shared/table', columns: columns, rows: rows %>
   </div>
 </div>
