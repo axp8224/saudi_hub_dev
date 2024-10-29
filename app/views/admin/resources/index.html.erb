@@ -5,27 +5,16 @@
 
   <%= link_to t("admin.resource_types.index.create_new_resource_type"), new_admin_resource_type_path, class: 'btn btn-secondary mt-2' %>
 
-  <table>
-    <thead>
-      <tr>
-        <th><%= t('admin.resource_types.index.resource_type') %></th>
-        <th><%= t('admin.resource_types.index.actions') %></th>
-      </tr>
-    </thead>
-    <tbody>
-      <% @resource_types.each do |resource_type| %>
-        <tr>
-          <td><%= resource_type.title %></td>
-          <td> 
-            <%= link_to t('admin.resource_types.index.edit_button'), edit_admin_resource_type_path(resource_type), class: 'btn btn-secondary' %>
-          </td>
-          <td>
-            <%= button_to t('admin.resource_types.index.delete_button'), admin_resource_type_path(resource_type), method: :delete, data: { confirm: t('admin.resource_types.index.delete_confirm') }, class: 'btn btn-danger' %>
-          </td>
-        </tr>
-      <% end %>
-    </tbody>
-  </table>
+  <% columns = [t('admin.resource_types.index.resource_type'), t('admin.resource_types.index.actions')] %>
+  <% rows = @resource_types.map do |resource_type| 
+    [
+      resource_type.title,
+      link_to(t('admin.resource_types.index.edit_button'), edit_admin_resource_type_path(resource_type), class: 'btn btn-secondary'),
+      button_to(t('admin.resource_types.index.delete_button'), admin_resource_type_path(resource_type), method: :delete, data: { confirm: t('admin.resource_types.index.delete_confirm') }, class: 'btn btn-danger')
+    ]
+  end %>
+
+  <%= render 'shared/table', columns: columns, rows: rows %>
 
   <%= form_with url: admin_resources_path, method: :get, local: true do %>
     <div class="form-group">
