@@ -1,35 +1,33 @@
 <div class="max-w-screen-xl mx-auto p-4">
     <%= render 'shared/dashboard_nav' %>
 
-<div style="display: flex;">
-    <% if @posts.any? %>
-        <table class="min-w-full bg-white border border-gray-200">
-        <thead>
-            <tr class="bg-gray-100 border-b">
-            <th class="text-left p-4"><%=t('resources.type')%></th>
-            <th class="text-left p-4"><%=t('resources.title')%></th>
-            <th class="text-left p-4"><%=t('resources.description')%></th>
-            <th class="text-left p-4"><%=t('resources.status')%></th>
-            <th class="text-left p-4"><%=t('resources.feedback')%></th>
-            <th class="text-left p-4"></th>
-            </tr>
-        </thead>
-        <tbody>
-            <% @posts.each do |post| %>
-            <tr class="border-b">
-                <td class="p-4"><%= post.resource_type&.title || "No Type" %></td>
-                <td class="p-4"><%= link_to post.title, resource_path(post), class: 'text-blue-500 hover:underline' %></td>
-                <td class="p-4"><%= post.description %></td>
-                <td class="p-4"><%= post.status %></td> 
-                <td class="p-4"><%= post.feedback.present? ? post.feedback : "" %></td>
-                <% if post.status == 'pending' %> 
-                    <td class="p-4"><%= link_to t('.edit_post'), edit_resource_path(post), class: 'text-blue-500 hover:underline' %></td>
-                <% end %>
-            </tr>
-            <% end %>
-        </tbody>
-        </table>
-    <% else %>
-        <p> <%= t('.no_posts') %> </p>
-    <% end %>
+    <div class="w-full pt-4 mt-6">
+
+    <% columns = [
+        t('resources.type'),
+        t('resources.title'),
+        t('resources.description'),
+        t('resources.status'),
+        t('resources.feedback'),
+        ""
+    ] %>
+    
+    <% rows = @posts.map do |post|
+        [
+            post.resource_type&.title || "No Type",
+        link_to(post.title, resource_path(post), class: 'text-blue-500 hover:underline'),
+        post.description,
+        post.status,
+        post.feedback.present? ? post.feedback : "",
+        (post.status == 'pending') ? link_to( t('.edit_post'), edit_resource_path(post), class: 'text-blue-500 hover:underline') : ""
+        ]
+    end %>
+    
+    <%= paginate @posts %>
+
+    <%= render 'shared/table', columns: columns, rows: rows %>
+    
+    <%= paginate @posts %>
+    </div>
+
 </div>

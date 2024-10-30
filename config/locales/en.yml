@@ -42,9 +42,11 @@ en:
   shared:
     login: "Login"
     profile: "Profile"
+    back_to_member_directory: "Back to Member Directory"
     view_my_posts: "View My Posts"
     filter_by_action: "Filter By Action"
     manage_resources: "Manage Resources"
+    submit_resource: "Submit Resource"
     help: "Help"
     search_button: "Search"
     documentation: "Documentation"
@@ -298,4 +300,8 @@ en:
           no_cancel: "No, cancel."
           archive: "Archive this resource."
           yes_delete: "Yes, permanently delete."
-      
+  pagination:
+    first: "First"
+    last: "Last"
+    prev: "Prev"      
+    next: "Next"

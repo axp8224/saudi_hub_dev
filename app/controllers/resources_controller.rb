@@ -8,16 +8,14 @@ class ResourcesController < ApplicationController
     # Filter resources by type if specified
     @resources = @resources.where(resource_type_id: params[:resource_type_id]) if params[:resource_type_id].present?
 
-    @user_is_admin = ( current_user.role.name == 'admin' )
+    @user_is_admin = (current_user.role.name == 'admin')
 
     # Filter by search query if present
     if params[:search].present?
       @resources = @resources.where('title ILIKE :search OR description ILIKE :search', search: "%#{params[:search]}%")
     end
 
-    if @resources.empty?
-      flash.now[:notice] = t('search.no_results')
-    end
+    flash.now[:notice] = t('search.no_results') if @resources.empty?
 
     # Paginate the resources
     per_page = params[:per_page] || 10 # Set a default per page value
@@ -41,7 +39,7 @@ class ResourcesController < ApplicationController
 
       Log.create(
         user_email: current_user.email,
-        action: "Created Resource Proposal",
+        action: 'Created Resource Proposal',
         description: "Created new resource proposal titled '#{@resource.title}' with description '#{@resource.description}'",
         action_timestamp: Time.current
       )
@@ -52,8 +50,8 @@ class ResourcesController < ApplicationController
 
       Log.create(
         user_email: current_user.email,
-        action: "Failed to Create Resource Proposal",
-        description: "Attempt to create new resource proposal failed",
+        action: 'Failed to Create Resource Proposal',
+        description: 'Attempt to create new resource proposal failed',
         action_timestamp: Time.current
       )
     end
@@ -64,20 +62,19 @@ class ResourcesController < ApplicationController
     @resource_author = User.find(@resource.user_id) if @resource.user_id.present?
   end
 
-  def edit 
+  def edit
     @resource = Resource.find(params[:id])
 
     if @resource.author != current_user
-      redirect_to root_path, alert: t("flash.resource.edit.only_your_posts") 
+      redirect_to root_path, alert: t('flash.resource.edit.only_your_posts')
     elsif @resource.status != 'pending'
-      redirect_to root_path, alert: t("flash.resource.edit.only_pending")
+      redirect_to root_path, alert: t('flash.resource.edit.only_pending')
     else
-      
-    end
 
+    end
   end
 
-  def update 
+  def update
     @resource = Resource.find(params[:id])
     original_values = {
       title: @resource.title,
@@ -94,7 +91,7 @@ class ResourcesController < ApplicationController
 
       Log.create(
         user_email: current_user.email,
-        action: "User Resource Proposal Updated",
+        action: 'User Resource Proposal Updated',
         description: "User resource proposal [#{@resource.title}] updated: #{changes.join(', ')}",
         action_timestamp: Time.current
       )
@@ -103,24 +100,22 @@ class ResourcesController < ApplicationController
     else
       Log.create(
         user_email: current_user.email,
-        action: "Resource Proposal Update Failed",
+        action: 'Resource Proposal Update Failed',
         description: "Failed to update resource propsal [#{@resource.title}]",
         action_timestamp: Time.current
       )
       redirect_to posts_user_path(current_user), alert: t('flash.resource.edit.update_failed')
     end
-
   end
 
-  def user_posts 
+  def user_posts
     @user = User.find(params[:id])
 
-    if @user == current_user 
-      @posts = Resource.where(author: @user)
-    else 
-      redirect_to root_path, alert: t("flash.resource.user_posts.only_your_posts") 
+    if @user == current_user
+      @posts = Resource.where(author: @user).page(params[:page]).per(10) # Adjust the number per page as needed
+    else
+      redirect_to root_path, alert: t('flash.resource.user_posts.only_your_posts')
     end
-
   end
 
   private
@@ -128,5 +123,4 @@ class ResourcesController < ApplicationController
   def resource_params
     params.require(:resource).permit(:title, :description, :resource_type_id, images: [])
   end
-
 end

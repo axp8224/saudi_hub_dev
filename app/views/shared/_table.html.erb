@@ -18,3 +18,9 @@
     </tbody>
   </table>
 </div>
+
+<% if rows.empty? %>
+  <div class="mt-4 text-center mb-48 text-gray-500">
+    <%= t('search.no_results') %>
+  </div>
+<% end %>
