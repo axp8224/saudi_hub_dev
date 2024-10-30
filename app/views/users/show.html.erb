@@ -38,10 +38,13 @@
     </div>
 
     <!-- Edit Profile Button -->
-    <% if @is_current_user %>
-      <div class="text-left mt-6">
-        <%= link_to t('.edit_your_profile'), edit_user_profile_path, class: 'mt-2 inline-block text-sm text-white px-4 py-2 font-semibold hover:bg-[#3b0e0c]', style: "background-color: #471815; border-radius: 0.25rem;" %>
-      </div>
-    <% end %>
+    <div class="flex space-x-4 mt-6">
+      <% if @is_current_user %>
+        <%= link_to t('.edit_your_profile'), edit_user_profile_path, class: 'text-sm text-white px-4 py-2 font-semibold hover:bg-[#3b0e0c]', style: "background-color: #471815; border-radius: 0.25rem;" %>
+      <% end %>
+      
+      <%= link_to t('shared.back_to_member_directory'), users_path, class: 'text-sm text-white px-4 py-2 font-semibold hover:bg-[#3b0e0c]', style: "background-color: #471815; border-radius: 0.25rem;" %>
+    </div>
+
   </div>
 </div>
