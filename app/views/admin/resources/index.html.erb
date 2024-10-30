@@ -53,7 +53,6 @@
 
   <!-- Resource Table -->
   <div class="w-full pt-4 mt-6">
-    <%= paginate @resources %>
 
     <% columns = [
       t("resources.status"),
@@ -77,6 +76,8 @@
       ]
     end %>
     
+    <%= paginate @resources %>
+
     <%= render 'shared/table', columns: columns, rows: rows %>
 
     <%= paginate @resources %>
