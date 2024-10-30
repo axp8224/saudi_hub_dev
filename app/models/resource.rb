@@ -12,6 +12,8 @@ class Resource < ApplicationRecord
   validates :status, presence: true, inclusion: { in: ['active', 'pending', 'archived'] }
   validate :images_are_images
 
+  attr_accessor :distance
+
   after_validation :update_coordinates_with_geoapify, if: ->(obj){ obj.address.present? and obj.address_changed? }
 
   private

@@ -1,5 +1,6 @@
 <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-  <% @resources.each_with_index do |resource, index| %>
+  <% sorted_resources = @resources.zip(@distances).sort_by { |_, distance| distance || Float::INFINITY } %>
+  <% sorted_resources.each do |resource, distance| %>
     <div class="bg-white rounded-lg shadow-lg overflow-hidden">
       <!-- Resource Image -->
       <div class="relative">
@@ -16,11 +17,11 @@
 
         <!-- Description -->
         <p class="text-gray-700 text-sm mb-4"><%= truncate(resource.description, length: 100) %></p>
+
         <!-- Distance Display -->
-        
-        <% if @distances[index].present? %>
+        <% if distance.present? %>
           <div class="text-orange-500 font-semibold">
-            <%= "#{@distances[index].round(2)} km" %>
+            <%= "#{distance.round(2)} miles" %>
           </div>
         <% end %>
 

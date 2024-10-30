@@ -32,11 +32,6 @@ class ResourcesController < ApplicationController
     if @resources.empty?
       flash.now[:notice] = t('search.no_results')
     end
-    
-    
-    #if @distances.any?
-    #  @resources = @resources.zip(@distances).sort_by { |resource, distance| distance || Float::INFINITY }
-    #end
 
     @resources = @resources.page(params[:page]).per(per_page)
   end
@@ -231,7 +226,7 @@ class ResourcesController < ApplicationController
       distance_array = resources.map.with_index do |resource, index|
         if resource_coordinates[resource.id].present?
           distance_info = distances.find { |d| d['target_index'] == index }
-          distance_info.present? ? distance_info['distance'] / 1000.0 : nil # Convert meters to kilometers
+          distance_info.present? ? distance_info['distance'] / 1609.34 : nil # Convert meters to miles
         else
           nil
         end
