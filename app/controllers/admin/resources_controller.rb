@@ -90,6 +90,24 @@ module Admin
       
       redirect_to admin_resources_path
     end
+
+    def reject
+      @resource = Resource.find(params[:id])
+      
+      if @resource.update(status: 'rejected')
+        flash[:success] = t('flash.admin.resource.rejected', title: @resource.title)
+        Log.create(
+          user_email: current_user.email,
+          action: "Rejected Resource",
+          description: "Rejected resource [#{@resource.title}] and set status to rejected",
+          action_timestamp: Time.current
+        )
+      else
+        flash[:alert] = t('flash.resource.edit.update_failed')
+      end
+      
+      redirect_to admin_resources_path
+    end
     
     def archive
       @resource = Resource.find(params[:id])

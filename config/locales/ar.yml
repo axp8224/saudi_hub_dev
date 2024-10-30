@@ -55,6 +55,7 @@ ar:
     admin:
       resource:
         approved: "تمت الموافقة على المورد %{title}."
+        rejected: "تم رفض المورد %{title}."
         archived: "تم أرشفة المورد %{title}."
         reinstated: "تم إعادة المورد %{title} إلى الحالة النشطة."
         deleted: "تم حذف المورد %{title}."
@@ -199,6 +200,7 @@ ar:
     type: "النوع"
     author: "المؤلف"
     feedback: "ملاحظات"
+    images: "صور"
 
     index:
       resources: "الموارد"
@@ -281,6 +283,7 @@ ar:
     resources:
       status_active: "نشط"
       status_pending: "معلق"
+      status_rejected: "مرفوض"
       status_archived: "أرشف"
 
       edit_resource: "تعديل المورد"
@@ -303,6 +306,7 @@ ar:
         add_feedback: "إضافة ملاحظات"
         save_resource: "حفظ المورد"
         approve_resource: "الموافقة على المورد"
+        reject_resource: "رفض المورد"
         reinstate_resource: "إعادة المورد إلى الحالة النشطة"
         archive_resource: "أرشفة المورد"
         delete_resource: "حذف المورد"

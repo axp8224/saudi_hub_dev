@@ -24,11 +24,43 @@ RSpec.feature "UserEditPosts", type: :feature do
 
   scenario "user edits a pending post" do 
     pending_post = Resource.where(author: user, status: 'pending')[0]
+    old_description = pending_post.description
 
     visit edit_resource_path(pending_post)
 
     expect(page).to have_content(t('resources.edit.title'))
     expect(page).to have_content(pending_post.title)
+
+    new_description = 'Updated sample resource description.'
+    fill_in t('resources.description'), with: new_description
+
+    click_button t('resources.edit.update')
+
+    expect(page).to have_current_path(posts_user_path(user)) # redirect back to view my posts
+
+    expect(page).not_to have_content(old_description)
+    expect(page).to have_content(new_description)
+
+  end
+
+  scenario "update fails" do 
+    pending_post = Resource.where(author: user, status: 'pending')[0]
+    old_description = pending_post.description
+
+    visit edit_resource_path(pending_post)
+
+    expect(page).to have_content(t('resources.edit.title'))
+    expect(page).to have_content(pending_post.title)
+
+    new_description = 'Updated sample resource description.'
+    fill_in t('resources.description'), with: new_description
+
+    allow_any_instance_of(Resource).to receive(:update).and_return(false)
+
+    click_button t('resources.edit.update')
+
+    expect(page).to have_content(t('flash.resource.edit.update_failed')) 
+
   end
 
   scenario "user edits an active post" do 
@@ -47,7 +79,6 @@ RSpec.feature "UserEditPosts", type: :feature do
         description: "someone else's post",
         author: other_user,
         status: 'pending')
-    puts "Other post: #{other_post}"
 
     visit edit_resource_path(other_post)
 

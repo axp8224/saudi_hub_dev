@@ -237,7 +237,7 @@ RSpec.feature 'Admin Resources', type: :feature do
   end
 
   scenario 'Admin can reject resources' do
-    # edit status of a resource from pending to archived
+    # edit status of a resource from pending to rejected
     visit admin_resources_path
 
     select t('admin.resources.status_pending'), from: 'status'
@@ -251,7 +251,7 @@ RSpec.feature 'Admin Resources', type: :feature do
 
     expect(page).to have_content(original_description) # ensure this is the page for the first pending resource
 
-    click_on t('admin.resources.edit.archive_resource')
+    click_on t('admin.resources.edit.reject_resource')
 
     expect(page).to have_current_path(admin_resources_path) # redirect back to manage resources page
 
@@ -260,10 +260,54 @@ RSpec.feature 'Admin Resources', type: :feature do
 
     expect(page).not_to have_content(original_description)
 
-    select t('admin.resources.status_archived'), from: 'status'
+    select t('admin.resources.status_rejected'), from: 'status'
     click_on 'Search'
 
     expect(page).to have_content(original_description)
+  end
+
+  scenario 'Reject fails' do 
+    visit admin_resources_path
+
+    resource = Resource.where(status: 'pending')[0]
+
+    visit edit_admin_resource_path(resource)
+    
+    allow_any_instance_of(Resource).to receive(:update).and_return(false)  # Stub update to return false
+
+    click_on t('admin.resources.edit.reject_resource')
+
+    expect(page).to have_content(t('flash.resource.edit.update_failed'))
+  end
+
+  scenario 'Admins can archive resources' do 
+        # edit status of a resource from active to archived
+        visit admin_resources_path
+
+        select t('admin.resources.status_active'), from: 'status'
+        click_on 'Search'
+    
+        original_description = active_resources.first.description
+    
+        expect(page).to have_content(original_description)
+    
+        click_link 'Edit Resource', match: :first
+    
+        expect(page).to have_content(original_description) # ensure this is the page for the first pending resource
+    
+        click_on t('admin.resources.edit.archive_resource')
+    
+        expect(page).to have_current_path(admin_resources_path) # redirect back to manage resources page
+    
+        select t('admin.resources.status_active'), from: 'status'
+        click_on 'Search'
+    
+        expect(page).not_to have_content(original_description)
+    
+        select t('admin.resources.status_archived'), from: 'status'
+        click_on 'Search'
+    
+        expect(page).to have_content(original_description)
   end
 
   scenario 'Archive fails' do 

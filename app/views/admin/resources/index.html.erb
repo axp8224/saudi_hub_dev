@@ -18,7 +18,8 @@
           <%= select_tag :status, options_for_select(
             [[t('admin.resources.status_active'), 'active'], 
             [t('admin.resources.status_pending'), 'pending'], 
-            [t('admin.resources.status_archived'), 'archived']], 
+            [t('admin.resources.status_archived'), 'archived'],
+            [t('admin.resources.status_rejected'), 'rejected']], 
             params[:status]), prompt: t("admin.resources.select_status"), onchange: 'this.form.submit();', class: "w-full p-2 border rounded" %>
 
           <%= label_tag :resource_type_id, t('.filter_by_resource_type'), class: 'block font-semibold pt-2' %>
