@@ -63,6 +63,8 @@ en:
     resources:
       search_resources: "Search Resources"
       search_bar: "Enter resource title or description"
+      location_input: "Input your location"
+      radius_input: "Radius"
   flash:
     types:
       success: "Success"

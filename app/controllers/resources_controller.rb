@@ -33,6 +33,8 @@ class ResourcesController < ApplicationController
       flash.now[:notice] = t('search.no_results')
     end
 
+    @radius = params[:radius].to_f || nil
+
     @resources = @resources.page(params[:page]).per(per_page)
   end
 

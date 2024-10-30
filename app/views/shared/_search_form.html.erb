@@ -24,12 +24,20 @@
     <!-- Address Field Container -->
     <% if show_address_field %>
       <div class="flex-grow max-w-xl w-full relative mb-4 min-w-[16rem] <%= I18n.locale == :ar ? 'ml-auto' : 'mr-auto' %>">
-      <%= text_field_tag :address, params[:address], id: "address", 
+      <%= text_field_tag :address, params[:address], id: "address", placeholder: t('search.resources.location_input'),
         class: "w-full pr-12 py-2 focus:outline-none #{I18n.locale == :ar ? 'pl-10' : 'pr-12'} address-input", 
         style: "border: 3px solid #471815; color: #471815; border-radius: 0.25rem;" %>
       <div class="suggestions-container" id="suggestions" style="border: 1px solid #ccc; max-height: 200px; overflow-y: auto;"></div>
       </div>
     <% end %>
+
+    <!-- Radius Field Container -->
+    <div class="flex-grow max-w-xs w-full relative mb-4 min-w-[8rem] <%= I18n.locale == :ar ? 'ml-auto' : 'mr-auto' %>">
+      <%= text_field_tag :radius, params[:radius], placeholder: t('search.resources.radius_input', default: 'Radius (miles)'), 
+          class: "w-full pr-12 py-2 focus:outline-none #{I18n.locale == :ar ? 'pl-10' : 'pr-12'}", 
+          style: "border: 3px solid #471815; color: #471815; border-radius: 0.25rem;", 
+          onchange: "this.form.submit();" %>
+    </div>
 
     <!-- Filters Section -->
     <div class="flex flex-wrap items-center">

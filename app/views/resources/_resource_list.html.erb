@@ -1,5 +1,10 @@
 <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-  <% sorted_resources = @resources.zip(@distances).sort_by { |_, distance| distance || Float::INFINITY } %>
+  <% if @radius.present? && @radius > 0 %>
+    <% filtered_resources = @resources.zip(@distances).select { |_, distance| distance && distance <= @radius } %>
+  <% else %>
+    <% filtered_resources = @resources.zip(@distances) %>
+  <% end %>
+  <% sorted_resources = filtered_resources.sort_by { |_, distance| distance || Float::INFINITY } %>
   <% sorted_resources.each do |resource, distance| %>
     <div class="bg-white rounded-lg shadow-lg overflow-hidden">
       <!-- Resource Image -->

@@ -41,6 +41,8 @@ ar:
     resources:
       search_resources: "بحث عن الموارد"
       search_bar: "ابحث عن الاسم الكامل أو البريد الإلكتروني"
+      location_input: "أدخل موقعك"
+      radius_input: "أدخل نصف القطر"
   flash:
     types:
       success: "تم"
@@ -300,7 +302,6 @@ ar:
         filter_by_status: "تصفية حسب الحالة"
         filter_by_resource_type: "تصفية حسب نوع المورد"
 
-        search_button: "بحث"
       edit:
         resource_type: "نوع المورد"
         add_feedback: "إضافة ملاحظات"
