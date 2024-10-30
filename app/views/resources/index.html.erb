@@ -68,15 +68,15 @@
   <%= paginate @resources %>
 
   <!-- Manage Resources Button -->
-  <div class="fixed bottom-5 right-5 space-y-3">
-  <%= link_to t('.submit_resource', default: "Submit Resource"), new_resource_path, 
-    class: 'block bg-[#471815] text-white font-semibold text-center rounded-md px-6 py-3 shadow-lg' %>
-  
-  <% if @user_is_admin %>
-    <%= link_to t('.manage_resources', default: "Manage Resources"), admin_resources_path, 
+  <div class="fixed bottom-5 right-5 space-y-3 <%= 'mb-16' if flash.any? %>">
+    <%= link_to t('shared.submit_resource', default: "Submit Resource"), new_resource_path, 
       class: 'block bg-[#471815] text-white font-semibold text-center rounded-md px-6 py-3 shadow-lg' %>
-    </div>
-  <% end %>
+
+    <% if @user_is_admin %>
+      <%= link_to t('shared.manage_resources', default: "Manage Resources"), admin_resources_path, 
+        class: 'block bg-[#471815] text-white font-semibold text-center rounded-md px-6 py-3 shadow-lg' %>
+    <% end %>
+  </div>
 
 </div>
 
