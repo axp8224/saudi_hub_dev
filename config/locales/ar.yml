@@ -5,7 +5,7 @@ ar:
     view_profile: "عرض ملفي الشخصي"
     member_directory: "دليل الأعضاء"
     sign_out: "تسجيل الخروج"
-    manage_users: "إدارة قائمة المستخدمين"  
+    manage_users: "إدارة قائمة المستخدمين"
     view_my_posts: "عرض مشاركاتي"
     logs: "سجلات النشاط"
   shared:
@@ -151,8 +151,8 @@ ar:
       class_year: "سنة الفصل"
       major: "تخصص الدراسة"
       role: "دور"
-      search_members: "البحث عن الأعضاء" 
-      search_button: "يبحث" 
+      search_members: "البحث عن الأعضاء"
+      search_button: "يبحث"
       search_bar: "ابحث عن الاسم الكامل أو البريد الإلكتروني"
       items_per_page: "العناصر لكل صفحة"
       filter_by_major: "التصفية حسب التخصص"
@@ -192,13 +192,14 @@ ar:
       new:
         logged_out: "لقد تم تسجيل الخروج! الرجاء تسجيل الدخول للوحة التحكم!!"
         log_in_with: "تسجيل الدخول بواسطة %{provider}"
-  
+
   resources:
     status: "الحالة"
     title: "العنوان"
     description: "الوصف"
     type: "النوع"
     author: "المؤلف"
+    address: "عنوان"
     feedback: "ملاحظات"
     images: "صور"
 
@@ -214,9 +215,8 @@ ar:
       content: "ملاحظة: يمكنك تعديل منشورك فقط قبل الموافقة عليه. بعد الموافقة على المنشور، ستحتاج إلى الاتصال بمسؤول لإجراء التغييرات نيابة عنك."
       update: "تحديث المورد"
 
-
   admin:
-    logs:   
+    logs:
       select_action: "حدد الإجراء"
       index:
         user_email: "مستخدم"
@@ -241,10 +241,10 @@ ar:
         update_role: "تغيير الدور"
         role: "دور"
         back_to_users: "العودة إلى قائمة المستخدمين"
-        edit_profile: "تحرير الملف الشخصي ل %{name}"      
+        edit_profile: "تحرير الملف الشخصي ل %{name}"
       index:
-        search_users: "البحث عن المستخدمين" 
-        search_button: "يبحث" 
+        search_users: "البحث عن المستخدمين"
+        search_button: "يبحث"
         search_bar: "ابحث عن الاسم الكامل أو البريد الإلكتروني"
         items_per_page: "العناصر لكل صفحة"
         back_to_users: "العودة إلى قائمة المستخدمين"
@@ -263,7 +263,7 @@ ar:
           update_role: "تغيير الدور"
           role: "دور"
           action: "فعل"
-          manage_users: "إدارة قائمة المستخدمين"   
+          manage_users: "إدارة قائمة المستخدمين"
     resource_types:
       title: "العنوان"
       index:
