@@ -16,6 +16,7 @@ Rails.application.routes.draw do
     resources :resources, only: %i[index edit update destroy] do
       member do
         patch :approve
+        patch :reject
         patch :archive
         patch :reinstate
       end

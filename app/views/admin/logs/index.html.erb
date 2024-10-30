@@ -21,26 +21,23 @@
 
  <%= paginate @logs %>
 
-  <table>
-    <thead>
-      <tr>
-        <th><%= t('admin.logs.index.user_email') %></th>
-        <th><%= t('admin.logs.index.action') %></th>
-        <th><%= t('admin.logs.index.description') %></th>
-        <th><%= t('admin.logs.index.timestamp') %></th>
-      </tr>
-    </thead>
-    <tbody>
-      <% @logs.each do |log| %>
-        <tr>
-          <td><%= log.user_email %></td>
-          <td><%= log.action %></td>
-          <td><%= log.description %></td>
-          <td><%= log.action_timestamp.strftime("%Y-%m-%d %H:%M:%S") %></td>
-        </tr>
-      <% end %>
-    </tbody>
-  </table>
+ <% columns = [
+    t('admin.logs.index.user_email'),
+    t('admin.logs.index.action'),
+    t('admin.logs.index.description'),
+    t('admin.logs.index.timestamp')
+  ] %>
+
+  <% rows = @logs.map do |log|
+    [
+      log.user_email,
+      log.action,
+      log.description,
+      log.action_timestamp.strftime("%Y-%m-%d %H:%M:%S")
+    ]
+  end %>
+
+  <%= render 'shared/table', columns: columns, rows: rows %>
 </div>
 
 

@@ -9,7 +9,7 @@ class Resource < ApplicationRecord
   validates :title, presence: true
   validates :description, presence: true
   validates :resource_type, presence: true
-  validates :status, presence: true, inclusion: { in: ['active', 'pending', 'archived'] }
+  validates :status, presence: true, inclusion: { in: ['active', 'pending', 'archived', 'rejected'] }
   validate :images_are_images
 
   attr_accessor :distance

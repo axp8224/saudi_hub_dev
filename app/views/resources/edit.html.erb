@@ -13,24 +13,24 @@
     <% end %>
 
     <div class="field">
-        <%= form.label :title %>
+        <%= form.label :title, t('resources.title') %>
         <%= form.text_field :title, value: @resource.title %>
     </div>
 
     <div class="field">
-        <%= form.label :description %>
+        <%= form.label :description, t('resources.description') %>
         <%= form.text_area :description, value: @resource.description %>
     </div>
 
     <div class="field">
-        <%= form.label :resource_type_id %>
+        <%= form.label :resource_type_id, t("resources.type") %>
         <%= form.collection_select :resource_type_id, ResourceType.all, :id, :title, selected: @resource.resource_type_id %>
     </div>
 
     <%= render 'shared/address_field', form: form %>
 
     <div class="field">
-        <%= form.label :images %>
+        <%= form.label :images, t("resources.images") %>
         <%= form.file_field :images, multiple: true %>
     </div>
 

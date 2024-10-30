@@ -77,6 +77,7 @@ en:
     admin:
       resource:
         approved: "Resource %{title} has been approved."
+        rejected: "Resource %{title} has been rejected."
         archived: "Resource %{title} has been archived."
         reinstated: "Resource %{title} has been reinstated."
         deleted: "Resource %{title} has been deleted."
@@ -212,6 +213,7 @@ en:
     type: "Type"
     author: "Author"
     feedback: "Feedback"
+    images: "Images"
 
     index:
       resources: "Resources"
@@ -262,6 +264,7 @@ en:
     resources:
       status_active: "Active"
       status_pending: "Pending"
+      status_rejected: "Rejected"
       status_archived: "Archived"
 
       edit_resource: "Edit Resource"
@@ -284,6 +287,7 @@ en:
         add_feedback: "Add Feedback"
         save_resource: "Save Resource"
         approve_resource: "Approve Resource"
+        reject_resource: "Reject Resource"
         reinstate_resource: "Reinstate Resource"
         archive_resource: "Archive Resource"
         delete_resource: "Delete Resource"

@@ -66,13 +66,19 @@
       <% end %>
     <% end %>
 
+    <% if @resource.status == 'pending' %>
+      <%= form_with url: reject_admin_resource_path(@resource), method: :patch, local: true do %>
+        <%= submit_tag t(".reject_resource"), class: "btn btn-danger" %>
+      <% end %>
+    <% end %>
+
     <% if @resource.status == 'archived' %>
       <%= form_with url: reinstate_admin_resource_path(@resource), method: :patch, local: true do %>
         <%= submit_tag t(".reinstate_resource"), class: "btn btn-info" %>
       <% end %>
     <% end %>
 
-    <% if @resource.status != 'archived' %>
+    <% if @resource.status == 'active' || @resource.status == 'rejected' %>
       <%= form_with url: archive_admin_resource_path(@resource), method: :patch, local: true do %>
         <%= submit_tag t(".archive_resource"), class: "btn btn-warning" %>
       <% end %>

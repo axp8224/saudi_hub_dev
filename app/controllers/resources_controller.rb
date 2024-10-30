@@ -121,7 +121,7 @@ class ResourcesController < ApplicationController
         description: "Failed to update resource propsal [#{@resource.title}]",
         action_timestamp: Time.current
       )
-      redirect_to posts_user_path, alert: t('flash.resource.edit.update_failed')
+      redirect_to posts_user_path(current_user), alert: t('flash.resource.edit.update_failed')
     end
 
   end
