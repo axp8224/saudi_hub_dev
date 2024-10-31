@@ -8,7 +8,7 @@
   }
 
   .btn-primary {
-    @apply bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded;
+    @apply bg-transparent hover:bg-[#173821] text-[#173821] font-semibold hover:text-white py-2 px-4 border border-[#173821] hover:border-transparent rounded;
   }
 
   .btn-secondary {
@@ -39,7 +39,6 @@
     @apply block p-3 text-gray-900 md:text-white rounded hover:bg-[#173821] hover:bg-opacity-30 md:hover:bg-transparent md:hover:opacity-100 md:opacity-70 md:px-3;
   }  
 
-  
 }
 
 body {

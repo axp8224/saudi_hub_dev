@@ -7,9 +7,7 @@ class ResourcesController < ApplicationController
     @resources = Resource.where(status: 'active')
     @resource_types = ResourceType.all
 
-    if params[:resource_type_id].present?
-      @resources = @resources.where(resource_type_id: params[:resource_type_id])
-    end
+    @resources = @resources.where(resource_type_id: params[:resource_type_id]) if params[:resource_type_id].present?
 
     if params[:search].present?
       @resources = @resources.where('title ILIKE :search OR description ILIKE :search', search: "%#{params[:search]}%")
@@ -29,16 +27,12 @@ class ResourcesController < ApplicationController
       @distances = [] # Default to empty array if no address is provided
     end
 
-    if @resources.empty?
-      flash.now[:notice] = t('search.no_results')
-    end
+    flash.now[:notice] = t('search.no_results') if @resources.empty?
 
     @radius = params[:radius].to_f || nil
 
     @resources = @resources.page(params[:page]).per(per_page)
   end
-
-
 
   def new
     @resource = Resource.new
@@ -57,7 +51,7 @@ class ResourcesController < ApplicationController
 
       Log.create(
         user_email: current_user.email,
-        action: "Created Resource Proposal",
+        action: 'Created Resource Proposal',
         description: "Created new resource proposal titled '#{@resource.title}' with description '#{@resource.description}'",
         action_timestamp: Time.current
       )
@@ -68,8 +62,8 @@ class ResourcesController < ApplicationController
 
       Log.create(
         user_email: current_user.email,
-        action: "Failed to Create Resource Proposal",
-        description: "Attempt to create new resource proposal failed",
+        action: 'Failed to Create Resource Proposal',
+        description: 'Attempt to create new resource proposal failed',
         action_timestamp: Time.current
       )
     end
@@ -80,20 +74,19 @@ class ResourcesController < ApplicationController
     @resource_author = User.find(@resource.user_id) if @resource.user_id.present?
   end
 
-  def edit 
+  def edit
     @resource = Resource.find(params[:id])
 
     if @resource.author != current_user
-      redirect_to root_path, alert: t("flash.resource.edit.only_your_posts") 
+      redirect_to root_path, alert: t('flash.resource.edit.only_your_posts')
     elsif @resource.status != 'pending'
-      redirect_to root_path, alert: t("flash.resource.edit.only_pending")
+      redirect_to root_path, alert: t('flash.resource.edit.only_pending')
     else
-      
-    end
 
+    end
   end
 
-  def update 
+  def update
     @resource = Resource.find(params[:id])
     original_values = {
       title: @resource.title,
@@ -110,7 +103,7 @@ class ResourcesController < ApplicationController
 
       Log.create(
         user_email: current_user.email,
-        action: "User Resource Proposal Updated",
+        action: 'User Resource Proposal Updated',
         description: "User resource proposal [#{@resource.title}] updated: #{changes.join(', ')}",
         action_timestamp: Time.current
       )
@@ -119,24 +112,22 @@ class ResourcesController < ApplicationController
     else
       Log.create(
         user_email: current_user.email,
-        action: "Resource Proposal Update Failed",
+        action: 'Resource Proposal Update Failed',
         description: "Failed to update resource propsal [#{@resource.title}]",
         action_timestamp: Time.current
       )
       redirect_to posts_user_path(current_user), alert: t('flash.resource.edit.update_failed')
     end
-
   end
 
-  def user_posts 
+  def user_posts
     @user = User.find(params[:id])
 
-    if @user == current_user 
-      @posts = Resource.where(author: @user)
-    else 
-      redirect_to root_path, alert: t("flash.resource.user_posts.only_your_posts") 
+    if @user == current_user
+      @posts = Resource.where(author: @user).page(params[:page]).per(10)
+    else
+      redirect_to root_path, alert: t('flash.resource.user_posts.only_your_posts')
     end
-
   end
 
   def address_suggestions
@@ -149,12 +140,12 @@ class ResourcesController < ApplicationController
   end
 
   def fetch_address_suggestions(query)
-    api_key = ENV['GEOAPIFY_API_KEY']
+    api_key = ENV.fetch('GEOAPIFY_API_KEY', nil)
     return [] unless api_key
 
     encoded_query = URI.encode_www_form_component(query)
     geoapify_url = "https://api.geoapify.com/v1/geocode/autocomplete?text=#{encoded_query}&apiKey=#{api_key}&limit=5"
-    
+
     response = Net::HTTP.get(URI(geoapify_url))
     parsed_response = JSON.parse(response)
 
@@ -168,12 +159,12 @@ class ResourcesController < ApplicationController
   end
 
   def fetch_coordinates_with_geoapify(address)
-    api_key = ENV['GEOAPIFY_API_KEY']
+    api_key = ENV.fetch('GEOAPIFY_API_KEY', nil)
     return unless api_key
 
     encoded_address = URI.encode_www_form_component(address)
     geoapify_url = "https://api.geoapify.com/v1/geocode/search?text=#{encoded_address}&apiKey=#{api_key}&limit=1"
-  
+
     response = Net::HTTP.get(URI(geoapify_url))
     parsed_response = JSON.parse(response)
 
@@ -186,7 +177,7 @@ class ResourcesController < ApplicationController
   end
 
   def calculate_distances(resources, input_coordinates)
-    api_key = ENV['GEOAPIFY_API_KEY']
+    api_key = ENV.fetch('GEOAPIFY_API_KEY', nil)
     return [] unless api_key
 
     # Fetch the coordinates for each resource
@@ -206,9 +197,9 @@ class ResourcesController < ApplicationController
     targets = resource_coordinates.values.map { |coords| { location: coords.reverse } } # Each resource's coordinates
 
     request_body = {
-      mode: "drive",
-      sources: sources,
-      targets: targets
+      mode: 'drive',
+      sources:,
+      targets:
     }
 
     uri = URI(geoapify_url)
@@ -221,29 +212,22 @@ class ResourcesController < ApplicationController
 
     parsed_response = JSON.parse(response.body)
 
-    if parsed_response['sources_to_targets'].present?
-      distances = parsed_response['sources_to_targets'].first # Distances from input address to each resource
+    return [] unless parsed_response['sources_to_targets'].present?
 
-      # Create an array of distances index-mapped to the resources
-      distance_array = resources.map.with_index do |resource, index|
-        if resource_coordinates[resource.id].present?
-          distance_info = distances.find { |d| d['target_index'] == index }
-          distance_info.present? ? distance_info['distance'] / 1609.34 : nil # Convert meters to miles
-        else
-          nil
-        end
+    distances = parsed_response['sources_to_targets'].first # Distances from input address to each resource
+
+    # Create an array of distances index-mapped to the resources
+    resources.map.with_index do |resource, index|
+      if resource_coordinates[resource.id].present?
+        distance_info = distances.find { |d| d['target_index'] == index }
+        distance_info.present? ? distance_info['distance'] / 1609.34 : nil # Convert meters to miles
+      else
+        nil
       end
-
-      return distance_array
-    else
-      return []
     end
   end
-
-
 
   def resource_params
     params.require(:resource).permit(:title, :description, :resource_type_id, :address, images: [])
   end
-
 end

@@ -13,13 +13,6 @@
       show_address_field: false,
       show_per_page: false %>
   </div>
-  
-
-  <% if flash[:notice] %>
-    <p class="text-red-600"><%= flash[:notice] %></p>
-  <% end %>
-
- <%= paginate @logs %>
 
  <% columns = [
     t('admin.logs.index.user_email'),
@@ -37,7 +30,14 @@
     ]
   end %>
 
-  <%= render 'shared/table', columns: columns, rows: rows %>
+  <div class="w-full pt-4 mt-6">
+    <%= paginate @logs %>
+
+    <%= render 'shared/table', columns: columns, rows: rows %>
+    
+    <%= paginate @logs %>
+  </div>
+
 </div>
 
 
