@@ -29,7 +29,7 @@ class ResourcesController < ApplicationController
 
     flash.now[:notice] = t('search.no_results') if @resources.empty?
 
-    @radius = params[:radius].to_f || nil
+    @radius = params[:radius].to_f.positive? ? params[:radius].to_f : nil
 
     @resources = @resources.page(params[:page]).per(per_page)
   end
