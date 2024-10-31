@@ -279,11 +279,11 @@ if sample_user.nil?
 else
   # Create sample resources for each resource type
   restaurants = [
-    { name: "Layne's Chicken Fingers", description: 'Famous for their crispy chicken fingers and secret sauce.' },
-    { name: 'Fuego Tortilla Grill', description: '24-hour Tex-Mex spot known for their breakfast tacos.' },
-    { name: 'Dixie Chicken', description: 'Iconic college bar with a rustic atmosphere and great burgers.' },
-    { name: 'Grub Burger Bar', description: 'Gourmet burgers and spiked milkshakes in a modern setting.' },
-    { name: 'Mess Waffles', description: 'Serving both sweet and savory waffles, perfect for late-night cravings.' }
+    { name: "Layne's Chicken Fingers", description: 'Famous for their crispy chicken fingers and secret sauce.', address: '106 Walton Dr, College Station, TX 77840' },
+    { name: 'Fuego Tortilla Grill', description: '24-hour Tex-Mex spot known for their breakfast tacos.', address: '108 Poplar St, College Station, TX 77840' },
+    { name: 'Dixie Chicken', description: 'Iconic college bar with a rustic atmosphere and great burgers.', address: '307 University Dr, College Station, TX 77840' },
+    { name: 'Grub Burger Bar', description: 'Gourmet burgers and spiked milkshakes in a modern setting.', address: '980 University Dr E #400, College Station, TX 77840' },
+    { name: 'Mess Waffles', description: 'Serving both sweet and savory waffles, perfect for late-night cravings.', address: '1716 Southwest Pkwy #100, College Station, TX 77840' }
   ]
 
   apartments = [
@@ -309,6 +309,7 @@ else
       resource_type: restaurant_type,
       title: restaurant[:name],
       description: restaurant[:description],
+      address: restaurant[:address],
       status: 'active'
     )
   end

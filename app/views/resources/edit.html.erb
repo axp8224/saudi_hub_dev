@@ -27,6 +27,8 @@
         <%= form.collection_select :resource_type_id, ResourceType.all, :id, :title, selected: @resource.resource_type_id %>
     </div>
 
+    <%= render 'shared/address_field', form: form %>
+
     <div class="field">
         <%= form.label :images, t("resources.images") %>
         <%= form.file_field :images, multiple: true %>

@@ -59,6 +59,7 @@
       t("resources.type"),
       t("resources.title"),
       t("resources.description"),
+      t("resources.address"),
       t("resources.author"),
       t("resources.feedback"),
       t("actions")
@@ -70,6 +71,7 @@
         resource.resource_type.present? ? resource.resource_type.title : 'No Type',
         resource.title,
         resource.description,
+        resource.address,
         resource.author.full_name,
         (resource.feedback.present? && resource.status == 'pending') ? resource.feedback : "",
         link_to(t("admin.resources.edit_resource"), edit_admin_resource_path(resource), class: 'btn btn-secondary')

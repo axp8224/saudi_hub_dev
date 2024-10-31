@@ -3,78 +3,60 @@
 <div class="flex">
 
   <%= form_with model: @resource, url: admin_resource_path(@resource), method: :patch do |form| %>
-    <table class="table-auto max-w-4xl space-y-4 border-separate border-spacing-y-4">
-      <tbody>
-        <tr>
-          <td class="w-1/4 text-right pr-4">
-            <%= form.label :title, t("resources.title") %>
-          </td>
-          <td class="w-3/4">
-            <%= form.text_field :title, class: "form-control w-full", value: @resource.title, required: true %>
-          </td>
-        </tr>
-
-        <tr>
-          <td class="w-1/4 text-right pr-4">
-            <%= form.label :description, t("resources.description") %>
-          </td>
-          <td class="w-3/4">
-            <%= form.text_area :description, class: "form-control w-full", rows: 3, value: @resource.description, required: true %>
-          </td>
-        </tr>
-
-        <tr>
-          <td class="w-1/4 text-right pr-4">
-            <%= form.label :status, t("resources.status") %>
-          </td>
-          <td class="w-3/4">
-            <span class="font-semibold"><%= @resource.status.humanize %></span>
-          </td>
-        </tr>
-
-        <tr>
-          <td class="w-1/4 text-right pr-4">
-            <%= form.label :resource_type_id, t(".resource_type") %>
-          </td>
-          <td class="w-3/4">
-            <%= form.collection_select :resource_type_id, @resource_types, :id, :title, { prompt: t("admin.resources.select_type"), selected: @resource.resource_type_id }, class: "form-control w-full", required: true %>
-          </td>
-        </tr>
-
-        <% if @resource.status == 'pending' %>
-          <% if @feedback %>
-            <tr id="feedback-field">
-              <td class="w-1/4 text-right pr-4">
-                <%= form.label :feedback, t("resources.feedback") %>
-              </td>
-              <td class="w-3/4">
-                <%= form.text_field :feedback, class: "form-control w-full" %>
-              </td>
-            </tr>
-          <% else %>
-            <tr id="feedback-field" class="hidden">
-              <td class="w-1/4 text-right pr-4">
-                <%= form.label :feedback, t("resources.feedback") %>
-              </td>
-              <td class="w-3/4">
-                <%= form.text_field :feedback, class: "form-control w-full" %>
-              </td>
-            </tr>
-            <tr>
-              <td colspan="2">
-                <button type="button" id="add-feedback" class="btn btn-primary" onclick="showFeedback()"><%=t('.add_feedback')%></button>
-              </td>
-            </tr>
+    <% if @resource.errors.any? %>
+      <div id="error_explanation">
+        <h2><%= pluralize(@resource.errors.count, "error") %> prohibited this resource from being saved:</h2>
+        <ul>
+          <% @resource.errors.full_messages.each do |message| %>
+            <li><%= message %></li>
           <% end %>
-        <% end %>
+        </ul>
+      </div>
+    <% end %>
 
-        <tr>
-          <td colspan="2">
-            <%= form.submit t(".save_resource"), class: "btn btn-primary" %>
-          </td>
-        </tr>
-      </tbody>
-    </table>
+    <div class="form-group">
+      <%= form.label :title, t("resources.title"), class: "form-label" %>
+      <%= form.text_field :title, class: "form-control", value: @resource.title, required: true %>
+    </div>
+
+    <div class="form-group">
+      <%= form.label :description, t("resources.description"), class: "form-label" %>
+      <%= form.text_area :description, class: "form-control", rows: 3, value: @resource.description, required: true %>
+    </div>
+
+    <div class="form-group">
+      <%= form.label :status, t("resources.status"), class: "form-label" %>
+      <span class="font-semibold"><%= @resource.status.humanize %></span>
+    </div>
+
+    <div class="form-group">
+      <%= form.label :resource_type_id, t(".resource_type"), class: "form-label" %>
+      <%= form.collection_select :resource_type_id, @resource_types, :id, :title, { prompt: t("admin.resources.select_type"), selected: @resource.resource_type_id }, class: "form-control", required: true %>
+    </div>
+
+    <%= render 'shared/address_field', form: form %>
+
+    <% if @resource.status == 'pending' %>
+      <% if @feedback %>
+      <div class="form-group" id="feedback-field">
+        <%= form.label :feedback, t("resources.feedback"), class: "form-label" %>
+        <%= form.text_field :feedback, class: "form-control" %>
+      </div>
+      <% else %>
+      <div class="form-group hidden" id="feedback-field">
+        <%= form.label :feedback, t("resources.feedback"), class: "form-label" %>
+        <%= form.text_field :feedback, class: "form-control" %>
+      </div>
+      <div class="form-group">
+        <button type="button" id="add-feedback" class="btn btn-primary" onclick="showFeedback()"><%= t('.add_feedback') %></button>
+      </div>
+      <% end %>
+    <% end %>
+
+    <div class="form-group">
+      <%= form.submit t(".save_resource"), class: "btn btn-primary" %>
+    </div>
+
   <% end %>
 
   <div class="space-y-4 ml-4 mt-4 flex flex-col">

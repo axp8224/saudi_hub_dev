@@ -36,14 +36,16 @@ module Admin
         title: @resource.title,
         description: @resource.description,
         resource_type: @resource.resource_type.title,
-        feedback: @resource.feedback || 'No feedback'
+        feedback: @resource.feedback || 'No feedback',
+        address: @resource.address || 'No address'
       }
 
       if @resource.update(
         title: params[:resource][:title],
         description: params[:resource][:description],
         resource_type_id: params[:resource][:resource_type_id],
-        feedback: params[:resource][:feedback]
+        feedback: params[:resource][:feedback],
+        address: params[:resource][:address]
       )
 
         # Constructing a description of what was changed

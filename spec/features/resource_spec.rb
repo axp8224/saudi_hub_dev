@@ -122,4 +122,26 @@ RSpec.feature 'Resources', type: :feature do
     expect(page).to have_content("Title can't be blank")
     expect(page).to have_content("Description can't be blank")
   end
+
+  scenario 'User searches for resources by address' do
+    visit resources_path
+
+    fill_in 'address', with: '400 Bizzell St, College Station, TX 77840'
+    click_button 'Search'
+
+    expect(page).to have_content("miles")
+  end
+
+  scenario 'User searches for resources within a specific radius' do
+    visit resources_path
+
+    fill_in 'address', with: '400 Bizzell St, College Station, TX 77840'
+    fill_in 'radius', with: '10' # radius in miles
+    click_button 'Search'
+
+    all('.distance').each do |distance_element|
+      distance = distance_element.text.split.first.to_f
+      expect(distance).to be <= 10
+    end
+  end
 end

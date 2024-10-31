@@ -1,0 +1,56 @@
+<div>
+    <div class="field">
+        <%= form.label :address, "Address" %>
+        <%= form.text_field :address, id: "#{form.object.class.name.downcase}_address", class: "address-input" %>
+        <div class="suggestions-container" id="suggestions_<%= form.object.class.name.downcase %>" style="border: 1px solid #ccc; max-height: 200px; overflow-y: auto;"></div>
+    </div>
+
+    <script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const autocompleteInput = document.getElementById('<%= "#{form.object.class.name.downcase}_address" %>');
+        const suggestionsContainer = document.getElementById("suggestions_<%= form.object.class.name.downcase %>");
+
+        function debounce(func, wait) {
+            let timeout;
+            return function (...args) {
+                clearTimeout(timeout);
+                timeout = setTimeout(() => func.apply(this, args), wait);
+            };
+        }
+
+        function fetchSuggestions() {
+            const query = autocompleteInput.value.trim();
+
+            if (query.length > 2) {
+                const encodedQuery = encodeURIComponent(query);
+                fetch(`/resources/address_suggestions?query=${encodedQuery}`)
+                    .then((response) => response.json())
+                    .then((data) => {
+                        showSuggestions(data);
+                    })
+                    .catch((error) => console.error("Error fetching suggestions:", error));
+            }
+        }
+
+        const debouncedFetchSuggestions = debounce(fetchSuggestions, 300);
+        autocompleteInput.addEventListener("input", debouncedFetchSuggestions);
+
+        function showSuggestions(suggestions) {
+            suggestionsContainer.innerHTML = "";
+
+            suggestions.forEach((suggestion) => {
+                const suggestionItem = document.createElement("div");
+                suggestionItem.style.cursor = "pointer";
+                suggestionItem.innerText = suggestion;
+
+                suggestionItem.addEventListener("click", () => {
+                    autocompleteInput.value = suggestion;
+                    suggestionsContainer.innerHTML = "";
+                });
+
+                suggestionsContainer.appendChild(suggestionItem);
+            });
+        }
+    });
+    </script>
+</div>
