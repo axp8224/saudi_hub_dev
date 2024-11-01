@@ -6,6 +6,7 @@
   <% end %>
   <% sorted_resources = filtered_resources.sort_by { |_, distance| distance || Float::INFINITY } %>
   <% sorted_resources.each do |resource, distance| %>
+    <% next if @address_filter && distance.nil? %>
     <div class="bg-white rounded-lg shadow-lg overflow-hidden">
       <!-- Resource Image -->
       <div class="relative">
