@@ -18,8 +18,10 @@
       </div>
       <!-- Contact Info (Phone and Email) -->
       <div class="flex-1 text-center">
-        <p class="text-sm font-semibold" style="color: black;">Phone: ********</p>
         <p class="text-sm font-semibold" style="color: black;">Email: <%= user.email %></p>
+        <% if user.phone_public? && user.phone_number.present? %>
+          <p><strong><%= t('.phone') %>:</strong> <%= user.phone_number %></p>
+        <% end %>
       </div>
       <!-- View Profile Button -->
       <div class="text-right pr-4">
