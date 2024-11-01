@@ -15,6 +15,7 @@ class ResourcesController < ApplicationController
 
     @user_is_admin = (current_user.role.name == 'admin')
 
+    @address_filter = params[:address].present?
     if params[:address].present?
       address_coordinates = fetch_coordinates_with_geoapify(params[:address])
       if address_coordinates.present?
