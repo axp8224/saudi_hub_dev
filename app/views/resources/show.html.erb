@@ -1,61 +1,103 @@
-<div class="max-w-screen-xl mx-auto">
-    <!-- Breadcrumb -->
-    <nav class="flex justify-start pt-10" aria-label="Breadcrumb">
-        <ol class="inline-flex items-center space-x-1 md:space-x-2 rtl:space-x-reverse py-4">
-        <!-- Resources -->
-        <li class="inline-flex items-center">
-            <%= link_to t('shared.resources'), resources_path, class: 'inline-flex items-center text-sm font-medium', style: 'color: #471815;' %> 
-        </li>
+<div class="container max-w-screen-xl mx-auto p-6 mb-64">
+  <!-- Breadcrumb -->
+  <nav class="flex justify-start pt-10" aria-label="Breadcrumb">
+      <ol class="inline-flex items-center space-x-1 md:space-x-2 rtl:space-x-reverse py-4">
+      <!-- Resources -->
+      <li class="inline-flex items-center">
+          <%= link_to t('shared.resources'), resources_path, class: 'inline-flex items-center text-lg font-medium hover:underline', style: 'color: #471815;' %> 
+      </li>
 
-        <!-- Resource Type -->
-        <% if @resource.resource_type %>
-            <li>
-            <div class="flex items-center">
-                <svg class="w-4 h-4 mx-1 <%= I18n.locale == :ar ? 'rotate-180' : '' %>" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10" style="color: #471815;">
-                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 9 4-4-4-4" />
-                </svg>
-                <%= link_to @resource.resource_type.title, resources_path(resource_type_id: @resource.resource_type.id), class: 'ms-1 text-sm font-medium hover:underline md:ms-2', style: 'color: #471815;' %> 
-            </div>
-            </li>
+      <!-- Resource Type -->
+      <% if @resource.resource_type %>
+          <li>
+          <div class="flex items-center">
+              <svg class="w-4 h-4 mx-1 <%= I18n.locale == :ar ? 'rotate-180' : '' %>" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10" style="color: #471815;">
+              <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 9 4-4-4-4" />
+              </svg>
+              <%= link_to @resource.resource_type.title, resources_path(resource_type_id: @resource.resource_type.id), class: 'ms-1 text-lg font-medium hover:underline md:ms-2', style: 'color: #471815;' %> 
+          </div>
+          </li>
+      <% end %>
+
+      <!-- Current Resource -->
+      <li aria-current="page">
+          <div class="flex items-center">
+          <svg class="w-4 h-4 mx-1 <%= I18n.locale == :ar ? 'rotate-180' : '' %>" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10" style="color: #471815;">
+              <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 9 4-4-4-4" />
+          </svg>
+          <span class="ms-1 text-lg font-medium md:ms-2" style="color: #471815;"><%= @resource.title %></span> 
+          </div>
+      </li>
+      </ol>
+  </nav>
+
+  <!-- Carousel Section -->
+  <% if @resource.images.any? %>
+    <div class="relative mb-6">
+      <!-- Carousel Wrapper -->
+      <div id="carousel" class="overflow-hidden relative w-full h-96 rounded-lg">
+        <% @resource.images.each_with_index do |image, index| %>
+          <div class="absolute inset-0 transition-transform transform <%= index == 0 ? 'translate-x-0' : 'translate-x-full' %> carousel-item">
+            <%= image_tag image, class: 'w-full h-96 object-cover' %>
+          </div>
         <% end %>
+      </div>
 
-        <!-- Current Resource -->
-        <li aria-current="page">
-            <div class="flex items-center">
-            <svg class="w-4 h-4 mx-1 <%= I18n.locale == :ar ? 'rotate-180' : '' %>" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10" style="color: #471815;">
-                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 9 4-4-4-4" />
-            </svg>
-            <span class="ms-1 text-sm font-medium md:ms-2" style="color: #471815;"><%= @resource.title %></span> 
-            </div>
-        </li>
-        </ol>
-    </nav>
+      <!-- Navigation Buttons, only shown if there is more than one image -->
+      <% if @resource.images.size > 1 %>
+        <button id="prev" class="absolute top-1/2 left-4 transform -translate-y-1/2 bg-black rounded-full focus:outline-none">
+          <img src="/left-arrow.svg" alt="Previous" class="opacity-50 hover:opacity-100 transition-opacity w-12 h-12 filter invert">
+        </button>
+        <button id="next" class="absolute top-1/2 right-4 transform -translate-y-1/2 bg-black rounded-full focus:outline-none">
+          <img src="/right-arrow.svg" alt="Next" class="opacity-50 hover:opacity-100 transition-opacity w-12 h-12 filter invert">
+        </button>
+      <% end %>
+    </div>
+  <% end %>
 
+  <!-- JavaScript for Carousel Functionality -->
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const items = document.querySelectorAll('.carousel-item');
+      let currentIndex = 0;
 
-  <!-- Resource Image Gallery -->
-  <div class="mb-6">
-    <% @resource.images.each do |image| %>
-      <%= image_tag image, class: 'w-full h-96 object-cover rounded-lg mb-4' %>
-    <% end %>
-  </div>
+      function showSlide(index) {
+        items.forEach((item, i) => {
+          item.style.transform = `translateX(${100 * (i - index)}%)`;
+        });
+      }
+
+      document.getElementById('prev').addEventListener('click', () => {
+        currentIndex = (currentIndex > 0) ? currentIndex - 1 : items.length - 1;
+        showSlide(currentIndex);
+      });
+
+      document.getElementById('next').addEventListener('click', () => {
+        currentIndex = (currentIndex < items.length - 1) ? currentIndex + 1 : 0;
+        showSlide(currentIndex);
+      });
+    });
+  </script>
 
   <!-- Resource Info Section -->
   <div class="block mx-auto max-w-screen-xl p-6 bg-white border border-gray-300 rounded-lg shadow-lg">
     <div class="grid grid-cols-1 gap-4">
-      <!-- Left Section (Title, Ratings, Author, Address) -->
-      <div>
-        <h5 class="text-2xl font-semibold text-[#471815] mb-2"><%= @resource.title %></h5>
-        <p class="text-gray-600"><%= t('resources.written_by', author_name: @resource_author.full_name) %></p>
-      </div>
+      <h5 class="text-2xl font-semibold text-[#471815] mb-2"><%= @resource.title %></h5>
+
+      <p class="text-lg">
+        <strong><%= t('resources.written_by') %></strong> <%= link_to(@resource_author.full_name, user_path(@resource_author), class: 'text-[#471815] hover:underline') %>
+      </p>
   
-      <!-- Resource Description (Under the Left Section) -->
-      <div class="p-2">
-        <p class="text-left text-lg leading-relaxed text-gray-800">
-          <%= @resource.description %>
+      <% if @resource.address.present? %>
+        <p class="text-lg">
+          <strong><%= t('resources.address') %>:</strong> <%= @resource.address %>
         </p>
-      </div>
+      <% end %>
+
+      <!-- Resource Description (Under the Left Section) -->
+      <p class="text-lg leading-relaxed text-gray-800">
+        <%= @resource.description %>
+      </p>
     </div>
   </div>  
-
-
 </div>

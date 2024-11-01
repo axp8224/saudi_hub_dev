@@ -125,7 +125,11 @@ class ResourcesController < ApplicationController
     @user = User.find(params[:id])
 
     if @user == current_user
-      @posts = Resource.where(author: @user).page(params[:page]).per(10)
+      @posts = Resource.where(author: @user)
+      if params[:search].present?
+        @posts = @posts.where('title ILIKE :search OR description ILIKE :search', search: "%#{params[:search]}%")
+      end
+      @posts = @posts.page(params[:page]).per(10)
     else
       redirect_to root_path, alert: t('flash.resource.user_posts.only_your_posts')
     end
