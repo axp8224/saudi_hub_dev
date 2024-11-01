@@ -44,7 +44,11 @@ ar:
       search_resources: "بحث عن الموارد"
       search_bar: "ابحث عن الاسم الكامل أو البريد الإلكتروني"
       location_input: "أدخل موقعك"
-      radius_input: "أدخل نصف القطر"
+      radius_input: "أدخل نصف القطر (أميال)"
+    logs:
+      search_placeholder: "أدخل البريد الإلكتروني أو الإجراء أو الوصف"
+      search_logs: "سجلات البحث"
+      filter_by_action: "التصفية حسب العمل"
   flash:
     types:
       success: "تم"
@@ -161,6 +165,7 @@ ar:
       items_per_page: "العناصر لكل صفحة"
       filter_by_major: "التصفية حسب التخصص"
       filter_by_class_year: "تصفية حسب العام الدراسي"
+      view_profile: "عرض الملف الشخصي"
     show:
       major: "التخصص"
       your_profile: "ملفك الشخصي"
@@ -206,11 +211,12 @@ ar:
     address: "عنوان"
     feedback: "ملاحظات"
     images: "صور"
+    read_more: "اقرأ المزيد"
 
     index:
       resources: "الموارد"
       manage_resources: "إدارة الموارد"
-    written_by: "كتب بواسطة: %{author_name}"
+    written_by: "كتب بواسطة:"
     user_posts:
       my_posts: "مشاركاتي"
       no_posts: "لا توجد مشاركات متاحة."

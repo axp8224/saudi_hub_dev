@@ -5,13 +5,13 @@
   <%= render 'shared/search_form', 
       form_url: admin_logs_path, 
       show_text_search: true,
-      text_search_label: t('logs.search_logs', default: "Search Logs"),
-      text_search_placeholder: t('logs.search_placeholder', default: "Enter email, action, or description"),
+      text_search_label: t('search.logs.search_logs', default: "Search Logs"),
+      text_search_placeholder: t('search.logs.search_placeholder', default: "Enter email, action, or description"),
       show_major_filter: false, 
       show_class_year_filter: false,
       show_log_action_filter: true, 
       show_address_field: false,
-      show_per_page: false %>
+      show_per_page: true %>
   </div>
 
  <% columns = [
@@ -30,7 +30,7 @@
     ]
   end %>
 
-  <div class="w-full pt-4 mt-6">
+  <div class="w-full">
     <%= paginate @logs %>
 
     <%= render 'shared/table', columns: columns, rows: rows %>

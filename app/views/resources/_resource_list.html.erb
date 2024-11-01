@@ -1,4 +1,10 @@
 <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+
+  <!-- Show 'No Results' Message If Applicable -->
+  <% if flash[:notice] %>
+    <p class="text-red-600"><%= flash[:notice] %></p>
+  <% end %>
+
   <% if @radius.present? && @radius > 0 %>
     <% filtered_resources = @resources.zip(@distances).select { |_, distance| distance && distance <= @radius } %>
   <% else %>
@@ -6,33 +12,34 @@
   <% end %>
   <% sorted_resources = filtered_resources.sort_by { |_, distance| distance || Float::INFINITY } %>
   <% sorted_resources.each do |resource, distance| %>
-    <div class="bg-white rounded-lg shadow-lg overflow-hidden">
+    <div class="bg-white rounded-lg shadow-lg overflow-hidden flex flex-col h-full">
       <!-- Resource Image -->
       <div class="relative">
         <% if resource.images.attached? %>
           <%= image_tag resource.images.first, class: 'w-full h-48 object-cover', alt: resource.title %>
         <% else %>
-          <%= image_tag '', class: 'w-full h-48 object-cover', alt: 'Placeholder image' %>
+          <%= image_tag '/home-bg.svg', class: 'w-full h-48 object-cover', alt: 'Placeholder image' %>
         <% end %>
       </div>
       <!-- Resource Content -->
-      <div class="p-6 relative">
+      <div class="p-6 relative flex flex-col flex-grow justify-between">
         <!-- Resource Title -->
         <h3 class="text-xl font-bold mb-2 text-[#471815]"><%= resource.title %></h3>
 
         <!-- Description -->
-        <p class="text-gray-700 text-sm mb-4"><%= truncate(resource.description, length: 100) %></p>
+        <p class="text-gray-700 text-sm mb-4 flex-grow"><%= truncate(resource.description, length: 100) %></p>
 
         <!-- Distance Display -->
         <% if distance.present? %>
-          <div class="text-orange-500 font-semibold distance">
+          <div class="text-orange-500 font-semibold mb-4">
             <%= "#{distance.round(2)} miles" %>
           </div>
         <% end %>
 
         <!-- Read More Button -->
-        <%= link_to t('.read_more', default: 'Read More'), resource_path(resource), class: 'block bg-[#471815] text-white font-semibold text-center py-2 rounded-md hover:bg-[#633e23]', id: "read-more-#{resource.id}" %>
-
+        <div class="mt-auto">
+          <%= link_to t('resources.read_more', default: 'Read More'), resource_path(resource), class: 'block bg-[#471815] text-white font-semibold text-center py-2 rounded-md hover:bg-[#633e23]', id: "read-more-#{resource.id}" %>
+        </div>
       </div>
     </div>
   <% end %>
