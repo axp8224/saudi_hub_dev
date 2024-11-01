@@ -40,16 +40,18 @@
     </div>
 
     <!-- Phone Number -->
-    <div class="mb-4">
-      <%= f.label :phone_number, "Phone Number", class: "block font-medium text-gray-700" %>
-      <%= f.text_field :phone_number, class: "input" %>
+    <div class="relative mb-6 max-w-sm mx-auto">
+      <%= f.label :phone_number, "Phone Number", class: "block mb-2 text-sm font-medium text-gray-900 dark:text-white" %>
+      <%= f.text_field :phone_number, class: 'w-full px-4 py-3 border-2 border-gray-300 rounded-full text-gray-400 bg-gray-200', placeholder: "Phone Number" %>
+      <i class="absolute right-4 top-1/2 transform -translate-y-1/2 text-gray-400 fa fa-phone"></i>
     </div>
 
-    <div class="mb-4">
-      <%= f.label :phone_public, "Make Phone Number Public", class: "block font-medium text-gray-700" %>
-      <%= f.check_box :phone_public %>
+    <!-- Phone Visibility Toggle -->
+    <div class="mb-4 max-w-sm mx-auto">
+      <%= f.label :phone_public, "Make Phone Number Public", class: "block mb-2 text-sm font-medium text-gray-900 dark:text-white" %>
+      <%= f.check_box :phone_public, class: 'mr-2' %>
+      <span class="text-gray-700">Public</span>
     </div>
-
 
     <!-- Major Dropdown -->
     <div class="relative mb-6 max-w-sm mx-auto">      
