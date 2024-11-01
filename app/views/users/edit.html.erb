@@ -39,6 +39,18 @@
       <i class="absolute right-4 top-1/2 transform -translate-y-1/2 text-gray-400 fa fa-envelope"></i>
     </div>
 
+    <!-- Phone Number -->
+    <div class="mb-4">
+      <%= f.label :phone_number, "Phone Number", class: "block font-medium text-gray-700" %>
+      <%= f.text_field :phone_number, class: "input" %>
+    </div>
+
+    <div class="mb-4">
+      <%= f.label :phone_public, "Make Phone Number Public", class: "block font-medium text-gray-700" %>
+      <%= f.check_box :phone_public %>
+    </div>
+
+
     <!-- Major Dropdown -->
     <div class="relative mb-6 max-w-sm mx-auto">      
       <label for="major" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"><%= t('users.edit.major') %></label>

@@ -35,6 +35,9 @@
       <p><strong><%= t('.major') %>:</strong> <%= @user.major.name if @user.major %></p>
       <p><strong><%= t('.class_year') %>:</strong> <%= @user.class_year.name if @user.class_year %></p>
       <p><strong><%= t('.grad_year') %>:</strong> <%= @user.grad_year if @user.grad_year %></p>
+      <% if @user.phone_public || @is_current_user %>
+        <p><strong><%= t('.phone') %>:</strong> <%= @user.phone_number %></p>
+      <% end %>
     </div>
 
     <!-- Edit Profile Button -->
