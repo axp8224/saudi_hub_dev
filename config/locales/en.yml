@@ -66,7 +66,10 @@ en:
       search_resources: "Search Resources"
       search_bar: "Enter resource title or description"
       location_input: "Input your location"
-      radius_input: "Radius"
+      radius_input: "Radius (Miles)"
+    logs:
+      search_placeholder: "Enter email, action, or description"
+      search_logs: "Search Logs"
   flash:
     types:
       success: "Success"
@@ -177,6 +180,7 @@ en:
       class_year: "Class Year"
       major: "Major"
       role: "Role"
+      view_profile: "View Profile"
     show:
       your_profile: "Your Profile"
       full_name: "Full Name"
@@ -184,6 +188,7 @@ en:
       class_year: "Classification"
       grad_year: "Graduation Year"
       back_to_dashboard: "Back to Dashboard"
+      major: "Major"
       bio: "About Me"
     edit: # todo: refactor, separate 'edit' and 'show'
       your_profile: "Your Profile"
@@ -223,7 +228,7 @@ en:
     index:
       resources: "Resources"
       manage_resources: "Manage Resources"
-    written_by: "Written by: %{author_name}"
+    written_by: "Written by:"
     user_posts:
       my_posts: "My Posts"
       edit_post: "Edit Post"
@@ -275,6 +280,7 @@ en:
       edit_resource: "Edit Resource"
 
       select_status: "Select Status"
+      read_more: "Read More"
 
       index:
         select_type: "Select Resource Type"
