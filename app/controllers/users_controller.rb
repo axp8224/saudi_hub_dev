@@ -48,6 +48,12 @@ class UsersController < ApplicationController
     end
   end
 
+  def remove_phone_number
+    @user.update(phone_number: nil)
+    flash[:success] = t('flash.profile.phone_removed')
+    redirect_to edit_user_profile_path
+  end
+
   private
 
   def set_user
@@ -63,6 +69,6 @@ class UsersController < ApplicationController
   end
 
   def user_params
-    params.require(:user).permit(:full_name, :email, :avatar, :major_id, :class_year_id, :grad_year, :bio)
+    params.require(:user).permit(:full_name, :email, :avatar, :major_id, :class_year_id, :grad_year, :bio, :phone_number, :phone_public)
   end
 end

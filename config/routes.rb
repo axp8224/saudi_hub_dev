@@ -52,4 +52,10 @@ Rails.application.routes.draw do
   get 'controlpanel/home', to: 'control_panel#home', as: :control_panel_home
   get 'controlpanel/promote/:id', to: 'control_panel#promote', as: :control_panel_promote
   get 'controlpanel/demote/:id', to: 'control_panel#demote', as: :control_panel_demote
+
+  resources :users do
+    member do
+      delete :remove_phone_number
+    end
+  end
 end

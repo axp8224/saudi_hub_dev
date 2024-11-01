@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_10_29_011547) do
+ActiveRecord::Schema[7.0].define(version: 2024_11_01_204353) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -108,6 +108,8 @@ ActiveRecord::Schema[7.0].define(version: 2024_10_29_011547) do
     t.string "current_sign_in_ip"
     t.string "last_sign_in_ip"
     t.integer "grad_year"
+    t.string "phone_number"
+    t.boolean "phone_public", default: false
     t.index ["class_year_id"], name: "index_users_on_class_year_id"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["major_id"], name: "index_users_on_major_id"
