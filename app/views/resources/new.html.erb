@@ -1,38 +1,42 @@
-<%= form_with model: @resource, local: true do |form| %>
-    <% if @resource.errors.any? %>
-        <div id="error_explanation">
-            <h2><%= pluralize(@resource.errors.count, "error") %> prohibited this resource from being saved:</h2>
-            <ul>
-                <% @resource.errors.full_messages.each do |message| %>
-                    <li><%= message %></li>
-                <% end %>
-            </ul>
-        </div>
-    <% end %>
+<div class="flex justify-center mt-8">
+    <div class="w-full max-w-lg">
+        <%= form_with model: @resource, local: true, class: "container mt-4" do |form| %>
+            <% if @resource.errors.any? %>
+                <div id="error_explanation" class="mb-4 p-4 border border-red-500 rounded">
+                    <h2 class="text-red-500 font-semibold"><%= pluralize(@resource.errors.count, "error") %> prohibited this resource from being saved:</h2>
+                    <ul class="list-disc list-inside text-red-500">
+                        <% @resource.errors.full_messages.each do |message| %>
+                            <li><%= message %></li>
+                        <% end %>
+                    </ul>
+                </div>
+            <% end %>
 
-    <div class="field">
-        <%= form.label :title %>
-        <%= form.text_field :title %>
+            <div class="field mb-4">
+                <%= form.label :title, class: "block text-gray-700 font-semibold mb-2" %>
+                <%= form.text_field :title, class: "w-full pr-12 py-2 focus:outline-none border-3 border-gray-300 rounded" %>
+            </div>
+
+            <div class="field mb-4">
+                <%= form.label :description, class: "block text-gray-700 font-semibold mb-2" %>
+                <%= form.text_area :description, class: "w-full pr-12 py-2 focus:outline-none border-3 border-gray-300 rounded" %>
+            </div>
+
+            <div class="field mb-4">
+                <%= form.label :resource_type_id, class: "block text-gray-700 font-semibold mb-2" %>
+                <%= form.collection_select :resource_type_id, ResourceType.all, :id, :title, {}, class: "w-full pr-12 py-2 focus:outline-none border-3 border-gray-300 rounded" %>
+            </div>
+
+            <%= render 'shared/address_field', form: form %>
+
+            <div class="field mb-4">
+                <%= form.label :images, class: "block text-gray-700 font-semibold mb-2" %>
+                <%= form.file_field :images, multiple: true, class: "w-full pr-12 py-2 focus:outline-none border-3 border-gray-300 rounded" %>
+            </div>
+
+            <div class="actions">
+                <%= form.submit class: "rounded-full text-sm px-4 py-2 font-semibold bg-gray-800 text-white border-radius-0.25rem height-2.75rem min-width-auto" %>
+            </div>
+        <% end %>
     </div>
-
-    <div class="field">
-        <%= form.label :description %>
-        <%= form.text_area :description %>
-    </div>
-
-    <div class="field">
-        <%= form.label :resource_type_id %>
-        <%= form.collection_select :resource_type_id, ResourceType.all, :id, :title %>
-    </div>
-
-    <%= render 'shared/address_field', form: form %>
-
-    <div class="field">
-        <%= form.label :images %>
-        <%= form.file_field :images, multiple: true %>
-    </div>
-
-    <div class="actions">
-        <%= form.submit %>
-    </div>
-<% end %>
+</div>
