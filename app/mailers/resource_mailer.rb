@@ -1,0 +1,2 @@
+class ResourceMailer < ApplicationMailer
+end
