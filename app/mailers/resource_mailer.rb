@@ -11,7 +11,7 @@ class ResourceMailer < ApplicationMailer
   
     def rejection_notification(resource)
       @resource = resource
-      @user = resource.user
+      @user = resource.author
       @feedback = resource.feedback.presence || "No feedback was given."
   
       mail(to: @user.email, subject: "Your Resource Submission Has Been Rejected")
