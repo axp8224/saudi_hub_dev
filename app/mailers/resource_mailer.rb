@@ -3,7 +3,7 @@ class ResourceMailer < ApplicationMailer
   
     def approval_notification(resource)
       @resource = resource
-      @user = resource.user
+      @user = resource.author
       @feedback = resource.feedback.presence || "No feedback was given."
   
       mail(to: @user.email, subject: "Your Resource Submission Has Been Approved")
