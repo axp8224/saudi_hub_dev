@@ -90,6 +90,7 @@ module Admin
           description: "Approved resource [#{@resource.title}] and set status to active",
           action_timestamp: Time.current
         )
+        ResourceMailer.approval_notification(@resource).deliver_now
       else
         flash[:alert] = t('flash.resource.edit.update_failed')
       end
@@ -108,6 +109,7 @@ module Admin
           description: "Rejected resource [#{@resource.title}] and set status to rejected",
           action_timestamp: Time.current
         )
+        ResourceMailer.rejection_notification(@resource).deliver_now
       else
         flash[:alert] = t('flash.resource.edit.update_failed')
       end
