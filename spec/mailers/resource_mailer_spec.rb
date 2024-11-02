@@ -23,7 +23,7 @@ RSpec.describe ResourceMailer, type: :mailer do
 
     it 'renders the headers' do
       expect(mail.subject).to eq("Your Resource Submission Has Been Rejected")
-      expect(mail.to).to eq([resource.author.email]) 
+      expect(mail.to).to eq([resource.author.email])  
       expect(mail.from).to eq(['no-reply@example.com'])
     end
 
@@ -32,4 +32,5 @@ RSpec.describe ResourceMailer, type: :mailer do
     end
   end
 end
+
 
