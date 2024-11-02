@@ -1,0 +1,13 @@
+<h1>Resource Submission Approved</h1>
+<p>Dear <%= @user.full_name %>,</p>
+
+<p>Your resource submission titled "<%= @resource.title %>" has been approved.</p>
+
+<% if @resource.feedback.present? %>
+  <p>Feedback from the admin:</p>
+  <p><%= @feedback %></p>
+<% else %>
+  <p>No feedback was given.</p>
+<% end %>
+
+<p>Thank you for your contribution!</p>
