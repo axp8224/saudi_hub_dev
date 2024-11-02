@@ -5,7 +5,11 @@ FactoryBot.define do
       status { "pending" }
       feedback { "Great job!" }
       association :author, factory: :user
-      resource_type { ResourceType.create(name: "Default Type") }  
+      association :resource_type, factory: :resource_type  
+    end
+  
+    factory :resource_type do
+      title { "Default Type" } 
     end
   end
   
