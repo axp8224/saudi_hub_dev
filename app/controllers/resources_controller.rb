@@ -3,36 +3,40 @@ class ResourcesController < ApplicationController
 
   def index
     per_page = params[:per_page] || 10
-
     @resources = Resource.where(status: 'active')
     @resource_types = ResourceType.all
 
-    @resources = @resources.where(resource_type_id: params[:resource_type_id]) if params[:resource_type_id].present?
+    if params[:resource_type_id].present?
+      @resources = @resources.where(resource_type_id: params[:resource_type_id])
+    end
 
     if params[:search].present?
       @resources = @resources.where('title ILIKE :search OR description ILIKE :search', search: "%#{params[:search]}%")
     end
 
-    @user_is_admin = (current_user.role.name == 'admin')
-
+    @user_is_admin = current_user.role.name == 'admin'
     @address_filter = params[:address].present?
-    if params[:address].present?
+
+    if @address_filter
       address_coordinates = fetch_coordinates_with_geoapify(params[:address])
       if address_coordinates.present?
-        @distances = calculate_distances(@resources, address_coordinates) # Get distances separately
+        distances = calculate_distances(@resources, address_coordinates)
+        @resources.each_with_index do |resource, index|
+          resource.distance = distances[index]
+        end
       else
         flash.now[:alert] = t('search.invalid_address')
-        @distances = []
       end
-    else
-      @distances = [] # Default to empty array if no address is provided
     end
 
     flash.now[:notice] = t('search.no_results') if @resources.empty?
-
     @radius = params[:radius].to_f.positive? ? params[:radius].to_f : nil
 
-    @resources = @resources.page(params[:page]).per(per_page)
+    if @radius
+      @resources = @resources.select { |resource| resource.distance && resource.distance <= @radius }
+    end
+
+    @resources = Kaminari.paginate_array(@resources).page(params[:page]).per(per_page)
   end
 
   def new

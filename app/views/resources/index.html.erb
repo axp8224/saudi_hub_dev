@@ -55,7 +55,7 @@
       <div class="<%= params[:resource_type_id].to_s == resource_type.id.to_s ? '' : 'hidden' %>" id="tab-content-<%= resource_type.id %>" role="tabpanel" aria-labelledby="tab-<%= resource_type.id %>">
         <!-- Resources List for specific type -->
         <div class="mt-4">
-          <%= render 'resource_list', resources: @resources.where(resource_type_id: resource_type.id) %>
+          <%= render 'resource_list', resources: @resources.select { |resource| resource.resource_type_id == resource_type.id } %>
         </div>
       </div>
     <% end %>
