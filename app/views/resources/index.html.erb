@@ -17,6 +17,7 @@
         show_per_page: true, 
         show_log_action_filter: false,
         show_address_field: true,
+        resource_type_id: params[:resource_type_id],
         per_page_label: t('users.index.items_per_page', default: "Items per page") %>
   </div>
 
@@ -26,13 +27,13 @@
     <ul class="flex flex-wrap -mb-px" id="myTab" role="tablist">
       <!-- All Resources Tab -->
       <li class="<%= 'mr-2 border-b-2 ' + (params[:resource_type_id].blank? ? 'border-color1' : 'border-transparent hover:border-gray-300') %>">
-        <%= link_to "All Resources", resources_path, class: "inline-block p-4 rounded-t-lg #{params[:resource_type_id].blank? ? 'text-color1 border-color1 font-bold' : 'border-transparent hover:text-gray-600 hover:border-gray-300 hover:font-bold'}" %>
+        <%= link_to "All Resources", resources_path(params.permit(:search, :page, :address, :radius, :per_page, :commit)), class: "inline-block p-4 rounded-t-lg #{params[:resource_type_id].blank? ? 'text-color1 border-color1 font-bold' : 'border-transparent hover:text-gray-600 hover:border-gray-300 hover:font-bold'}" %>
       </li>
 
       <!-- Dynamic Resource Type Tabs -->
       <% @resource_types.each do |resource_type| %>
         <li class="mr-2 border-b-2 <%= params[:resource_type_id].to_s == resource_type.id.to_s ? 'border-color1' : 'border-transparent hover:border-gray-300' %>">
-          <%= link_to resource_type.title, resources_path(resource_type_id: resource_type.id), class: "inline-block p-4 rounded-t-lg #{params[:resource_type_id].to_s == resource_type.id.to_s ? 'text-color1 border-color1 font-bold' : 'border-transparent hover:text-gray-600 hover:border-gray-300 hover:font-bold'}" %>
+            <%= link_to resource_type.title, resources_path(params.permit(:search, :page, :address, :radius, :per_page, :commit).merge(resource_type_id: resource_type.id)), class: "inline-block p-4 rounded-t-lg #{params[:resource_type_id].to_s == resource_type.id.to_s ? 'text-color1 border-color1 font-bold' : 'border-transparent hover:text-gray-600 hover:border-gray-300 hover:font-bold'}" %>
         </li>
       <% end %>
     </ul>
