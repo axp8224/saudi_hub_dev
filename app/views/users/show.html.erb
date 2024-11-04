@@ -1,4 +1,4 @@
-<div class="container p-6">
+<div class="container p-6 mb-16">
   <!-- Profile Section -->
   <div class="max-w-4xl flex-col md:mx-auto justify-center">
 
@@ -37,7 +37,7 @@
       <p><strong><%= t('.role') %>:</strong> <%= @user.role.name %></p>
       <p><strong><%= t('.email') %>:</strong> <%= @user.email %></p>
       <% if @user.phone_public %>
-        <p><strong><%= t('.phone') %>:</strong> <%= @user.phone_number %></p>
+        <p><strong><%= t('users.show.phone') %>:</strong> <%= @user.phone_number %></p>
       <% end %>
       <p><strong><%= t('.major') %>:</strong> <%= @user.major.name if @user.major %></p>
       <p><strong><%= t('.class_year') %>:</strong> <%= @user.class_year.name if @user.class_year %></p>
