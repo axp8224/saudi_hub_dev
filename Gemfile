@@ -79,6 +79,7 @@ group :test do
   gem "selenium-webdriver"
   gem "webdrivers"
   gem 'shoulda-matchers', '~> 5.0'
+  gem 'factory_bot_rails'
 end
 
 gem 'devise'
@@ -93,3 +94,6 @@ gem 'kaminari'
 gem 'tailwindcss-rails'
 
 gem 'redcarpet' # for displaying Markdown (README)
+
+gem "aws-sdk-s3"
+gem "geocoder"

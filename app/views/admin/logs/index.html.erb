@@ -1,22 +1,43 @@
-<h1>Activity Logs</h1>
+<div class="max-w-screen-xl mx-auto p-4">
+  <%= render 'shared/dashboard_nav' %>
 
-<table>
-  <thead>
-    <tr>
-      <th>User Email</th>
-      <th>Action</th>
-      <th>Description</th>
-      <th>Timestamp</th>
-    </tr>
-  </thead>
-  <tbody>
-    <% @logs.each do |log| %>
-      <tr>
-        <td><%= log.user_email %></td>
-        <td><%= log.action %></td>
-        <td><%= log.description %></td>
-        <td><%= log.action_timestamp.strftime("%Y-%m-%d %H:%M:%S") %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+  <div class="">
+  <%= render 'shared/search_form', 
+      form_url: admin_logs_path, 
+      show_text_search: true,
+      text_search_label: t('search.logs.search_logs', default: "Search Logs"),
+      text_search_placeholder: t('search.logs.search_placeholder', default: "Enter email, action, or description"),
+      show_major_filter: false, 
+      show_class_year_filter: false,
+      show_log_action_filter: true, 
+      show_address_field: false,
+      show_per_page: true %>
+  </div>
+
+ <% columns = [
+    t('admin.logs.index.user_email'),
+    t('admin.logs.index.action'),
+    t('admin.logs.index.description'),
+    t('admin.logs.index.timestamp')
+  ] %>
+
+  <% rows = @logs.map do |log|
+    [
+      log.user_email,
+      log.action,
+      log.description,
+      log.action_timestamp.strftime("%Y-%m-%d %H:%M:%S")
+    ]
+  end %>
+
+  <div class="w-full">
+    <%= paginate @logs %>
+
+    <%= render 'shared/table', columns: columns, rows: rows %>
+    
+    <%= paginate @logs %>
+  </div>
+
+</div>
+
+

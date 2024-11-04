@@ -18,6 +18,8 @@
            class_year_label: t('users.index.filter_by_class_year', default: "Filter by Class Year"),
            class_year_options: @class_years.map { |cy| [cy.name, cy.id] },
            show_per_page: true,
+           show_log_action_filter: false,
+           show_address_field: false,
            per_page_label: t('users.index.items_per_page', default: "Items per Page") %>
 
   <% if @users.any? %>

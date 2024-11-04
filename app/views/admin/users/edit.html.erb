@@ -1,19 +1,34 @@
-<h1><%= t('.edit_profile', name: @user.full_name) %></h1>
+<div class="max-w-screen-xl mx-auto p-4">
 
-<% if @user.avatar_url.present? %>
-  <p><%= image_tag(@user.avatar_url, alt: t('.your_profile')) %></p>
-<% end %>
+  <h1 class="text-center text-3xl font-semibold mt-8 mb-10" style="color: #471815;"><%= t('admin.users.edit_role', name: @user.full_name) %></h1>
 
-<p><strong><%= t('.full_name') %>:</strong> <%= @user.full_name %></p>
-<p><strong><%= t('.email') %>:</strong> <%= @user.email %></p>
+  <%= form_with model: @user, url: admin_user_path(@user), method: :patch do |f| %>
+    <div class="relative mb-6 max-w-sm mx-auto">
+      <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"><%= t('users.show.full_name') %></label>
+      <%= f.text_field :full_name,  class: 'w-full px-4 py-3 border-2 border-gray-300 rounded-full text-gray-400 bg-gray-200', readonly: true, placeholder: t('users.edit.full_name') %>
+      <i class="absolute right-4 top-1/2 transform -translate-y-1/2 text-gray-400 fa fa-user"></i>
+    </div>
 
-<%= form_with model: @user, url: admin_user_path(@user), method: :patch do |f| %>
-  <div>
-    <label for="role"><strong><%= t('.role') %>:</strong></label>
-    <%= f.collection_select :role_id, @roles, :id, :name, {}%>
-  </div>
-  
-  <%= f.submit t('.update_role')%>
-<% end %>
+    <div class="relative mb-6 max-w-sm mx-auto">
+      <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"><%= t('users.index.email') %></label>
+      <%= f.email_field :email, class: 'w-full px-4 py-3 border-2 border-gray-300 rounded-full text-gray-400 bg-gray-200', readonly: true %>
+      <i class="absolute right-4 top-1/2 transform -translate-y-1/2 text-gray-400 fa fa-envelope"></i>
+    </div>
 
-<%= link_to t('.back_to_users'), admin_users_path %>
+    <div class="relative mb-6 max-w-sm mx-auto">      
+      <label for="role" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"><%= t('users.index.role') %></label>
+      <%= f.collection_select :role_id, @roles, :id, :name, {}, { class: 'w-full px-4 py-3 border-2 border-gray-300 rounded-full focus:outline-none focus:border-[#471815]' } %>
+      <i class="absolute right-4 top-1/2 transform -translate-y-1/2 text-gray-400 fa fa-graduation-cap"></i>
+    </div>
+
+    <div class="flex justify-center mt-10">
+      <%= f.submit t('admin.users.edit.update_role'), class: 'px-6 py-2 text-white font-semibold rounded-full', style: 'background-color: #471815; z-index: 1; position: relative;' %>
+    </div>
+
+    <div class="text-center mt-2 mb-10">
+      <%= link_to t('form.cancel'), admin_users_path, class: 'font-semibold' %><br>
+    </div>
+
+  <% end %>
+</div>
+

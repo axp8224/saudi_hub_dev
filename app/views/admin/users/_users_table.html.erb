@@ -1,26 +1,23 @@
-<table>
-  <thead>
-    <tr>
-      <th><%= t('admin.users.index.users_table.full_name') %></th>
-      <th><%= t('admin.users.index.users_table.email') %></th>
-      <th><%= t('admin.users.index.users_table.role') %></th>
-      <th><%= t('admin.users.index.users_table.action') %></th>
-    </tr>
-  </thead>
-  <tbody>
-    <% users.each do |user| %>
-      <tr>
-        <td><%= user.full_name %></td>
-        <td><%= user.email %></td>
-        <td><%= user.role.name %></td>
-        <td>
-          <% if current_user != user %>
-            <%= link_to t('admin.users.index.users_table..update_role'), edit_admin_user_path(user) %>
-          <% end %>
-        </td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+<div class="w-full">
+  <%= paginate users %>
 
-<%= paginate users %>
+  <% columns = [
+    t('admin.users.index.users_table.full_name'),
+    t('admin.users.index.users_table.email'),
+    t('admin.users.index.users_table.role'),
+    t('admin.users.index.users_table.action')
+  ] %>
+  
+  <% rows = users.map do |user|
+    [
+      user.full_name,
+      user.email,
+      user.role.name,
+      (current_user != user) ? link_to( t('admin.users.index.users_table..update_role'),edit_admin_user_path(user), class: 'btn btn-secondary') : ''
+    ]
+  end %>
+
+  <%= render 'shared/table', columns: columns, rows: rows %>
+  
+  <%= paginate users %>
+</div>

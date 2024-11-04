@@ -1,60 +1,142 @@
-<h1><%= t("admin.resources.edit_resource") %></h1>
+<h1 class="text-2xl font-bold mb-4"><%= t("admin.resources.edit_resource") %></h1>
+<%= link_to t(".back_to_resource_manager"), admin_resources_path, class: "rounded-full text-sm px-4 py-2 font-semibold bg-gray-800 text-white border-radius-0.25rem height-2.75rem min-width-auto" %>
+<div class="flex justify-center mt-8">
+  <div class="w-full max-w-lg">
+    <%= form_with model: @resource, url: admin_resource_path(@resource), method: :patch, local: true, class: "container mt-4" do |form| %>
+      <% if @resource.errors.any? %>
+        <div id="error_explanation" class="mb-4 p-4 border border-red-500 rounded">
+          <h2 class="text-red-500 font-semibold"><%= pluralize(@resource.errors.count, "error") %> prohibited this resource from being saved:</h2>
+          <ul class="list-disc list-inside text-red-500">
+            <% @resource.errors.full_messages.each do |message| %>
+              <li><%= message %></li>
+            <% end %>
+          </ul>
+        </div>
+      <% end %>
 
-<%= form_with model: @resource, url: admin_resource_path(@resource), method: :patch do |form| %>
+      <div class="field mb-4">
+        <%= form.label :status, t("resources.status"), class: "block text-gray-700 font-semibold mb-2" %>
+        <span class="font-semibold"><%= @resource.status.humanize %></span>
+      </div>
 
-  <div class="form-group">
-    <%= form.label :title, t("admin.resources.title") %>
-    <%= form.text_field :title, class: "form-control", value: @resource.title, required: true %>
-  </div>
+      <div class="field mb-4">
+        <%= form.label :title, t("resources.title"), class: "block text-gray-700 font-semibold mb-2" %>
+        <%= form.text_field :title, class: "w-full pr-12 py-2 focus:outline-none border-3 border-gray-300 rounded", value: @resource.title, required: true %>
+      </div>
 
-  <div class="form-group">
-    <%= form.label :description, t("admin.resources.description") %>
-    <%= form.text_area :description, class: "form-control", rows: 3, value: @resource.description, required: true %>
-  </div>
+      <div class="field mb-4">
+        <%= form.label :description, t("resources.description"), class: "block text-gray-700 font-semibold mb-2" %>
+        <%= form.text_area :description, class: "w-full pr-12 py-2 focus:outline-none border-3 border-gray-300 rounded", rows: 3, value: @resource.description, required: true %>
+      </div>
 
-  <div class="form-group">
-    <%= form.label :status, t("admin.resources.status") %>
-    <%= form.select :status, 
-      [[t('admin.resources.status_active'), 'active'], 
-      [t('admin.resources.status_pending'), 'pending'], 
-      [t('admin.resources.status_archived'), 'archived']],
-      { selected: @resource.status,
-        prompt: t("admin.resources.select_status") }, 
-      class: "form-control", 
-      required: true %>
-  </div>
+      <div class="field mb-4">
+        <%= form.label :resource_type_id, t(".resource_type"), class: "block text-gray-700 font-semibold mb-2" %>
+        <%= form.collection_select :resource_type_id, @resource_types, :id, :title, { prompt: t("admin.resources.select_type"), selected: @resource.resource_type_id }, class: "w-full pr-12 py-2 focus:outline-none border-3 border-gray-300 rounded", required: true %>
+      </div>
 
-  <div class="form-group">
-    <%= form.label :resource_type_id, t(".resource_type") %>
-    <%= form.collection_select :resource_type_id, @resource_types, :id, :title, { prompt: t("admin.resources.select_type"), selected: @resource.resource_type_id }, class: "form-control", required: true %>
-  </div>
+      <%= render 'shared/address_field', form: form %>
 
-  <% if @feedback %>
-    <div class="form-group" id="feedback-field" style="display: block;">
-      <%= form.label :feedback, t("resources.feedback") %>
-      <%= form.text_field :feedback, class: "form-control" %>
+      <% if @resource.status == 'pending' %>
+        <% if @feedback %>
+          <div class="field mb-4" id="feedback-field">
+            <%= form.label :feedback, t("resources.feedback"), class: "block text-gray-700 font-semibold mb-2" %>
+            <%= form.text_field :feedback, class: "w-full pr-12 py-2 focus:outline-none border-3 border-gray-300 rounded" %>
+          </div>
+        <% else %>
+          <div class="field mb-4 hidden" id="feedback-field">
+            <%= form.label :feedback, t("resources.feedback"), class: "block text-gray-700 font-semibold mb-2" %>
+            <%= form.text_field :feedback, class: "w-full pr-12 py-2 focus:outline-none border-3 border-gray-300 rounded" %>
+          </div>
+          <div class="field mb-4">
+            <button type="button" id="add-feedback" class="rounded-full text-sm px-4 py-2 font-semibold bg-gray-800 text-white border-radius-0.25rem height-2.75rem min-width-auto" onclick="showFeedback()"><%= t('.add_feedback') %></button>
+          </div>
+        <% end %>
+      <% end %>
+
+      <div class="actions">
+        <%= form.submit t(".save_resource"), class: "rounded-full text-sm px-4 py-2 font-semibold bg-gray-800 text-white border-radius-0.25rem height-2.75rem min-width-auto" %>
+      </div>
+    <% end %>
+
+    <div class="grid grid-cols-1 gap-4 mt-4">
+      <% if @resource.status == 'pending' %>
+        <%= form_with url: approve_admin_resource_path(@resource), method: :patch, local: true do %>
+          <%= submit_tag t(".approve_resource"), class: "rounded-full text-sm px-4 py-2 font-semibold bg-green-500 text-white border-radius-0.25rem height-2.75rem min-width-auto" %>
+        <% end %>
+      <% end %>
+
+      <% if @resource.status == 'pending' %>
+        <%= form_with url: reject_admin_resource_path(@resource), method: :patch, local: true do %>
+          <%= submit_tag t(".reject_resource"), class: "rounded-full text-sm px-4 py-2 font-semibold bg-red-500 text-white border-radius-0.25rem height-2.75rem min-width-auto" %>
+        <% end %>
+      <% end %>
+
+      <% if @resource.status == 'archived' %>
+        <%= form_with url: reinstate_admin_resource_path(@resource), method: :patch, local: true do %>
+          <%= submit_tag t(".reinstate_resource"), class: "rounded-full text-sm px-4 py-2 font-semibold bg-blue-500 text-white border-radius-0.25rem height-2.75rem min-width-auto" %>
+        <% end %>
+      <% end %>
+
+      <% if @resource.status == 'active' || @resource.status == 'rejected' %>
+        <%= form_with url: archive_admin_resource_path(@resource), method: :patch, local: true do %>
+          <%= submit_tag t(".archive_resource"), class: "rounded-full text-sm px-4 py-2 font-semibold bg-yellow-500 text-white border-radius-0.25rem height-2.75rem min-width-auto" %>
+        <% end %>
+      <% end %>
+
+      <% if @resource.status != 'pending' %>
+        <%= button_tag t('.delete_resource'), class: "rounded-full text-sm px-4 py-2 font-semibold bg-red-500 text-white border-radius-0.25rem height-2.75rem min-width-auto", id: "delete-btn" %>
+      <% end %>
     </div>
-  <% else %>
-    <div class="form-group" id="feedback-field" style="display: none;">
-      <%= form.label :feedback, t("resources.feedback") %>
-      <%= form.text_field :feedback, class: "form-control" %>
-    </div>
-
-    <div class="form-group">
-      <button type="button" id="add-feedback" class="btn btn-secondary" onclick="showFeedback()"><%=t('.add_feedback')%></button>
-    </div>
-  <% end %>
-
-  <div class="form-group">
-    <%= form.submit t(".save_resource"), class: "btn btn-primary" %>
   </div>
-<% end %>
+</div>
 
-<%= link_to t(".back_to_resource_manager"), admin_resources_path %>
+<div id="delete-modal" class="fixed inset-0 z-50 flex items-center justify-center hidden">
+  <div class="bg-white rounded-lg shadow-lg w-full max-w-xl p-6">
+    <h2 class="text-lg font-semibold">
+      <%= t('.delete.heading') %>
+    </h2>
+    <p class="mt-2">
+      <%= t('.delete.body') %>
+    </p>
+    <div class="mt-4 flex justify-end space-x-2">
+      <button id="cancel-btn" class="rounded-full text-sm px-4 py-2 font-semibold bg-gray-500 text-white border-radius-0.25rem height-2.75rem min-width-auto">
+        <%= t('.delete.no_cancel') %>
+      </button>
+    
+      <% if @resource.status != 'archived' %>
+        <%= form_with url: archive_admin_resource_path(@resource), method: :patch, local: true do %>
+          <%= submit_tag t(".delete.archive"), class: "rounded-full text-sm px-4 py-2 font-semibold bg-yellow-500 text-white border-radius-0.25rem height-2.75rem min-width-auto" %>
+        <% end %>
+      <% end %>
+
+      <%= form_with url: admin_resource_path(@resource), method: :delete, local: true do %>
+        <%= submit_tag t('.delete.yes_delete'), class: "rounded-full text-sm px-4 py-2 font-semibold bg-red-500 text-white border-radius-0.25rem height-2.75rem min-width-auto" %>
+      <% end %>
+    </div>
+  </div>
+</div>
 
 <script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const deleteButton = document.getElementById('delete-btn');
+    const modal = document.getElementById('delete-modal');
+    const cancelButton = document.getElementById('cancel-btn');
+
+    if (deleteButton && modal && cancelButton) {
+      deleteButton.addEventListener('click', function(event) {
+        event.preventDefault(); 
+        modal.classList.remove('hidden');
+      });
+
+      cancelButton.addEventListener('click', function() {
+        modal.classList.add('hidden');
+      });
+    }
+  });
+
   function showFeedback() {
-    document.getElementById('feedback-field').style.display = 'block';
+    const feedbackField = document.getElementById('feedback-field');
+    feedbackField.classList.remove('hidden');
     document.getElementById('add-feedback').style.display = 'none';
   }
 </script>

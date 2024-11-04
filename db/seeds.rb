@@ -11,7 +11,6 @@
 # --------- SEEDING MAJORS TABLE ------------
 
 majors = [
-  { name: '' },
   { name: 'Accounting' },
   { name: 'Aerospace Engineering' },
   { name: 'Agribusiness' },
@@ -193,8 +192,8 @@ if Rails.env.development? || Rails.env.test?
   # Find or create the default role (assuming 'user' is the default role)
   default_role = Role.find_by(name: 'user')
 
-  # Find or create the default major (assuming '' is the default major)
-  default_major = Major.find_by(name: '')
+  # Find or create the default major
+  default_major = nil
 
   # Find or create a default class year (assuming 'Freshman' as default)
   default_class_year = ClassYear.find_by(name: 'Freshman')
@@ -211,12 +210,12 @@ if Rails.env.development? || Rails.env.test?
 
   puts 'Sample user seeded successfully.'
 
-# --------- SEEDING SAMPLE ADMIN ------------  
+  # --------- SEEDING SAMPLE ADMIN ------------
   puts 'Seeding sample admin...'
 
   admin_role = Role.find_by(name: 'admin')
 
-  default_major = Major.find_by(name: '')
+  default_major = nil
 
   default_class_year = ClassYear.find_by(name: 'Senior')
 
@@ -279,11 +278,16 @@ if sample_user.nil?
 else
   # Create sample resources for each resource type
   restaurants = [
-    { name: "Layne's Chicken Fingers", description: 'Famous for their crispy chicken fingers and secret sauce.' },
-    { name: 'Fuego Tortilla Grill', description: '24-hour Tex-Mex spot known for their breakfast tacos.' },
-    { name: 'Dixie Chicken', description: 'Iconic college bar with a rustic atmosphere and great burgers.' },
-    { name: 'Grub Burger Bar', description: 'Gourmet burgers and spiked milkshakes in a modern setting.' },
-    { name: 'Mess Waffles', description: 'Serving both sweet and savory waffles, perfect for late-night cravings.' }
+    { name: "Layne's Chicken Fingers", description: 'Famous for their crispy chicken fingers and secret sauce.',
+      address: '106 Walton Dr, College Station, TX 77840' },
+    { name: 'Fuego Tortilla Grill', description: '24-hour Tex-Mex spot known for their breakfast tacos.',
+      address: '108 Poplar St, College Station, TX 77840' },
+    { name: 'Dixie Chicken', description: 'Iconic college bar with a rustic atmosphere and great burgers.',
+      address: '307 University Dr, College Station, TX 77840' },
+    { name: 'Grub Burger Bar', description: 'Gourmet burgers and spiked milkshakes in a modern setting.',
+      address: '980 University Dr E #400, College Station, TX 77840' },
+    { name: 'Mess Waffles', description: 'Serving both sweet and savory waffles, perfect for late-night cravings.',
+      address: '1716 Southwest Pkwy #100, College Station, TX 77840' }
   ]
 
   apartments = [
@@ -309,6 +313,7 @@ else
       resource_type: restaurant_type,
       title: restaurant[:name],
       description: restaurant[:description],
+      address: restaurant[:address],
       status: 'active'
     )
   end
@@ -336,7 +341,7 @@ else
   puts 'Sample resources seeded successfully.'
 
   # --------- SEEDING SAMPLE 0THER USER ------------
-  puts "Seeding sample other user..."
+  puts 'Seeding sample other user...'
   # purpose: viewing My Posts (or other things specific to yourself), you should not be able to see posts by other users.
 
   # Find or create the default role (assuming 'user' is the default role)
@@ -355,7 +360,7 @@ else
     user.role = default_role
     user.major = default_major
     user.class_year = default_class_year
-    # Note: We're not setting a password as the model uses omniauthable
+    # NOTE: We're not setting a password as the model uses omniauthable
   end
 
   # make a resource by "someone else"
@@ -365,14 +370,14 @@ else
   restaurant_type = ResourceType.find_by(title: 'Restaurants')
 
   Resource.find_or_create_by!(
-                                user_id: sample_other_user.id,
-                                resource_type: restaurant_type,
-                                title: "Torchy's Tacos",
-                                description: "A taco shop where they serve tacos in the shop.",
-                                status: 'active'
-                              )
+    user_id: sample_other_user.id,
+    resource_type: restaurant_type,
+    title: "Torchy's Tacos",
+    description: 'A taco shop where they serve tacos in the shop.',
+    status: 'active'
+  )
 
-  puts "Sample other user seeded successfully."
+  puts 'Sample other user seeded successfully.'
 
   # --------- SEEDING SAMPLE PENDING RESOURCES ------------
 

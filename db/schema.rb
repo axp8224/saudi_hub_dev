@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_10_14_120531) do
+ActiveRecord::Schema[7.0].define(version: 2024_11_04_034604) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -76,6 +76,9 @@ ActiveRecord::Schema[7.0].define(version: 2024_10_14_120531) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "feedback"
+    t.string "address"
+    t.float "latitude"
+    t.float "longitude"
     t.index ["resource_type_id"], name: "index_resources_on_resource_type_id"
     t.index ["user_id"], name: "index_resources_on_user_id"
   end
@@ -105,6 +108,8 @@ ActiveRecord::Schema[7.0].define(version: 2024_10_14_120531) do
     t.string "current_sign_in_ip"
     t.string "last_sign_in_ip"
     t.integer "grad_year"
+    t.string "phone_number"
+    t.boolean "phone_public", default: false
     t.index ["class_year_id"], name: "index_users_on_class_year_id"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["major_id"], name: "index_users_on_major_id"

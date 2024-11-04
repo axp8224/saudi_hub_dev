@@ -31,15 +31,29 @@
 
 en:
   dashboards:
-    show:
-      welcome: "Welcome to Saudi Hub!"
-      view_profile: "View My Profile"
-      member_directory: "Member Directory"
-      sign_out: "Sign Out"
-      manage_users: "Manage Users"
+    user_greeting: "Howdy, %{name}"
+    welcome: "Welcome to Saudi Hub!"
+    view_profile: "View My Profile"
+    member_directory: "Member Directory"
+    sign_out: "Sign Out"
+    manage_users: "Manage Users"
+    view_my_posts: "View My Posts"
+    logs: "Activity Logs"
   shared:
+    login_to_continue: "Log In To Continue"
+    home: "Home"
+    resources: "Resources"
+    member_directory: "Member Directory"
+    new_resource: "New Resource"
     login: "Login"
+    profile: "Profile"
+    back_to_member_directory: "Back to Member Directory"
+    view_my_posts: "View My Posts"
+    filter_by_action: "Filter By Action"
+    manage_resources: "Manage Resources"
+    submit_resource: "Submit Resource"
     help: "Help"
+    search_button: "Search"
     documentation: "Documentation"
     logs: "Activity Logs"
     saudi_hub: "Saudi Community Hub"
@@ -50,12 +64,18 @@ en:
     privacy_policy_pg_1: "By creating an account on our website, you acknowledge that certain personal information will be made available in the member directory, accessible to all other registered members. This information includes, but is not limited to, your full name, major, phone number, and email address."
     privacy_policy_pg_2: "Please note that agreement to this policy is mandatory for account creation. If you do not agree to the visibility of your information in the member directory, you will be unable to proceed with creating an account."
   search:
+    invalid_address: "Invalid Address"
     no_results: "No results match your search or filter criteria."
     search_button: "Search"
     items_per_page: "Items per page"
     resources:
       search_resources: "Search Resources"
       search_bar: "Enter resource title or description"
+      location_input: "Input your location"
+      radius_input: "Radius (Miles)"
+    logs:
+      search_placeholder: "Enter email, action, or description"
+      search_logs: "Search Logs"
   flash:
     types:
       success: "Success"
@@ -65,14 +85,31 @@ en:
     profile:
       update_success: "Profile updated successfully!"
       update_failure: "There was an error updating your profile. Please try again."
+      phone_removed: "Phone was set to null"
+      edit:
+        only_your_profile: "You can only edit your profile."
     admin:
-      resource_updated: "Resource %{title} was updated successfully."
-      update_failed: "Unable to update resource."
+      resource:
+        approved: "Resource %{title} has been approved."
+        rejected: "Resource %{title} has been rejected."
+        archived: "Resource %{title} has been archived."
+        reinstated: "Resource %{title} has been reinstated."
+        deleted: "Resource %{title} has been deleted."
+        delete_failed: "Failed to delete resource %{title}."
       role_update_success: "%{name}'s role was updated successfully."
       role_update_failure: "Unable to update role."
       access_denied: "Access denied."
     resource:
       create_success: "Resource was successfully created."
+      user_posts:
+        only_your_posts: "You can only view your posts."
+      edit:
+        only_pending: "You can only edit a resource before it's been approved."
+        only_your_posts: "You can only edit your posts."
+        resource_updated: "Resource %{title} was updated successfully."
+        update_failed: "Unable to update resource."
+    policy_accept: "Thank you for accepting the privacy policy."
+    policy_reject: "You need to accept the privacy policy to continue."
   pages:
     home:
       welcome: "Welcome to the Saudi Community Hub!"
@@ -152,17 +189,25 @@ en:
       class_year: "Class Year"
       major: "Major"
       role: "Role"
+      view_profile: "View Profile"
     show:
+      edit_your_profile: "Edit Your Profile"
+      phone: "Phone"
       your_profile: "Your Profile"
       full_name: "Full Name"
       email: "Email"
       class_year: "Classification"
       grad_year: "Graduation Year"
       back_to_dashboard: "Back to Dashboard"
+      major: "Major"
       bio: "About Me"
-    edit:
+    edit: # todo: refactor, separate 'edit' and 'show'
+      phone_number: "Phone Number"
+      public: "Public"
       your_profile: "Your Profile"
-      bio: "About Me"
+      grad_placeholder: "Enter year here"
+      about_placeholder: "About Me"
+      bio: "Bio"
       update_profile: "Update Profile"
       full_name: "Full Name"
       email: "Email"
@@ -183,47 +228,85 @@ en:
         logged_out: "You're Logged out! Log in to the Dashboard!!"
         log_in_with: "Log in with %{provider}"
 
+  form:
+    upload_image: "Upload Image"
+    upload_images: "Upload Images"
+    cancel: "Cancel"
+
   resources:
+    create_new_resource: "Create New Resource"
+    create_resource_type: "Create Resource Type"
+    update_resource_type: "Update Resource Type"
+    resource_title: "Resource Title"
+    resource_description: "Resource Description"
+    resource_address: "Resource Address"
+
     status: "Status"
     title: "Title"
     description: "Description"
     type: "Type"
     author: "Author"
+    address: "Address"
     feedback: "Feedback"
+    images: "Images"
 
     index:
       resources: "Resources"
       manage_resources: "Manage Resources"
-    written_by: "Written by: %{author_name}"
+    written_by: "Written by:"
     user_posts:
       my_posts: "My Posts"
+      edit_post: "Edit Post"
       no_posts: "No posts available."
-      only_your_posts: "You can only view your posts."
+    edit:
+      title: "Edit Your Resource"
+      content: "Note: you can only edit your post before it's been approved. After the post is approved, you'll need to contact an administrator to make changes on your behalf."
+      update: "Update Resource"
 
   admin:
+    logs:
+      select_action: "Select Action"
+      index:
+        user_email: "User Email"
+        action: "Action"
+        description: "Description"
+        timestamp: "Timestamp"
     users:
       edit:
         your_profile: ""
         update_role: "Update Role"
-      edit_profile: "Edit Profile for %{name}"
+
+      edit_profile: "Edit Role for %{name}"
       back_to_users: "Back to Users"
       full_name: "Full Name"
       email: "Email"
       role: "Role"
     resource_types:
+      title: "Title"
+      index:
+        create_new_resource_type: "Create New Resource Type"
+        resource_type: "Resource Type"
+        actions: "Actions"
+        edit_button: "Edit"
+        delete_button: "Delete"
+        delete_confirm: "Are you sure you want to delete this resource type? This will archive associated resources."
       new:
+        new_resource_type: "New Resource Type"
         create_resource_type: "Create Resource Type"
+        back_to_resource_manager: "Back to Resource Manager"
+      edit:
+        edit_resource_type: "Edit Resource Type"
+        update_resource_type: "Update Resource Type"
     resources:
       status_active: "Active"
       status_pending: "Pending"
+      status_rejected: "Rejected"
       status_archived: "Archived"
 
       edit_resource: "Edit Resource"
-      status: "Status" # future refactor: these references can be altered to resources.status, etc. for reduced repetition
-      title: "Title"
-      description: "Description"
 
       select_status: "Select Status"
+      read_more: "Read More"
 
       index:
         select_type: "Select Resource Type"
@@ -234,13 +317,26 @@ en:
         search_bar: "Enter resource title or description"
         filter_by_status: "Filter by status"
         filter_by_resource_type: "Filter by resource type"
-      
-        search_button: "Search"
 
-        type: "Type"
-        author: "Author"
+        search_button: "Search"
       edit:
         resource_type: "Resource Type"
         add_feedback: "Add Feedback"
         save_resource: "Save Resource"
+        approve_resource: "Approve Resource"
+        reject_resource: "Reject Resource"
+        reinstate_resource: "Reinstate Resource"
+        archive_resource: "Archive Resource"
+        delete_resource: "Delete Resource"
         back_to_resource_manager: "Back to Resource Manager"
+        delete:
+          heading: "You are about to permanently delete a resource."
+          body: "This action cannot be reversed. If you only need to remove this resource temporarily, or if you would like to access it again in the future, you can archive it instead. Are you sure you want to continue?"
+          no_cancel: "No, cancel."
+          archive: "Archive this resource."
+          yes_delete: "Yes, permanently delete."
+  pagination:
+    first: "First"
+    last: "Last"
+    prev: "Prev"      
+    next: "Next"

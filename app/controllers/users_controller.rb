@@ -5,7 +5,8 @@ class UsersController < ApplicationController
   before_action :set_classifications, only: %i[edit update]
 
   def show
-    @user = current_user
+    @user = User.find(params[:id])
+    @is_current_user = (@user.id == current_user.id)
   end
 
   def index
@@ -40,11 +41,17 @@ class UsersController < ApplicationController
   def update
     if @user.update(user_params)
       flash[:success] = t('flash.profile.update_success')
-      redirect_to user_profile_path
+      redirect_to user_profile_path(@user)
     else
       flash.now[:alert] = t('flash.profile.update_failure')
       render :edit
     end
+  end
+
+  def remove_phone_number
+    @user.update(phone_number: nil)
+    flash[:success] = t('flash.profile.phone_removed')
+    redirect_to edit_user_profile_path
   end
 
   private
@@ -62,6 +69,6 @@ class UsersController < ApplicationController
   end
 
   def user_params
-    params.require(:user).permit(:full_name, :email, :avatar, :major_id, :class_year_id, :grad_year, :bio)
+    params.require(:user).permit(:full_name, :email, :avatar, :major_id, :class_year_id, :grad_year, :bio, :phone_number, :phone_public)
   end
 end

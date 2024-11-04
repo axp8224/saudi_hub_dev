@@ -1,67 +1,87 @@
-<h1><%= t(".resource_manager") %></h1>
-<%= link_to t(".back_to_resources"), resources_path, class: 'btn btn-primary' %>
+<div class="max-w-screen-xl mx-auto p-4">
+  <%= render 'shared/dashboard_nav' %>
 
-<%= link_to t(".create_new_resource_type"), new_admin_resource_type_path, class: 'btn btn-secondary mt-2' %> <!-- Add this button -->
-
-<table>
-  <thead>
-    <tr>
-      <th>Resource Type</th>
-      <th>Actions</th>
-    </tr>
-  </thead>
-  <tbody>
-    <% @resource_types.each do |resource_type| %>
-      <tr>
-        <td><%= resource_type.title %></td>
-        <td>
-          <%= link_to 'Edit', edit_admin_resource_type_path(resource_type), class: 'btn btn-secondary' %>
-          <%= button_to 'Delete', admin_resource_type_path(resource_type), method: :delete, data: { confirm: 'Are you sure you want to delete this resource type? This will archive associated resources.' }, class: 'btn btn-danger' %>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
-
-<%= form_with url: admin_resources_path, method: :get, local: true do %>
-  <div class="form-group">
-    <%= label_tag :search, t('.search_resources') %>
-    <%= text_field_tag :search, params[:search], placeholder: t('admin.resources.index.search_bar') %> 
-
-    <%= label_tag :status, t('.filter_by_status') %>
-    <%= select_tag :status, options_for_select( 
-      [[t('admin.resources.status_active'), 'active'], 
-      [t('admin.resources.status_pending'), 'pending'], 
-      [t('admin.resources.status_archived'), 'archived']], 
-      params[:status]), prompt: t("admin.resources.select_status"), onchange: 'this.form.submit();' %>
-
-    <%= label_tag :resource_type_id, t('.filter_by_resource_type') %>
-    <%= select_tag :resource_type_id, options_from_collection_for_select(ResourceType.all, :id, :title, params[:resource_type_id]), prompt: t(".select_type"), onchange: 'this.form.submit();' %>
-  
-    <%= submit_tag t('.search_button') %>
+  <div class="flex py-4 items-center mb-4">
+    <%= link_to t(".back_to_resources"), resources_path, class: "btn btn-primary #{I18n.locale == :ar ? 'ml-4' : 'mr-4'}" %>
+    <%= link_to t("admin.resource_types.index.create_new_resource_type"), new_admin_resource_type_path, class: "btn btn-secondary #{I18n.locale == :ar ? 'ml-4' : 'mr-4'}" %>
   </div>
-<% end %>
 
-<div style="display: flex;">
-  <div style="width: 75%;">
-    <table>
-      <th><%= t("resources.status") %></th>
-      <th><%= t("resources.type") %></th>
-      <th><%= t("resources.title") %></th>
-      <th><%= t("resources.description") %></th>
-      <th><%= t("resources.author") %></th>
-      <th><%= t("resources.feedback") %></th>
-      
-      <% @resources.each do |resource| %>
-        <tr style="margin-bottom: 20px;">
-          <td><%= t("admin.resources.status_#{resource.status}") %></td>
-          <td><%= resource.resource_type.present? ? resource.resource_type.title : 'No Type' %></td>
-          <td><%= resource.title %></td>
-          <td><%= resource.description %></td>
-          <td><%= resource.author.full_name %></td>
-          <td><%= link_to t("admin.resources.edit_resource"), edit_admin_resource_path(resource) %></td>
-          <td><%= resource.feedback.present? ? resource.feedback : "" %></td>
-        </tr>
+  <!-- Adjust layout for stacking at a breakpoint -->
+  <div class="flex flex-col md:flex-row">
+    <!-- Search Form and Filters -->
+    <div class="order-2 md:w-1/3 md:order-2 p-4 border rounded-md">
+      <%= form_with url: admin_resources_path, method: :get, local: true do %>
+        <div class="form-group space-y-2">
+          <%= label_tag :search, t('.search_resources'), class: 'block font-semibold' %>
+          <%= text_field_tag :search, params[:search], placeholder: t('admin.resources.index.search_bar'), class: "w-full p-2 border rounded" %> 
+
+          <%= label_tag :status, t('.filter_by_status'), class: 'block font-semibold pt-2' %>
+          <%= select_tag :status, options_for_select(
+            [[t('admin.resources.status_active'), 'active'], 
+            [t('admin.resources.status_pending'), 'pending'], 
+            [t('admin.resources.status_archived'), 'archived'],
+            [t('admin.resources.status_rejected'), 'rejected']], 
+            params[:status]), prompt: t("admin.resources.select_status"), onchange: 'this.form.submit();', class: "w-full p-2 border rounded" %>
+
+          <%= label_tag :resource_type_id, t('.filter_by_resource_type'), class: 'block font-semibold pt-2' %>
+          <%= select_tag :resource_type_id, options_from_collection_for_select(ResourceType.all, :id, :title, params[:resource_type_id]), prompt: t(".select_type"), onchange: 'this.form.submit();', class: "w-full p-2 border rounded" %>
+          
+          <%= label_tag :per_page, t('search.items_per_page'), class: 'block font-semibold pt-2' %>
+          <%= select_tag :per_page, options_for_select([5, 10, 20], params[:per_page] || 10), onchange: 'this.form.submit();', class: "w-full p-2 border rounded" %>
+
+          <%= submit_tag t('search.search_button'), class: "btn btn-primary", style: "margin-top: 24px;" %>
+        </div>
       <% end %>
-    </table>
+    </div>
+
+    <!-- Resource Type Table -->
+    <div class="order-1 md:w-2/3 md:order-2 pb-4 md:mt-0 md:mx-4">
+      <% columns = [t('admin.resource_types.index.resource_type'), t('admin.resource_types.index.actions')] %>
+      <% rows = @resource_types.map do |resource_type| 
+        [
+          resource_type.title,
+          content_tag(:div, class: 'flex space-x-2') do
+            link_to(t('admin.resource_types.index.edit_button'), edit_admin_resource_type_path(resource_type), class: 'btn btn-secondary') +
+            button_to(t('admin.resource_types.index.delete_button'), admin_resource_type_path(resource_type), method: :delete, data: { confirm: t('admin.resource_types.index.delete_confirm') }, class: 'btn btn-danger')
+          end
+        ]
+      end %>
+
+      <%= render 'shared/table', columns: columns, rows: rows %>
+    </div>
+  </div>
+
+  <!-- Resource Table -->
+  <div class="w-full pt-4 mt-6">
+
+    <% columns = [
+      t("resources.status"),
+      t("resources.type"),
+      t("resources.title"),
+      t("resources.description"),
+      t("resources.address"),
+      t("resources.author"),
+      t("resources.feedback"),
+      t("actions")
+    ] %>
+    
+    <% rows = @resources.map do |resource| 
+      [
+        t("admin.resources.status_#{resource.status}"),
+        resource.resource_type.present? ? resource.resource_type.title : 'No Type',
+        resource.title,
+        resource.description,
+        resource.address,
+        resource.author.full_name,
+        (resource.feedback.present? && resource.status == 'pending') ? resource.feedback : "",
+        link_to(t("admin.resources.edit_resource"), edit_admin_resource_path(resource), class: 'btn btn-secondary')
+      ]
+    end %>
+    
+    <%= paginate @resources %>
+
+    <%= render 'shared/table', columns: columns, rows: rows %>
+
+    <%= paginate @resources %>
   </div>
 </div>

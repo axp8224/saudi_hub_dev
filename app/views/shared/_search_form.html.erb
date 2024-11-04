@@ -1,9 +1,14 @@
-<%= form_with url: form_url, method: :get, local: true, class: "container mx-auto p-6" do %>
-  <div class="flex flex-wrap items-center justify-between space-y-4 sm:space-y-0">
+<%= form_with url: form_url, method: :get, local: true, class: "container mt-4" do %>
+  <div class="flex flex-wrap items-center justify-between z-10">
     
+    <!-- Hidden Field for resource_type_id -->
+    <% if local_assigns[:resource_type_id].present? %>
+      <%= hidden_field_tag :resource_type_id, local_assigns[:resource_type_id] %>
+    <% end %>
+
     <!-- Search Bar Container -->
     <% if show_text_search %>
-      <div class="flex-grow max-w-lg w-full relative">
+      <div class="flex-grow max-w-xl w-full relative mb-4 min-w-[16rem] <%= I18n.locale == :ar ? 'ml-auto' : 'mr-auto' %>">
         
         <!-- Search Input -->
         <%= text_field_tag :search, params[:search], placeholder: text_search_placeholder, 
@@ -22,31 +27,143 @@
     <% end %>
 
     <!-- Filters Section -->
-    <div class="flex space-x-4 items-center ml-auto">
+    <div class="flex flex-wrap items-center">
+
+      <!-- Address Field Container -->
+      <% if show_address_field %>
+        <div class="w-auto mb-4 min-w-[16rem] <%= I18n.locale == :ar ? 'ml-4' : 'mr-4' %>">
+          <%= text_field_tag :address, params[:address], id: "address", placeholder: t('search.resources.location_input'),
+            class: "w-full pr-12 py-2 focus:outline-none #{I18n.locale == :ar ? 'pl-10' : 'pr-12'} address-input", 
+            style: "border: 3px solid #471815; color: #471815; border-radius: 0.25rem;" %>
+          <div class="suggestions-container" id="suggestions" 
+            style="border: 1px solid #ccc; 
+              max-height: 200px; 
+              overflow-y: auto; 
+              background-color: #fff; 
+              position: absolute !important;
+              z-index: 1000;
+              overflow: hidden"></div>
+        </div>
+
+        <!-- Radius Field Container -->
+        <div class="w-auto mb-4 min-w-[16rem] <%= I18n.locale == :ar ? 'ml-4' : 'mr-4' %>">
+          <%= number_field_tag :radius, params[:radius], placeholder: t('search.resources.radius_input', default: 'Radius (miles)'), 
+              class: "w-full pr-12 py-2 focus:outline-none #{I18n.locale == :ar ? 'pl-10' : 'pr-12'}", 
+              style: "border: 3px solid #471815; color: #471815; border-radius: 0.25rem;", 
+              onchange: "this.form.submit();" %>
+        </div>
+      <% end %>
+
       <% if show_major_filter %>
-        <div class="w-30">
-          <%= select_tag :major, options_for_select(major_options, params[:major]), include_blank: 'All Majors', class: "w-full rounded-full text-sm px-4 py-3 font-semibold", style: "border-color: #471815; color: #471815;", onchange: 'this.form.submit();' %>
+        <div class="w-auto mb-4 min-w-[16rem] <%= I18n.locale == :ar ? 'ml-4' : 'mr-4' %>">
+          <%= select_tag :major, options_for_select(major_options, params[:major]), include_blank: 'All Majors', class: "w-full rounded-full text-sm px-4 py-3 font-semibold", style: "border: 3px solid #471815; color: #471815;", onchange: 'this.form.submit();' %>
         </div>
       <% end %>
 
       <% if show_class_year_filter %>
-        <div class="w-30">
-          <%= select_tag :class_year, options_for_select(class_year_options, params[:class_year]), include_blank: 'All Class Years', class: "w-full rounded-full text-sm px-4 py-3 font-semibold", style: "border-color: #471815; color: #471815;", onchange: 'this.form.submit();' %>
+        <div class="w-auto mb-4 min-w-[12rem] <%= I18n.locale == :ar ? 'ml-4' : 'mr-4' %>">
+          <%= select_tag :class_year, options_for_select(class_year_options, params[:class_year]), include_blank: 'All Class Years', class: "w-full rounded-full text-sm px-4 py-3 font-semibold", style: "border: 3px solid #471815; color: #471815;", onchange: 'this.form.submit();' %>
         </div>
       <% end %>
 
-      <% if show_per_page %>
-        <div class="w-30">
-          <%= select_tag :per_page, options_for_select([5, 10, 20], params[:per_page] || 10), onchange: 'this.form.submit();', class: "w-full rounded-full text-sm px-4 py-3 font-semibold", style: "border-color: #471815; color: #471815;" %>
+      <% if show_log_action_filter %>
+        <div class="w-auto mb-4 min-w-[12rem] <%= I18n.locale == :ar ? 'ml-4' : 'mr-4' %>">
+          <%= select_tag :log_action, options_for_select(
+            ['Created Resource Proposal',
+            'Updated Resource',
+            'Deleted Resource Type',
+            'Updated Resource Type',
+            'Created Resource Type',
+            'Failed to Create Resource Type',
+            'Deleted Resource',
+            'Archived Resource',
+            'Approved Resource',
+            'Reinstated Resource',
+            'User Resource Proposal Updated'],
+            selected: params[:log_action]), prompt: t("search.logs.filter_by_action"), class: "w-full rounded-full text-sm px-4 py-3 font-semibold", style: "border: 3px solid #471815; color: #471815;", onchange: 'this.form.submit();' %>
         </div>
       <% end %>
 
-      <!-- Apply Filter Button -->
-      <div class="flex items-end">
-        <%= submit_tag t('search.apply_button', default: 'Search'), class: "rounded-full text-sm px-4 py-2 font-semibold", style: "background-color: #471815; color: white; border-radius: 0.25rem; height: 2.75rem; min-width: auto;" %>
+      <div class="flex items-center">
+        <% if show_per_page %>
+          <div class="w-30 mb-4 min-w-[5rem] <%= I18n.locale == :ar ? 'ml-4' : 'mr-4' %>">
+            <%= select_tag :per_page, options_for_select([5, 10, 20], params[:per_page] || 10), onchange: 'this.form.submit();', class: "w-full rounded-full text-sm px-4 py-3 font-semibold", style: "border: 3px solid #471815; color: #471815;" %>
+          </div>
+        <% end %>
+
+        <!-- Apply Filter Button -->
+        <div class="mb-4">
+          <%= submit_tag t('search.search_button', default: 'Search'), class: "rounded-full text-sm px-4 py-2 font-semibold", style: "background-color: #471815; color: white; border-radius: 0.25rem; height: 2.75rem; min-width: auto;" %>
+        </div>
       </div>
-
     </div>
   </div>
 <% end %>
 
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+    const autocompleteInput = document.getElementById("address");
+    const suggestionsContainer = document.getElementById("suggestions");
+
+    function debounce(func, wait) {
+        let timeout;
+        return function (...args) {
+            clearTimeout(timeout);
+            timeout = setTimeout(() => func.apply(this, args), wait);
+        };
+    }
+
+    function fetchSuggestions() {
+        const query = autocompleteInput.value.trim();
+
+        if (query.length > 2) {
+            const encodedQuery = encodeURIComponent(query);
+            fetch(`/resources/address_suggestions?query=${encodedQuery}`)
+                .then((response) => response.json())
+                .then((data) => {
+                    showSuggestions(data);
+                })
+                .catch((error) => console.error("Error fetching suggestions:", error));
+        } else {
+            suggestionsContainer.style.display = "none";
+        }
+    }
+
+    const debouncedFetchSuggestions = debounce(fetchSuggestions, 300);
+    autocompleteInput.addEventListener("input", debouncedFetchSuggestions);
+    autocompleteInput.addEventListener("focus", fetchSuggestions);
+
+    function showSuggestions(suggestions) {
+        suggestionsContainer.innerHTML = "";
+
+        if (suggestions.length > 0) {
+            suggestionsContainer.style.display = "block";
+
+            suggestions.forEach((suggestion) => {
+                const suggestionItem = document.createElement("div");
+                suggestionItem.style.cursor = "pointer";
+                suggestionItem.classList.add("p-2", "hover:bg-gray-200");
+                suggestionItem.innerText = suggestion;
+
+                suggestionItem.addEventListener("click", () => {
+                    autocompleteInput.value = suggestion;
+                    suggestionsContainer.innerHTML = "";
+                    suggestionsContainer.style.display = "none";
+                });
+
+                suggestionsContainer.appendChild(suggestionItem);
+            });
+        } else {
+            suggestionsContainer.style.display = "none";
+        }
+    }
+
+    // Hide suggestions when clicking outside of the input or suggestions container
+    document.addEventListener("click", function (event) {
+        if (!autocompleteInput.contains(event.target) && !suggestionsContainer.contains(event.target)) {
+            suggestionsContainer.style.display = "none";
+        }
+    });
+});
+
+</script>

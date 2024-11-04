@@ -1,0 +1,56 @@
+<div class="flex justify-center mt-8">
+
+    <div class="w-full max-w-sm">
+        <h1 class="text-center text-3xl font-semibold mt-8 mb-4" style="color: #471815;"><%= t('.title') %>: <%= @resource.title %></h1>
+        <p class="mb-4"><%= t('.content') %></p>
+
+        <%= form_with model: @resource, local: true, class: "container mt-4" do |form| %>
+            <% if @resource.errors.any? %>
+                <div id="error_explanation" class="mb-4 p-4 border border-red-500 rounded">
+                    <h2 class="text-red-500 font-semibold"><%= pluralize(@resource.errors.count, "error") %> prohibited this resource from being saved:</h2>
+                    <ul class="list-disc list-inside text-red-500">
+                        <% @resource.errors.full_messages.each do |message| %>
+                            <li><%= message %></li>
+                        <% end %>
+                    </ul>
+                </div>
+            <% end %>
+
+            <div class="relative mb-6 max-w-sm mx-auto">
+                <%= form.label :title, t('admin.resource_types.title'), class: "block text-gray-700 font-semibold mb-2" %>
+                <%= form.text_field :title, class: 'w-full px-4 py-3 border-2 border-gray-300 rounded-full focus:outline-none focus:border-[#471815]', placeholder: t('resources.resource_title') %>
+                <i class="absolute right-4 top-1/2 transform -translate-y-1/2 text-gray-400 fa fa-user"></i>
+            </div>
+
+            <div class="relative mb-6 max-w-sm mx-auto">
+                <%= form.label :description, t('resources.description'), class: "block mb-2 text-sm font-medium text-gray-900 dark:text-white" %>
+                <%= form.text_area :description, class: 'w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:outline-none focus:border-[#471815]', placeholder: t('resources.resource_description'), style: 'height: 8rem;' %> 
+            </div>
+
+            <div class="relative mb-6 max-w-sm mx-auto">
+                <%= form.label :resource_type_id, t('resources.type'), class: "block text-gray-700 font-semibold mb-2" %>
+                <%= form.collection_select :resource_type_id, ResourceType.all, :id, :title, {}, class: 'w-full px-4 py-3 border-2 border-gray-300 rounded-full focus:outline-none focus:border-[#471815]' %>
+            </div>
+            
+            <div class="relative mb-6 max-w-sm mx-auto">
+                <%= form.label :images, t('resources.images'), class: "block text-gray-700 font-semibold mb-2" %>
+                <label class="cursor-pointer px-6 py-2 text-sm text-white bg-[#471815] rounded-full font-semibold inline-block text-center">
+                    <%= t('form.upload_images') %>
+                    <%= form.file_field :images, multiple: true, accept: 'image/jpeg, image/png', class: 'hidden', onchange: "this.form.submit();" %>
+                </label>
+            </div>
+            
+            <div class="relative mb-6 max-w-sm mx-auto">
+                <%= render 'shared/address_field', form: form %>
+            </div>
+
+            <div class="flex justify-center mt-10">
+                <%= form.submit t('.update'), class: 'px-6 py-2 text-white font-semibold rounded-full', style: 'background-color: #471815; z-index: 1; position: relative;' %>
+            </div>
+
+            <div class="text-center mt-2 mb-10">
+                <%= link_to t('form.cancel'), resources_path, class: 'font-semibold' %><br>
+            </div>
+        <% end %>
+    </div>
+</div>
