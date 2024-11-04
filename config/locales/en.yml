@@ -40,6 +40,7 @@ en:
     view_my_posts: "View My Posts"
     logs: "Activity Logs"
   shared:
+    new_resource: "New Resource"
     login: "Login"
     profile: "Profile"
     back_to_member_directory: "Back to Member Directory"
@@ -215,7 +216,19 @@ en:
         logged_out: "You're Logged out! Log in to the Dashboard!!"
         log_in_with: "Log in with %{provider}"
 
+  form:
+    upload_image: "Upload Image"
+    upload_images: "Upload Images"
+    cancel: "Cancel"
+
   resources:
+    create_new_resource: "Create New Resource"
+    create_resource_type: "Create Resource Type"
+    update_resource_type: "Update Resource Type"
+    resource_title: "Resource Title"
+    resource_description: "Resource Description"
+    resource_address: "Resource Address"
+
     status: "Status"
     title: "Title"
     description: "Description"
@@ -250,7 +263,8 @@ en:
       edit:
         your_profile: ""
         update_role: "Update Role"
-      edit_profile: "Edit Profile for %{name}"
+
+      edit_profile: "Edit Role for %{name}"
       back_to_users: "Back to Users"
       full_name: "Full Name"
       email: "Email"
