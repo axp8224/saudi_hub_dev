@@ -20,7 +20,7 @@
     <div class="flex text-center mb-6">
       <label class="w-full cursor-pointer">
         <%= f.file_field :avatar, accept: 'image/jpeg, image/png', class: 'hidden', onchange: "this.form.submit();" %> <!-- onchange to submit the form automatically when an image is selected -->
-        <span class="cursor-pointer px-6 py-2 text-sm text-white bg-[#471815] rounded-full font-semibold inline-block">Upload Image</span>
+        <span class="cursor-pointer px-6 py-2 text-sm text-white bg-[#471815] rounded-full font-semibold inline-block"><%= t('form.upload_image') %></span>
       </label>
     </div>
 
