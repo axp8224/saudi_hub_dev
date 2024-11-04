@@ -9,6 +9,7 @@ ar:
     view_my_posts: "عرض مشاركاتي"
     logs: "سجلات النشاط"
   shared:
+    new_resource: "إنشاء مورد جديد"
     home: "الصفحة الرئيسية"
     resources: "موارد"
     member_directory: "دليل الأعضاء"
@@ -202,7 +203,19 @@ ar:
         logged_out: "لقد تم تسجيل الخروج! الرجاء تسجيل الدخول للوحة التحكم!!"
         log_in_with: "تسجيل الدخول بواسطة %{provider}"
 
+  form:
+    upload_image: "قم بتحميل صورة"
+    upload_images: "تحميل صور متعددة"
+    cancel: "إلغاء"
+
   resources:
+    create_new_resource: "إنشاء مورد جديد"
+    create_resource_type: "إنشاء نوع مورد جديد"
+    update_resource_type: "تحديث نوع المورد"
+    resource_title: "عنوان"
+    resource_description: "وصف"
+    resource_address: "عنوان"
+
     status: "الحالة"
     title: "العنوان"
     description: "الوصف"
@@ -234,6 +247,7 @@ ar:
         description: "وصف"
         timestamp: "الطابع الزمني"
     users:
+      edit_role: "تحرير الدور"
       edit:
         your_profile: "ملفك الشخصي"
         bio: "ْعَنِّي"

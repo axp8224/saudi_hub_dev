@@ -1,14 +1,24 @@
-<h1><%= t('.edit_resource_type') %></h1>
+<div class="max-w-screen-xl mx-auto p-4">
+  <h1 class="text-center text-3xl font-semibold mt-8" style="color: #471815;"><%= t('.edit_resource_type') %></h1>
 
-<%= form_with model: @resource_type, url: admin_resource_type_path(@resource_type), method: :patch, local: true do |form| %>
-  <div class="form-group">
-    <%= form.label :title, t('admin.resource_types.title') %>
-    <%= form.text_field :title, class: "form-control" %>
-  </div>
+  <%= form_with model: @resource_type, url: admin_resource_type_path(@resource_type), method: :patch, local: true do |form| %>
+    <div class="relative mb-6 mt-6 max-w-sm mx-auto"> 
+      <%= form.label :title, t('admin.resource_types.title'), class: "block text-gray-700 font-semibold mb-2" %>
+      <%= form.text_field :title, class: 'w-full px-4 py-3 border-2 border-gray-300 rounded-full focus:outline-none focus:border-[#471815]' %>
+    </div>
 
-  <div class="form-group">
-    <%= form.submit t('.update_resource_type'), class: "btn btn-primary" %>
-  </div>
-<% end %>
+    <div class="flex justify-center mt-10">
+        <%= form.submit t('resources.update_resource_type'), class: 'px-6 py-2 text-white font-semibold rounded-full', style: 'background-color: #471815; z-index: 1; position: relative;' %>
+    </div>
 
-<%= link_to t('admin.resource_types.new.back_to_resource_manager'), admin_resources_path %>
+    <div class="text-center mt-2 mb-10">
+        <%= link_to t('form.cancel'), admin_resources_path, class: 'font-semibold' %><br>
+    </div>
+    
+  <% end %>
+
+</div>
+
+
+
+

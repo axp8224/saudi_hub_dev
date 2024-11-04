@@ -1,7 +1,14 @@
-<div class="field mb-4">
-    <%= form.label :address, "Address", class: "block text-gray-700 font-semibold mb-2" %>
-    <%= form.text_field :address, id: "#{form.object.class.name.downcase}_address", class: "w-full pr-12 py-2 focus:outline-none border-3 border-gray-300 rounded address-input" %>
-    <div class="suggestions-container border border-gray-300 rounded mt-2 p-2" id="suggestions_<%= form.object.class.name.downcase %>" style="max-height: 200px; overflow-y: auto;"></div>
+<div class="field mb-4 relative z-10">
+    <%= form.label :address, t('resources.resource_address'), class: "block text-gray-700 font-semibold mb-2" %>
+    <%= form.text_field :address, id: "#{form.object.class.name.downcase}_address", class: 'w-full px-4 py-3 border-2 border-gray-300 rounded-full', placeholder: t('resources.resource_address') %>
+    <div class="suggestions-container" id="suggestions_<%= form.object.class.name.downcase %>" 
+    style="border: 1px solid #ccc; 
+        max-height: 200px; 
+        overflow-y: auto; 
+        background-color: #fff; 
+        position: absolute !important;
+        z-index: 1000;
+        overflow: hidden"></div>
 </div>
 
 <script>
@@ -28,28 +35,46 @@ document.addEventListener("DOMContentLoaded", function () {
                     showSuggestions(data);
                 })
                 .catch((error) => console.error("Error fetching suggestions:", error));
+        } else {
+            suggestionsContainer.style.display = "none";
         }
     }
 
     const debouncedFetchSuggestions = debounce(fetchSuggestions, 300);
     autocompleteInput.addEventListener("input", debouncedFetchSuggestions);
+    autocompleteInput.addEventListener("focus", fetchSuggestions);
 
     function showSuggestions(suggestions) {
         suggestionsContainer.innerHTML = "";
 
-        suggestions.forEach((suggestion) => {
-            const suggestionItem = document.createElement("div");
-            suggestionItem.style.cursor = "pointer";
-            suggestionItem.classList.add("p-2", "hover:bg-gray-200");
-            suggestionItem.innerText = suggestion;
+        if (suggestions.length > 0) {
+            suggestionsContainer.style.display = "block"; 
 
-            suggestionItem.addEventListener("click", () => {
-                autocompleteInput.value = suggestion;
-                suggestionsContainer.innerHTML = "";
+            suggestions.forEach((suggestion) => {
+                const suggestionItem = document.createElement("div");
+                suggestionItem.style.cursor = "pointer";
+                suggestionItem.classList.add("p-2", "hover:bg-gray-200");
+                suggestionItem.innerText = suggestion;
+
+                suggestionItem.addEventListener("click", () => {
+                    autocompleteInput.value = suggestion;
+                    suggestionsContainer.innerHTML = "";
+                    suggestionsContainer.style.display = "none";
+                });
+
+                suggestionsContainer.appendChild(suggestionItem);
             });
-
-            suggestionsContainer.appendChild(suggestionItem);
-        });
+        } else {
+            suggestionsContainer.style.display = "none"; 
+        }
     }
+
+    // Hide suggestions when clicking outside of the input or suggestions container
+    document.addEventListener("click", function (event) {
+        if (!autocompleteInput.contains(event.target) && !suggestionsContainer.contains(event.target)) {
+            suggestionsContainer.style.display = "none";
+        }
+    });
 });
+
 </script>

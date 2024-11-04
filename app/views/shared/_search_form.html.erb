@@ -1,5 +1,5 @@
 <%= form_with url: form_url, method: :get, local: true, class: "container mt-4" do %>
-  <div class="flex flex-wrap items-center justify-between">
+  <div class="flex flex-wrap items-center justify-between z-10">
     
     <!-- Search Bar Container -->
     <% if show_text_search %>
@@ -30,7 +30,14 @@
           <%= text_field_tag :address, params[:address], id: "address", placeholder: t('search.resources.location_input'),
             class: "w-full pr-12 py-2 focus:outline-none #{I18n.locale == :ar ? 'pl-10' : 'pr-12'} address-input", 
             style: "border: 3px solid #471815; color: #471815; border-radius: 0.25rem;" %>
-          <div class="suggestions-container" id="suggestions" style="border: 1px solid #ccc; max-height: 200px; overflow-y: auto;"></div>
+          <div class="suggestions-container" id="suggestions" 
+            style="border: 1px solid #ccc; 
+              max-height: 200px; 
+              overflow-y: auto; 
+              background-color: #fff; 
+              position: absolute !important;
+              z-index: 1000;
+              overflow: hidden"></div>
         </div>
 
         <!-- Radius Field Container -->
@@ -90,49 +97,68 @@
 
 <script>
 document.addEventListener("DOMContentLoaded", function () {
-  const autocompleteInput = document.getElementById("address");
-  const suggestionsContainer = document.getElementById("suggestions");
+    const autocompleteInput = document.getElementById("address");
+    const suggestionsContainer = document.getElementById("suggestions");
 
-  function debounce(func, wait) {
-    let timeout;
-    return function (...args) {
-      clearTimeout(timeout);
-      timeout = setTimeout(() => func.apply(this, args), wait);
-    };
-  }
-
-  function fetchSuggestions() {
-    const query = autocompleteInput.value.trim();
-
-    if (query.length > 2) {
-      const encodedQuery = encodeURIComponent(query);
-      fetch(`/resources/address_suggestions?query=${encodedQuery}`)
-        .then((response) => response.json())
-        .then((data) => {
-          showSuggestions(data);
-        })
-        .catch((error) => console.error("Error fetching suggestions:", error));
+    function debounce(func, wait) {
+        let timeout;
+        return function (...args) {
+            clearTimeout(timeout);
+            timeout = setTimeout(() => func.apply(this, args), wait);
+        };
     }
-  }
 
-  const debouncedFetchSuggestions = debounce(fetchSuggestions, 300);
-  autocompleteInput.addEventListener("input", debouncedFetchSuggestions);
+    function fetchSuggestions() {
+        const query = autocompleteInput.value.trim();
 
-  function showSuggestions(suggestions) {
-    suggestionsContainer.innerHTML = "";
+        if (query.length > 2) {
+            const encodedQuery = encodeURIComponent(query);
+            fetch(`/resources/address_suggestions?query=${encodedQuery}`)
+                .then((response) => response.json())
+                .then((data) => {
+                    showSuggestions(data);
+                })
+                .catch((error) => console.error("Error fetching suggestions:", error));
+        } else {
+            suggestionsContainer.style.display = "none";
+        }
+    }
 
-    suggestions.forEach((suggestion) => {
-      const suggestionItem = document.createElement("div");
-      suggestionItem.style.cursor = "pointer";
-      suggestionItem.innerText = suggestion;
+    const debouncedFetchSuggestions = debounce(fetchSuggestions, 300);
+    autocompleteInput.addEventListener("input", debouncedFetchSuggestions);
+    autocompleteInput.addEventListener("focus", fetchSuggestions);
 
-      suggestionItem.addEventListener("click", () => {
-        autocompleteInput.value = suggestion;
+    function showSuggestions(suggestions) {
         suggestionsContainer.innerHTML = "";
-      });
 
-      suggestionsContainer.appendChild(suggestionItem);
+        if (suggestions.length > 0) {
+            suggestionsContainer.style.display = "block";
+
+            suggestions.forEach((suggestion) => {
+                const suggestionItem = document.createElement("div");
+                suggestionItem.style.cursor = "pointer";
+                suggestionItem.classList.add("p-2", "hover:bg-gray-200");
+                suggestionItem.innerText = suggestion;
+
+                suggestionItem.addEventListener("click", () => {
+                    autocompleteInput.value = suggestion;
+                    suggestionsContainer.innerHTML = "";
+                    suggestionsContainer.style.display = "none";
+                });
+
+                suggestionsContainer.appendChild(suggestionItem);
+            });
+        } else {
+            suggestionsContainer.style.display = "none";
+        }
+    }
+
+    // Hide suggestions when clicking outside of the input or suggestions container
+    document.addEventListener("click", function (event) {
+        if (!autocompleteInput.contains(event.target) && !suggestionsContainer.contains(event.target)) {
+            suggestionsContainer.style.display = "none";
+        }
     });
-  }
 });
+
 </script>

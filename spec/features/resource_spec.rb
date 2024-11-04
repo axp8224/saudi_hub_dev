@@ -32,16 +32,16 @@ RSpec.feature 'Resources', type: :feature do
 
   scenario 'User filters resources by type' do
     visit resources_path
-  
+
     click_link restaurant_type.title
 
     active_restaurant_resources.each do |resource|
       expect(page).to have_content(resource.title)
     end
 
-    #active_apartment_resources.each do |resource|
+    # active_apartment_resources.each do |resource|
     #  expect(page).not_to have_content(resource.title)
-    #end
+    # end
   end
 
   scenario 'User sees all resource types in sidebar' do
@@ -57,7 +57,7 @@ RSpec.feature 'Resources', type: :feature do
     visit resources_path
 
     resource = active_resources.first
-    
+
     first(:link, 'Read More', href: resource_path(resource)).click
 
     expect(page).to have_content(resource.title)
@@ -83,33 +83,33 @@ RSpec.feature 'Resources', type: :feature do
 
   #=begin  =endscenario 'User creates a new resource' do
   #  visit new_resource_path
-#
+  #
   #  fill_in 'Title', with: 'Sample Resource'
   #  fill_in 'Description', with: 'This is a sample resource description.'
   #  select restaurant_type.title, from: 'Resource type'
   #  attach_file 'Images', Rails.root.join('spec/fixtures/files/sample_image.jpg')
-#
-  #  click_button 'Create Resource'
-#
+  #
+  #  click_button 'Create New Resourcesource'
+  #
   #  expect(page).to have_content('Resource was successfully created.')
-#
+  #
   #  fill_in 'search', with: 'Sample Resource'
   #  click_button 'Search'
-#
+  #
   #  expect(page).to have_content('Sample Resource')
   #  expect(page).to have_content('This is a sample resource description.')
   #  expect(page).to have_content(restaurant_type.title)
-  #end
+  # end
 
   scenario 'User fails to create a new resource with an invalid file' do
     visit new_resource_path
 
     fill_in 'Title', with: 'Sample Resource'
     fill_in 'Description', with: 'This is a sample resource description.'
-    select restaurant_type.title, from: 'Resource type'
+    select restaurant_type.title, from: 'Type'
     attach_file 'Images', Rails.root.join('spec/fixtures/files/invalid_file.txt')
 
-    click_button 'Create Resource'
+    click_button 'Create New Resource'
 
     expect(page).to have_content('must be a JPG, JPEG, PNG, or GIF')
   end
@@ -117,7 +117,7 @@ RSpec.feature 'Resources', type: :feature do
   scenario 'User fails to create a new resource with invalid data' do
     visit new_resource_path
 
-    click_button 'Create Resource'
+    click_button 'Create New Resource'
 
     expect(page).to have_content("Title can't be blank")
     expect(page).to have_content("Description can't be blank")
@@ -129,7 +129,7 @@ RSpec.feature 'Resources', type: :feature do
     fill_in 'address', with: '400 Bizzell St, College Station, TX 77840'
     click_button 'Search'
 
-    expect(page).to have_content("miles")
+    expect(page).to have_content('miles')
   end
 
   scenario 'User searches for resources within a specific radius' do
