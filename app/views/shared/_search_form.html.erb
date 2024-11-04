@@ -1,6 +1,11 @@
 <%= form_with url: form_url, method: :get, local: true, class: "container mt-4" do %>
   <div class="flex flex-wrap items-center justify-between z-10">
     
+    <!-- Hidden Field for resource_type_id -->
+    <% if local_assigns[:resource_type_id].present? %>
+      <%= hidden_field_tag :resource_type_id, local_assigns[:resource_type_id] %>
+    <% end %>
+
     <!-- Search Bar Container -->
     <% if show_text_search %>
       <div class="flex-grow max-w-xl w-full relative mb-4 min-w-[16rem] <%= I18n.locale == :ar ? 'ml-auto' : 'mr-auto' %>">

@@ -5,14 +5,7 @@
     <p class="text-red-600"><%= flash[:notice] %></p>
   <% end %>
 
-  <% if @radius.present? && @radius > 0 %>
-    <% filtered_resources = @resources.zip(@distances).select { |_, distance| distance && distance <= @radius } %>
-  <% else %>
-    <% filtered_resources = @resources.zip(@distances) %>
-  <% end %>
-  <% sorted_resources = filtered_resources.sort_by { |_, distance| distance || Float::INFINITY } %>
-  <% sorted_resources.each do |resource, distance| %>
-    <% next if @address_filter && distance.nil? %>
+  <% @resources.each do |resource| %>
     <div class="bg-white rounded-lg shadow-lg overflow-hidden flex flex-col h-full">
       <!-- Resource Image -->
       <div class="relative">
@@ -31,9 +24,9 @@
         <p class="text-gray-700 text-sm mb-4 flex-grow"><%= truncate(resource.description, length: 100) %></p>
 
         <!-- Distance Display -->
-        <% if distance.present? %>
+        <% if @address_filter && resource.distance.present? %>
           <div class="text-orange-500 font-semibold mb-4">
-            <%= "#{distance.round(2)} miles" %>
+            <%= "#{resource.distance.round(2)} miles" %>
           </div>
         <% end %>
 

@@ -3,36 +3,38 @@ class ResourcesController < ApplicationController
 
   def index
     per_page = params[:per_page] || 10
-
     @resources = Resource.where(status: 'active')
     @resource_types = ResourceType.all
 
-    @resources = @resources.where(resource_type_id: params[:resource_type_id]) if params[:resource_type_id].present?
+    if params[:resource_type_id].present?
+      @resources = @resources.where(resource_type_id: params[:resource_type_id])
+    end
 
     if params[:search].present?
       @resources = @resources.where('title ILIKE :search OR description ILIKE :search', search: "%#{params[:search]}%")
     end
 
-    @user_is_admin = (current_user.role.name == 'admin')
-
+    @user_is_admin = current_user.role.name == 'admin'
     @address_filter = params[:address].present?
-    if params[:address].present?
+
+    if @address_filter
       address_coordinates = fetch_coordinates_with_geoapify(params[:address])
       if address_coordinates.present?
-        @distances = calculate_distances(@resources, address_coordinates) # Get distances separately
+        calculate_distances(@resources, address_coordinates)
+        @resources = @resources.sort_by { |resource| resource.distance || Float::INFINITY }
       else
         flash.now[:alert] = t('search.invalid_address')
-        @distances = []
       end
-    else
-      @distances = [] # Default to empty array if no address is provided
     end
 
     flash.now[:notice] = t('search.no_results') if @resources.empty?
-
     @radius = params[:radius].to_f.positive? ? params[:radius].to_f : nil
 
-    @resources = @resources.page(params[:page]).per(per_page)
+    if @radius
+      @resources = @resources.select { |resource| resource.distance && resource.distance <= @radius }
+    end
+
+    @resources = Kaminari.paginate_array(@resources).page(params[:page]).per(per_page)
   end
 
   def new
@@ -185,21 +187,16 @@ class ResourcesController < ApplicationController
     api_key = ENV.fetch('GEOAPIFY_API_KEY', nil)
     return [] unless api_key
 
-    # Fetch the coordinates for each resource
-    resource_coordinates = {}
-    resources.each do |resource|
-      if resource.latitude.present? && resource.longitude.present?
-        resource_coordinates[resource.id] = [resource.latitude, resource.longitude]
-      end
-    end
+    # Filter resources that have coordinates
+    resources_with_coordinates = resources.select { |resource| resource.latitude.present? && resource.longitude.present? }
 
-    return [] if resource_coordinates.empty?
+    return [] if resources_with_coordinates.empty?
 
     geoapify_url = "https://api.geoapify.com/v1/routematrix?apiKey=#{api_key}"
 
     # Prepare sources (input address) and targets (resources)
     sources = [{ location: input_coordinates.reverse }] # Input address as [longitude, latitude]
-    targets = resource_coordinates.values.map { |coords| { location: coords.reverse } } # Each resource's coordinates
+    targets = resources_with_coordinates.map { |resource| { location: [resource.longitude, resource.latitude] } } # Each resource's coordinates
 
     request_body = {
       mode: 'drive',
@@ -221,14 +218,10 @@ class ResourcesController < ApplicationController
 
     distances = parsed_response['sources_to_targets'].first # Distances from input address to each resource
 
-    # Create an array of distances index-mapped to the resources
-    resources.map.with_index do |resource, index|
-      if resource_coordinates[resource.id].present?
-        distance_info = distances.find { |d| d['target_index'] == index }
-        distance_info.present? ? distance_info['distance'] / 1609.34 : nil # Convert meters to miles
-      else
-        nil
-      end
+    # Assign distances to resources
+    resources_with_coordinates.each_with_index do |resource, index|
+      distance_info = distances[index]
+      resource.distance = distance_info.present? ? distance_info['distance'] / 1609.34 : nil # Convert meters to miles
     end
   end
 
