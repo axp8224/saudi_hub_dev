@@ -40,6 +40,10 @@ en:
     view_my_posts: "View My Posts"
     logs: "Activity Logs"
   shared:
+    login_to_continue: "Log In To Continue"
+    home: "Home"
+    resources: "Resources"
+    member_directory: "Member Directory"
     new_resource: "New Resource"
     login: "Login"
     profile: "Profile"
@@ -60,6 +64,7 @@ en:
     privacy_policy_pg_1: "By creating an account on our website, you acknowledge that certain personal information will be made available in the member directory, accessible to all other registered members. This information includes, but is not limited to, your full name, major, phone number, and email address."
     privacy_policy_pg_2: "Please note that agreement to this policy is mandatory for account creation. If you do not agree to the visibility of your information in the member directory, you will be unable to proceed with creating an account."
   search:
+    invalid_address: "Invalid Address"
     no_results: "No results match your search or filter criteria."
     search_button: "Search"
     items_per_page: "Items per page"
@@ -80,6 +85,7 @@ en:
     profile:
       update_success: "Profile updated successfully!"
       update_failure: "There was an error updating your profile. Please try again."
+      phone_removed: "Phone was set to null"
       edit:
         only_your_profile: "You can only edit your profile."
     admin:
@@ -102,6 +108,8 @@ en:
         only_your_posts: "You can only edit your posts."
         resource_updated: "Resource %{title} was updated successfully."
         update_failed: "Unable to update resource."
+    policy_accept: "Thank you for accepting the privacy policy."
+    policy_reject: "You need to accept the privacy policy to continue."
   pages:
     home:
       welcome: "Welcome to the Saudi Community Hub!"
@@ -183,6 +191,8 @@ en:
       role: "Role"
       view_profile: "View Profile"
     show:
+      edit_your_profile: "Edit Your Profile"
+      phone: "Phone"
       your_profile: "Your Profile"
       full_name: "Full Name"
       email: "Email"
@@ -192,6 +202,8 @@ en:
       major: "Major"
       bio: "About Me"
     edit: # todo: refactor, separate 'edit' and 'show'
+      phone_number: "Phone Number"
+      public: "Public"
       your_profile: "Your Profile"
       grad_placeholder: "Enter year here"
       about_placeholder: "About Me"

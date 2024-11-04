@@ -9,6 +9,7 @@ ar:
     view_my_posts: "عرض مشاركاتي"
     logs: "سجلات النشاط"
   shared:
+    login_to_continue: "تسجيل الدخول للمتابعة"
     new_resource: "إنشاء مورد جديد"
     home: "الصفحة الرئيسية"
     resources: "موارد"
@@ -38,6 +39,7 @@ ar:
     search_form:
       filter_by_action: "التصفية حسب العمل"
   search:
+    invalid_address: "عنوان غير صالح"
     no_results: "لا توجد نتائج تطابق معايير البحث أو التصفية الخاصة بك."
     search_button: "بحث"
     items_per_page: "العناصر لكل صفحة"
@@ -59,6 +61,7 @@ ar:
     profile:
       update_success: "تحديث الملف الشخصي بنجاح!"
       update_failure: "حدث خطأ أثناء تحديث الملف الشخصي. يرجى المحاولة مرة أخرى."
+      phone_removed: "تم ضبط الهاتف على القيمة الخالية"
       edit:
         only_your_profile: "يمكنك تعديل ملفك الشخصي فقط."
     admin:
@@ -81,6 +84,8 @@ ar:
         only_your_posts: "يمكنك تعديل منشوراتك فقط."
         resource_updated: "تم تحديث المورد %{title} بنجاح."
         update_failed: "تعذر تحديث المورد."
+    policy_accept: "شكرا لقبول سياسة الخصوصية"
+    policy_reject: "تحتاج إلى قبول سياسة الخصوصية للمتابعة"
   pages:
     home:
       welcome: "مرحبا بكم في مركز المجتمع السعودي!"
@@ -168,6 +173,7 @@ ar:
       filter_by_class_year: "تصفية حسب العام الدراسي"
       view_profile: "عرض الملف الشخصي"
     show:
+      phone: "هاتف"
       major: "التخصص"
       your_profile: "ملفك الشخصي"
       full_name: "الاسم الكامل"
@@ -179,6 +185,8 @@ ar:
       bio: "ْعَنِّي"
       role: "دور"
     edit:
+      phone_number: "رقم التليفون"
+      public: "يمكن رؤيتها من قبل المستخدمين الآخرين"
       bio: "ْعَنِّي"
       grad_placeholder: "أدخل السنة هنا"
       about_placeholder: "ْعَنِّي"

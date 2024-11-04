@@ -21,9 +21,14 @@ RSpec.feature 'Member Directory', type: :feature do
 
     users.limit(10).each do |user|
       expect(page).to have_content(user.full_name)
-      expect(page).to have_content(user.major.name)
       expect(page).to have_content(user.email)
       expect(page).to have_content(user.class_year.name)
+
+      if user.major.present?
+        expect(page).to have_content(user.major.name)
+      else
+        expect(page).to have_content('N/A')
+      end
     end
   end
 

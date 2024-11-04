@@ -23,7 +23,7 @@
         <p class="text-sm font-semibold text-black"><%= t('users.show.grad_year') %>: <%= user.grad_year.present? ? user.grad_year : 'N/A' %></p>
         <p class="text-sm font-semibold text-black"><%= t('users.show.email') %>: <%= user.email %></p>
         <% if user.phone_public? && user.phone_number.present? %>
-          <p><strong><%= t('.phone') %>:</strong> <%= user.phone_number %></p>
+          <p class="text-sm font-semibold text-black"><%= t('users.show.phone') %>: <%= user.phone_number %></p>
         <% end %>
       </div>
 

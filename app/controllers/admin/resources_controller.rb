@@ -65,7 +65,6 @@ module Admin
           action_timestamp: Time.current
         )
 
-        flash[:success] = t('flash.admin.resource.updated', title: @resource.title)
         redirect_to admin_resources_path
       else
         Log.create(
