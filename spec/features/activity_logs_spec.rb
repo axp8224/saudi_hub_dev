@@ -17,7 +17,7 @@ RSpec.feature 'ActivityLogging', type: :feature do
     fill_in 'Title', with: 'Old Title'
     fill_in 'Description', with: 'Old Description'
     select 'Restaurants', from: 'resource_resource_type_id'
-    click_button 'Create Resource'
+    click_button 'Create New Resource'
 
     # edit
     created_resource = Resource.find_by(title: 'Old Title')
@@ -49,5 +49,4 @@ RSpec.feature 'ActivityLogging', type: :feature do
     expect(page).to have_content('Updated User')
     expect(page).to have_content('Role changed from \'user\' to \'admin\'')
   end
-
 end
