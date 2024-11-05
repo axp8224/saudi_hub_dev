@@ -224,7 +224,9 @@ ar:
     resource_title: "عنوان"
     resource_description: "وصف"
     resource_address: "عنوان"
-
+    image: "صورة"
+    images: "صور"
+    image_selected: "محدد"
     status: "الحالة"
     title: "العنوان"
     description: "الوصف"
