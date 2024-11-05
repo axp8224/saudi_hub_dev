@@ -147,6 +147,9 @@ en:
         resource_proposal:
           title: "I submitted a resource proposal, but it hasn't appeared on the platform yet. What's going on?"
           instruction: "All proposed posts must be reviewed and approved by an administrator before going live on the website. Sometimes, a resource isn't ready to be approved yet, and needs to be modified first. When this is the case, an administrator might leave feedback and request that you change the resource proposal before they approve it. You can check for feedback (or see the status of your posts) on the 'My Posts' page."
+      training_video:
+        title: "User Training Video"
+        intro: "Too lazy to read? Watch this video!"
       contact:
         title: "Contact Us"
         subtitle: "Still have questions? Reach out to our dev team for more assistance."
