@@ -6,14 +6,18 @@ class User < ApplicationRecord
   belongs_to :class_year, optional: true, class_name: 'ClassYear', foreign_key: 'class_year_id'
 
   validate :acceptable_avatar
-  validates :grad_year, numericality: { only_integer: true, greater_than_or_equal_to: 1900, less_than_or_equal_to: Time.now.year + 10 }, allow_nil: true
-  validates :phone_number, format: { with: /\A\+?[1-9]\d{1,14}\z/, message: "must be a valid phone number" }, allow_blank: true
+  validates :grad_year,
+            numericality: { only_integer: true, greater_than_or_equal_to: 1900, less_than_or_equal_to: Time.now.year + 10 }, allow_nil: true
+  validates :phone_number, format: { with: /\A\+?[1-9]\d{1,14}\z/, message: I18n.t('users.edit.phone_number_error') },
+                           allow_blank: true
 
   def self.from_google(email:, full_name:, uid:, avatar_url:)
-    create_with(uid: uid, full_name: full_name, avatar_url: avatar_url, major_id: Major.find_by(name: "").try(:id)).find_or_create_by!(email: email)
+    create_with(uid:, full_name:, avatar_url:,
+                major_id: Major.find_by(name: '').try(:id)).find_or_create_by!(email:)
   end
 
   private
+
   def acceptable_avatar
     return unless avatar.attached?
 
@@ -23,9 +27,9 @@ class User < ApplicationRecord
     end
 
     Rails.logger.info "Avatar byte size: #{avatar.blob.byte_size}, Allowed: <= 2MB"
-    if avatar.blob.byte_size > 2.megabytes
-      errors.add(:avatar, I18n.t('users.edit.error_messages.file_size_too_large'))     
-    end
+    return unless avatar.blob.byte_size > 2.megabytes
+
+    errors.add(:avatar, I18n.t('users.edit.error_messages.file_size_too_large'))
   end
 
   has_many :resources, foreign_key: 'user_id'
