@@ -241,7 +241,9 @@ en:
     resource_title: "Resource Title"
     resource_description: "Resource Description"
     resource_address: "Resource Address"
-
+    image: "image"
+    images: "images"
+    image_selected: "selected"
     status: "Status"
     title: "Title"
     description: "Description"

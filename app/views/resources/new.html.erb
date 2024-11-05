@@ -36,9 +36,17 @@
                 <%= form.label :images, t('resources.images'), class: "block text-gray-700 font-semibold mb-2" %>
                 <label class="cursor-pointer px-6 py-2 text-sm text-white bg-[#471815] rounded-full font-semibold inline-block text-center">
                     <%= t('form.upload_images') %>
-                    <%= form.file_field :images, multiple: true, accept: 'image/jpeg, image/png', class: 'hidden', onchange: "this.form.submit();" %>
+                    <%= form.file_field :images, multiple: true, accept: 'image/jpeg, image/png', class: 'hidden', id: 'image-upload' %>
                 </label>
+                <div id="image-count" class="mt-2 text-gray-700"></div>
             </div>
+
+            <script>
+                document.getElementById('image-upload').addEventListener('change', function() {
+                    var count = this.files.length;
+                    document.getElementById('image-count').innerText = count + ' ' + (count === 1 ? '<%= t('resources.image') %>' : '<%= t('resources.images') %>') + ' ' + '<%= t('resources.image_selected') %>';
+                });
+            </script>
             
             <div class="relative mb-6 max-w-sm mx-auto">
                 <%= render 'shared/address_field', form: form %>
