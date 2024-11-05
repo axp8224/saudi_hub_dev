@@ -1,7 +1,8 @@
-<h1 class="text-2xl font-bold mb-4"><%= t("admin.resources.edit_resource") %></h1>
-<%= link_to t(".back_to_resource_manager"), admin_resources_path, class: "rounded-full text-sm px-4 py-2 font-semibold bg-gray-800 text-white border-radius-0.25rem height-2.75rem min-width-auto" %>
 <div class="flex justify-center mt-8">
+
   <div class="w-full max-w-lg">
+    <h1 class="text-center text-3xl font-semibold mt-8 mb-4" style="color: #471815;"><%= t("admin.resources.edit_resource") %>: <%= @resource.title %></h1>
+
     <%= form_with model: @resource, url: admin_resource_path(@resource), method: :patch, local: true, class: "container mt-4" do |form| %>
       <% if @resource.errors.any? %>
         <div id="error_explanation" class="mb-4 p-4 border border-red-500 rounded">
@@ -21,17 +22,17 @@
 
       <div class="field mb-4">
         <%= form.label :title, t("resources.title"), class: "block text-gray-700 font-semibold mb-2" %>
-        <%= form.text_field :title, class: "w-full pr-12 py-2 focus:outline-none border-3 border-gray-300 rounded", value: @resource.title, required: true %>
+        <%= form.text_field :title, class: 'w-full px-4 py-3 border-2 border-gray-300 rounded-full focus:outline-none focus:border-[#471815]', placeholder: t('resources.resource_title'), value: @resource.title, required: true %>
       </div>
 
       <div class="field mb-4">
         <%= form.label :description, t("resources.description"), class: "block text-gray-700 font-semibold mb-2" %>
-        <%= form.text_area :description, class: "w-full pr-12 py-2 focus:outline-none border-3 border-gray-300 rounded", rows: 3, value: @resource.description, required: true %>
+        <%= form.text_area :description, class: 'w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:outline-none focus:border-[#471815]', placeholder: t('resources.resource_description'), style: 'height: 8rem;', rows: 3, value: @resource.description, required: true %>
       </div>
 
       <div class="field mb-4">
         <%= form.label :resource_type_id, t(".resource_type"), class: "block text-gray-700 font-semibold mb-2" %>
-        <%= form.collection_select :resource_type_id, @resource_types, :id, :title, { prompt: t("admin.resources.select_type"), selected: @resource.resource_type_id }, class: "w-full pr-12 py-2 focus:outline-none border-3 border-gray-300 rounded", required: true %>
+        <%= form.collection_select :resource_type_id, @resource_types, :id, :title, { prompt: t("admin.resources.select_type"), selected: @resource.resource_type_id }, class: 'w-full px-4 py-3 border-2 border-gray-300 rounded-full focus:outline-none focus:border-[#471815]', required: true %>
       </div>
 
       <%= render 'shared/address_field', form: form %>
@@ -53,12 +54,12 @@
         <% end %>
       <% end %>
 
-      <div class="actions">
+      <div class="actions flex justify-center">
         <%= form.submit t(".save_resource"), class: "rounded-full text-sm px-4 py-2 font-semibold bg-gray-800 text-white border-radius-0.25rem height-2.75rem min-width-auto" %>
       </div>
     <% end %>
 
-    <div class="grid grid-cols-1 gap-4 mt-4">
+    <div class="flex flex-col mt-4 gap-4 flex justify-center text-center">
       <% if @resource.status == 'pending' %>
         <%= form_with url: approve_admin_resource_path(@resource), method: :patch, local: true do %>
           <%= submit_tag t(".approve_resource"), class: "rounded-full text-sm px-4 py-2 font-semibold bg-green-500 text-white border-radius-0.25rem height-2.75rem min-width-auto" %>
@@ -87,34 +88,41 @@
         <%= button_tag t('.delete_resource'), class: "rounded-full text-sm px-4 py-2 font-semibold bg-red-500 text-white border-radius-0.25rem height-2.75rem min-width-auto", id: "delete-btn" %>
       <% end %>
     </div>
-  </div>
-</div>
 
-<div id="delete-modal" class="fixed inset-0 z-50 flex items-center justify-center hidden">
-  <div class="bg-white rounded-lg shadow-lg w-full max-w-xl p-6">
-    <h2 class="text-lg font-semibold">
-      <%= t('.delete.heading') %>
-    </h2>
-    <p class="mt-2">
-      <%= t('.delete.body') %>
-    </p>
-    <div class="mt-4 flex justify-end space-x-2">
-      <button id="cancel-btn" class="rounded-full text-sm px-4 py-2 font-semibold bg-gray-500 text-white border-radius-0.25rem height-2.75rem min-width-auto">
-        <%= t('.delete.no_cancel') %>
-      </button>
-    
-      <% if @resource.status != 'archived' %>
-        <%= form_with url: archive_admin_resource_path(@resource), method: :patch, local: true do %>
-          <%= submit_tag t(".delete.archive"), class: "rounded-full text-sm px-4 py-2 font-semibold bg-yellow-500 text-white border-radius-0.25rem height-2.75rem min-width-auto" %>
-        <% end %>
-      <% end %>
+    <div id="delete-modal" class="fixed inset-0 z-50 flex items-center justify-center hidden">
+      <div class="bg-white rounded-lg shadow-lg w-full max-w-xl p-6">
+        <h2 class="text-lg font-semibold">
+          <%= t('.delete.heading') %>
+        </h2>
+        <p class="mt-2">
+          <%= t('.delete.body') %>
+        </p>
 
-      <%= form_with url: admin_resource_path(@resource), method: :delete, local: true do %>
-        <%= submit_tag t('.delete.yes_delete'), class: "rounded-full text-sm px-4 py-2 font-semibold bg-red-500 text-white border-radius-0.25rem height-2.75rem min-width-auto" %>
-      <% end %>
+        <div class="mt-4 flex justify-end space-x-2">
+          <button id="cancel-btn" class="rounded-full text-sm px-4 py-2 font-semibold bg-gray-500 text-white border-radius-0.25rem height-2.75rem min-width-auto">
+            <%= t('.delete.no_cancel') %>
+          </button>
+        
+          <% if @resource.status != 'archived' %>
+            <%= form_with url: archive_admin_resource_path(@resource), method: :patch, local: true do %>
+              <%= submit_tag t(".delete.archive"), class: "rounded-full text-sm px-4 py-2 font-semibold bg-yellow-500 text-white border-radius-0.25rem height-2.75rem min-width-auto" %>
+            <% end %>
+          <% end %>
+
+          <%= form_with url: admin_resource_path(@resource), method: :delete, local: true do %>
+            <%= submit_tag t('.delete.yes_delete'), class: "rounded-full text-sm px-4 py-2 font-semibold bg-red-500 text-white border-radius-0.25rem height-2.75rem min-width-auto" %>
+          <% end %>
+        </div>
+      </div>
     </div>
+
+    <div class="text-center mt-2 mb-10">
+      <%= link_to t('form.cancel'), admin_resources_path, class: 'font-semibold' %><br>
+    </div>
+
   </div>
 </div>
+
 
 <script>
   document.addEventListener('DOMContentLoaded', function() {
