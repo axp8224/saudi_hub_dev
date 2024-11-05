@@ -202,6 +202,7 @@ en:
       major: "Major"
       bio: "About Me"
     edit: # todo: refactor, separate 'edit' and 'show'
+      phone_number_error: "Must be a valid phone number"
       phone_number: "Phone Number"
       public: "Public"
       your_profile: "Your Profile"
