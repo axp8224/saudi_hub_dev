@@ -4,7 +4,7 @@
   <%= form_with model: @resource_type, url: admin_resource_types_path, local: true do |form| %>
     <div class="relative mb-6 mt-6 max-w-sm mx-auto"> 
       <%= form.label :title, t('admin.resource_types.title'), class: "block text-gray-700 font-semibold mb-2" %>
-      <%= form.text_field :title, class: 'w-full px-4 py-3 border-2 border-gray-300 rounded-full focus:outline-none focus:border-[#471815]', required: true %>
+      <%= form.text_field :title, class: 'w-full px-4 py-3 border-2 border-gray-300 rounded-full focus:outline-none focus:border-[#471815]', t('admin.resource_types.title'), required: true %>
     </div>
 
     <div class="flex justify-center mt-10">
