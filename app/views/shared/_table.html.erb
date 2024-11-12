@@ -3,7 +3,9 @@
     <thead class="bg-gray-200 text-gray-600 uppercase text-xs font-semibold">
       <tr>
         <% columns.each do |column| %>
-          <th class="px-6 py-3 border-b border-gray-300 text-left"><%= column %></th>
+          <th class="px-6 py-3 border-b border-gray-300 text-left max-w-xs">
+            <%= column %>
+          </th>
         <% end %>
       </tr>
     </thead>
@@ -11,7 +13,9 @@
       <% rows.each do |row| %>
         <tr class="border-b hover:bg-gray-100">
           <% row.each do |cell| %>
-            <td class="px-6 py-4"><%= cell %></td>
+            <td class="px-6 py-4 max-w-xs break-words">
+              <%= cell %>
+            </td>
           <% end %>
         </tr>
       <% end %>
