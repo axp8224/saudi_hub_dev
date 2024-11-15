@@ -12,7 +12,7 @@
         <% if resource.images.attached? %>
           <%= image_tag resource.images.first, class: 'w-full h-48 object-cover', alt: resource.title %>
         <% else %>
-          <%= image_tag '/home-bg.svg', class: 'w-full h-48 object-cover', alt: 'Placeholder image' %>
+          <%= image_tag '/logo.svg', class: 'h-48 w-full', alt: 'Placeholder image' %>
         <% end %>
       </div>
       <!-- Resource Content -->
