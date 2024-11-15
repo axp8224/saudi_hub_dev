@@ -153,6 +153,10 @@ en:
       contact:
         title: "Contact Us"
         subtitle: "Still have questions? Reach out to our dev team for more assistance."
+      feedback:
+        title: "Feedback"
+        survey: "If you have any suggestions or feedback, please fill out the following form:"
+        form: "Feedback Form"
     documentation:
       title: "Documentation"
       subtitle: "Administrator's Guide to the SSA Hub"
