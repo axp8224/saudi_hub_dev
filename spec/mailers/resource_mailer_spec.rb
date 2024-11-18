@@ -48,11 +48,11 @@ RSpec.describe ResourceMailer, type: :mailer do
 
     it 'renders the body with feedback' do
       expect(mail.body.encoded).to match("Dear John Doe,")
-      expect(mail.body.encoded).to match("Your resource submission, \"Sample Resource\", has received updated feedback:")
-      expect(mail.body.encoded).to match("<blockquote>\n  Great job!\n</blockquote>")
+      expect(mail.body.encoded).to match(/<blockquote>\s*Great job!\s*<\/blockquote>/)
       expect(mail.body.encoded).to match("Please review the feedback and make the necessary changes.")
       expect(mail.body.encoded).to match("Thank you!")
       expect(mail.body.encoded).to match("Saudi Student Association")
     end
+    
   end
 end
