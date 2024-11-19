@@ -56,6 +56,10 @@ module Admin
 
         change_description = changes.join(', ')
 
+        if original_values[:feedback] != @resource.feedback
+          ResourceMailer.feedback_update_notification(@resource).deliver_now
+        end
+
         flash[:success] = t('flash.resource.edit.resource_updated', title: @resource.title)
 
         Log.create(
