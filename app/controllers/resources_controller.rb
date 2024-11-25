@@ -6,9 +6,7 @@ class ResourcesController < ApplicationController
     @resources = Resource.where(status: 'active')
     @resource_types = ResourceType.all
 
-    if params[:resource_type_id].present?
-      @resources = @resources.where(resource_type_id: params[:resource_type_id])
-    end
+    @resources = @resources.where(resource_type_id: params[:resource_type_id]) if params[:resource_type_id].present?
 
     if params[:search].present?
       @resources = @resources.where('title ILIKE :search OR description ILIKE :search', search: "%#{params[:search]}%")
@@ -28,10 +26,16 @@ class ResourcesController < ApplicationController
     end
 
     flash.now[:notice] = t('search.no_results') if @resources.empty?
-    @radius = params[:radius].to_f.positive? ? params[:radius].to_f : nil
 
-    if @radius
-      @resources = @resources.select { |resource| resource.distance && resource.distance <= @radius }
+    # Server-side validation for radius
+    if params[:radius].present?
+      @radius = params[:radius].to_f
+      if @radius <= 0
+        flash.now[:alert] = t('search.invalid_radius') # You can add a translation key for this
+        @radius = nil
+      else
+        @resources = @resources.select { |resource| resource.distance && resource.distance <= @radius }
+      end
     end
 
     @resources = Kaminari.paginate_array(@resources).page(params[:page]).per(per_page)
@@ -188,7 +192,9 @@ class ResourcesController < ApplicationController
     return [] unless api_key
 
     # Filter resources that have coordinates
-    resources_with_coordinates = resources.select { |resource| resource.latitude.present? && resource.longitude.present? }
+    resources_with_coordinates = resources.select do |resource|
+      resource.latitude.present? && resource.longitude.present?
+    end
 
     return [] if resources_with_coordinates.empty?
 
@@ -196,8 +202,10 @@ class ResourcesController < ApplicationController
 
     # Prepare sources (input address) and targets (resources)
     sources = [{ location: input_coordinates.reverse }] # Input address as [longitude, latitude]
-    targets = resources_with_coordinates.map { |resource| { location: [resource.longitude, resource.latitude] } } # Each resource's coordinates
-
+    targets = # Each resource's coordinates
+      resources_with_coordinates.map do |resource|
+        { location: [resource.longitude, resource.latitude] }
+      end
     request_body = {
       mode: 'drive',
       sources:,

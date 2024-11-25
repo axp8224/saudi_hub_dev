@@ -40,6 +40,7 @@ ar:
       filter_by_action: "التصفية حسب العمل"
   search:
     invalid_address: "عنوان غير صالح"
+    invalid_radius: "نصف القطر غير صالح"
     no_results: "لا توجد نتائج تطابق معايير البحث أو التصفية الخاصة بك."
     search_button: "بحث"
     items_per_page: "العناصر لكل صفحة"
