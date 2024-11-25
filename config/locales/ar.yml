@@ -47,7 +47,7 @@ ar:
       search_resources: "بحث عن الموارد"
       search_bar: "ابحث عن الاسم الكامل أو البريد الإلكتروني"
       location_input: "أدخل موقعك"
-      radius_input: "أدخل نصف القطر (أميال)"
+      radius_input: "نصف القطر بالأميال (5،10 وما إلى ذلك)"
     logs:
       search_placeholder: "أدخل البريد الإلكتروني أو الإجراء أو الوصف"
       search_logs: "سجلات البحث"

@@ -72,7 +72,7 @@ en:
       search_resources: "Search Resources"
       search_bar: "Enter resource title or description"
       location_input: "Input your location"
-      radius_input: "Radius (Miles)"
+      radius_input: "Radius in miles (5, 10, 15 etc.)"
     logs:
       search_placeholder: "Enter email, action, or description"
       search_logs: "Search Logs"
