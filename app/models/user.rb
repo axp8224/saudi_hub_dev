@@ -8,7 +8,7 @@ class User < ApplicationRecord
   validate :acceptable_avatar
   validates :grad_year,
             numericality: { only_integer: true, greater_than_or_equal_to: 1900, less_than_or_equal_to: Time.now.year + 10 }, allow_nil: true
-  validates :phone_number, format: { with: /\A\+?[1-9]\d{1,14}\z/, message: I18n.t('users.edit.phone_number_error') },
+  validates :phone_number, format: { with: /\A\+?[1-9]\d{9,14}\z/, message: I18n.t('users.edit.phone_number_error') },
                            allow_blank: true
 
   def self.from_google(email:, full_name:, uid:, avatar_url:)
