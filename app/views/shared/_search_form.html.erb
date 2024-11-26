@@ -11,7 +11,8 @@
       <div class="flex-grow max-w-xl w-full relative mb-4 min-w-[16rem] <%= I18n.locale == :ar ? 'ml-auto' : 'mr-auto' %>">
         
         <!-- Search Input -->
-        <%= text_field_tag :search, params[:search], placeholder: text_search_placeholder, 
+        <%= text_field_tag :search, params[:search], placeholder: text_search_placeholder,
+            title: text_search_placeholder, 
             class: "w-full pr-12 py-2 focus:outline-none #{I18n.locale == :ar ? 'pl-10' : 'pr-12'}", 
             style: "border: 3px solid #471815; color: #471815; border-radius: 0.25rem;", 
             onchange: "this.form.submit();" %>
@@ -33,24 +34,28 @@
       <% if show_address_field %>
         <div class="w-auto mb-4 min-w-[16rem] <%= I18n.locale == :ar ? 'ml-4' : 'mr-4' %>">
           <%= text_field_tag :address, params[:address], id: "address", placeholder: t('search.resources.location_input'),
-            class: "w-full pr-12 py-2 focus:outline-none #{I18n.locale == :ar ? 'pl-10' : 'pr-12'} address-input", 
-            style: "border: 3px solid #471815; color: #471815; border-radius: 0.25rem;" %>
+                class: "w-full pr-12 py-2 focus:outline-none address-input", 
+                title: params[:address] || t('search.resources.location_input'), 
+                style: "border: 3px solid #471815; color: #471815; border-radius: 0.25rem;" %>
           <div class="suggestions-container" id="suggestions" 
-            style="border: 1px solid #ccc; 
-              max-height: 200px; 
-              overflow-y: auto; 
-              background-color: #fff; 
-              position: absolute !important;
-              z-index: 1000;
-              overflow: hidden"></div>
+                style="border: 1px solid #ccc; 
+                      max-height: 200px; 
+                      overflow-y: auto; 
+                      background-color: #fff; 
+                      position: absolute !important;
+                      z-index: 1000;
+                      overflow: hidden;"></div>
         </div>
 
         <!-- Radius Field Container -->
         <div class="w-auto mb-4 min-w-[16rem] <%= I18n.locale == :ar ? 'ml-4' : 'mr-4' %>">
-          <%= number_field_tag :radius, params[:radius], placeholder: t('search.resources.radius_input', default: 'Radius (miles)'), 
-              class: "w-full pr-12 py-2 focus:outline-none #{I18n.locale == :ar ? 'pl-10' : 'pr-12'}", 
-              style: "border: 3px solid #471815; color: #471815; border-radius: 0.25rem;", 
-              onchange: "this.form.submit();" %>
+          <%= number_field_tag :radius, params[:radius], 
+                placeholder: t('search.resources.radius_input'), 
+                title: t('search.resources.radius_input'), 
+                class: "w-full pr-12 py-2 focus:outline-none", 
+                style: "border: 3px solid #471815; color: #471815; border-radius: 0.25rem;", 
+                min: 1,
+                onchange: "this.form.submit();" %>
         </div>
       <% end %>
 

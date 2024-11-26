@@ -65,6 +65,7 @@ en:
     privacy_policy_pg_2: "Please note that agreement to this policy is mandatory for account creation. If you do not agree to the visibility of your information in the member directory, you will be unable to proceed with creating an account."
   search:
     invalid_address: "Invalid Address"
+    invalid_radius: "Invalid Radius"
     no_results: "No results match your search or filter criteria."
     search_button: "Search"
     items_per_page: "Items per page"
@@ -72,7 +73,7 @@ en:
       search_resources: "Search Resources"
       search_bar: "Enter resource title or description"
       location_input: "Input your location"
-      radius_input: "Radius (Miles)"
+      radius_input: "Radius in miles (5, 10, 15 etc.)"
     logs:
       search_placeholder: "Enter email, action, or description"
       search_logs: "Search Logs"
