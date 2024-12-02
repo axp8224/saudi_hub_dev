@@ -69,6 +69,14 @@ en:
     no_results: "No results match your search or filter criteria."
     search_button: "Search"
     items_per_page: "Items per page"
+    sort:
+      sort_by: "Sort By"
+      name_asc: "Name (Ascending)"
+      name_desc: "Name (Descending)"
+      date_joined_asc: "Date Joined (Ascending)"
+      date_joined_desc: "Date Joined (Descending)"
+      role_asc: "Role (Ascending)"
+      role_desc: "Role (Descending)"
     resources:
       search_resources: "Search Resources"
       search_bar: "Enter resource title or description"
