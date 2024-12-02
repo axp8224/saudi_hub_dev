@@ -27,6 +27,24 @@ class UsersController < ApplicationController
     # Filter by class_year
     @users = @users.where(class_year_id: params[:class_year]) if params[:class_year].present?
 
+    # Sorting
+    if params[:sort].present?
+      case params[:sort]
+      when 'name_asc'
+        @users = @users.order(full_name: :asc)
+      when 'name_desc'
+        @users = @users.order(full_name: :desc)
+      when 'date_joined_asc'
+        @users = @users.order(created_at: :asc)
+      when 'date_joined_desc'
+        @users = @users.order(created_at: :desc)
+      when 'role_asc'
+        @users = @users.order(role_id: :asc)
+      when 'role_desc'
+        @users = @users.order(role_id: :desc)
+      end
+    end
+
     # Pagination
     @users = @users.page(params[:page]).per(per_page)
 
@@ -69,6 +87,7 @@ class UsersController < ApplicationController
   end
 
   def user_params
-    params.require(:user).permit(:full_name, :email, :avatar, :major_id, :class_year_id, :grad_year, :bio, :phone_number, :phone_public)
+    params.require(:user).permit(:full_name, :email, :avatar, :major_id, :class_year_id, :grad_year, :bio,
+                                 :phone_number, :phone_public)
   end
 end

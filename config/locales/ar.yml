@@ -44,6 +44,14 @@ ar:
     no_results: "لا توجد نتائج تطابق معايير البحث أو التصفية الخاصة بك."
     search_button: "بحث"
     items_per_page: "العناصر لكل صفحة"
+    sort:
+      sort_by: "الترتيب حسب"
+      name_asc: "الاسم (تصاعدي)"
+      name_desc: "الاسم (تنازلي)"
+      date_joined_asc: "تاريخ الانضمام (تصاعدي)"
+      date_joined_desc: "تاريخ الانضمام (تنازلي)"
+      role_asc: "وظيفة (تصاعدي)"
+      role_desc: "(تنازلي) وظيفة"
     resources:
       search_resources: "بحث عن الموارد"
       search_bar: "ابحث عن الاسم الكامل أو البريد الإلكتروني"
