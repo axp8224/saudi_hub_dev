@@ -361,6 +361,7 @@ en:
     next: "Next"
   majors:
     all: "All Majors"
+    select: "Select A Major"
     accounting: "Accounting"
     aerospace_engineering: "Aerospace Engineering"
     agribusiness: "Agribusiness"
@@ -497,6 +498,7 @@ en:
     wildlife_fisheries_sciences: "Wildlife & Fisheries Sciences"
     women_s_gender_studies: "Women's & Gender Studies"
     zoology: "Zoology"
+    unspecified: "Unspecified"
   class_years:
     all: "All Class Years"
     select: "Select Class Year"

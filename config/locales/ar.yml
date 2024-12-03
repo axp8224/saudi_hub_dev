@@ -374,6 +374,7 @@ ar:
     next: "التالي"
   majors:
     all: "جميع التخصصات الأكاديمية"
+    select: "اختر تخصصك"
     accounting: "محاسبة"
     aerospace_engineering: "هندسة الطيران"
     agribusiness: "إدارة الأعمال الزراعية"
@@ -510,9 +511,10 @@ ar:
     wildlife_fisheries_sciences: "علوم الحياة البرية والمصايد"
     women_s_gender_studies: "دراسات المرأة والجندر"
     zoology: "علم الحيوان"
+    unspecified: "غير محدد"
   class_years:
     all: "جميع السنوات الدراسية"
-    select: ""
+    select: "اختر العام الدراسي الخاص بك"
     freshman: "طالب سنة أولى"
     sophomore: "طالب سنة ثانية"
     junior: "طالب سنة ثالثة"
