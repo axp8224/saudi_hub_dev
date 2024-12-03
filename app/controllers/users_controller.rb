@@ -15,6 +15,10 @@ class UsersController < ApplicationController
     # Base query
     @users = User.includes(:role, :major, :class_year)
 
+    # For the form dropdowns
+    @majors = Major.all
+    @class_years = ClassYear.all
+
     # Search filter
     if params[:search].present?
       search_query = "%#{params[:search]}%"
@@ -47,13 +51,11 @@ class UsersController < ApplicationController
 
     # Pagination
     @users = @users.page(params[:page]).per(per_page)
-
-    # For the form dropdowns
-    @majors = Major.all
-    @class_years = ClassYear.all
   end
 
   def edit
+    @majors = Major.all
+    @class_years = ClassYear.all
   end
 
   def update
