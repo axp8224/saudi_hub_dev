@@ -15,9 +15,17 @@
       <i class="absolute right-4 top-1/2 transform -translate-y-1/2 text-gray-400 fa fa-envelope"></i>
     </div>
 
-    <div class="relative mb-6 max-w-sm mx-auto">      
-      <label for="role" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"><%= t('users.index.role') %></label>
-      <%= f.collection_select :role_id, @roles, :id, :name, {}, { class: 'w-full px-4 py-3 border-2 border-gray-300 rounded-full focus:outline-none focus:border-[#471815]' } %>
+    <div class="relative mb-6 max-w-sm mx-auto">
+      <label for="role" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+        <%= t('users.index.role') %>
+      </label>
+      <%= f.collection_select :role_id, 
+        @roles.map { |role| [t("roles.#{role.name.parameterize.underscore}", default: role.name), role.id] }, 
+        :second, 
+        :first, 
+        {}, 
+        { class: 'w-full px-4 py-3 border-2 border-gray-300 rounded-full focus:outline-none focus:border-[#471815]' } 
+      %>
       <i class="absolute right-4 top-1/2 transform -translate-y-1/2 text-gray-400 fa fa-graduation-cap"></i>
     </div>
 
