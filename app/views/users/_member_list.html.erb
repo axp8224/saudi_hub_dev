@@ -14,8 +14,14 @@
       <!-- User Info -->
       <div class="flex-1 text-center md:text-left mb-4 md:mb-0"> 
         <h2 class="text-2xl font-semibold text-black"><%= user.full_name %></h2>
-        <p class="text-sm font-semibold text-black"><%= t('users.show.class_year') %>: <%= user.class_year.present? ? user.class_year.name : 'N/A' %></p>
-        <p class="text-sm font-semibold text-black"><%= t('users.show.major') %>: <%= user.major.present? ? user.major.name : 'N/A' %></p>
+        <p class="text-sm font-semibold text-black">
+          <%= t('users.show.class_year') %>: 
+          <%= user.class_year.present? ? t("class_years.#{user.class_year.name.parameterize.underscore}", default: user.class_year.name) : 'N/A' %>
+        </p>
+        <p class="text-sm font-semibold text-black">
+          <%= t('users.show.major') %>: 
+          <%= user.major.present? ? t("majors.#{user.major.name.parameterize.underscore}", default: user.major.name) : 'N/A' %>
+        </p>
       </div>
 
       <!-- Contact Info (Phone and Email) -->

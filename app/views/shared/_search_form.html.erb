@@ -61,13 +61,19 @@
 
       <% if show_major_filter %>
         <div class="w-auto mb-4 min-w-[16rem] <%= I18n.locale == :ar ? 'ml-4' : 'mr-4' %>">
-          <%= select_tag :major, options_for_select(major_options, params[:major]), include_blank: 'All Majors', class: "w-full rounded-full text-sm px-4 py-3 font-semibold", style: "border: 3px solid #471815; color: #471815;", onchange: 'this.form.submit();' %>
+          <%= select_tag :major, options_for_select(
+            @majors.map { |major| [t("majors.#{major.name.parameterize.underscore}", default: major.name), major.id] }, # Use `major.id` instead of `major.name`
+            params[:major]
+          ), include_blank: t('majors.all'), class: "w-full rounded-full text-sm px-4 py-3 font-semibold", style: "border: 3px solid #471815; color: #471815;", onchange: 'this.form.submit();' %>  
         </div>
       <% end %>
 
       <% if show_class_year_filter %>
         <div class="w-auto mb-4 min-w-[12rem] <%= I18n.locale == :ar ? 'ml-4' : 'mr-4' %>">
-          <%= select_tag :class_year, options_for_select(class_year_options, params[:class_year]), include_blank: 'All Class Years', class: "w-full rounded-full text-sm px-4 py-3 font-semibold", style: "border: 3px solid #471815; color: #471815;", onchange: 'this.form.submit();' %>
+          <%= select_tag :class_year, options_for_select(
+            @class_years.map { |class_year| [t("class_years.#{class_year[:name].parameterize.underscore}", default: class_year[:name]), class_year.id] }, # Use `class_year.id` instead of `class_year[:name]`
+            params[:class_year]
+          ), include_blank: t('class_years.all'), class: "w-full rounded-full text-sm px-4 py-3 font-semibold", style: "border: 3px solid #471815; color: #471815;", onchange: 'this.form.submit();' %>
         </div>
 
         <div class="w-auto mb-4 min-w-[12rem] <%= I18n.locale == :ar ? 'ml-4' : 'mr-4' %>">
