@@ -523,6 +523,7 @@ ar:
     phd_student: "طالب دكتوراه"
     former_student: "خريج"
     other_staff_professor_etc: "أخرى (موظف، أستاذ، إلخ)"
+    unspecified: "غير محدد"
   roles:
     user: "مستخدم"
     admin: "مسؤول"

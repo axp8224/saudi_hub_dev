@@ -510,6 +510,7 @@ en:
     phd_student: "PhD Student"
     former_student: "Former Student"
     other_staff_professor_etc: "Other (staff, professor, etc.)"
+    unspecified: "Unspecified"
   roles:
     user: "User"
     admin: "Admin"
